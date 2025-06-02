@@ -92,7 +92,7 @@ public class UpdateEventServlet extends HttpServlet {
                 response.sendRedirect("event"); 
             } else {
                 request.setAttribute("message", "Failed to update event. Please try again.");
-                request.setAttribute("event", eventDAO.getEventById(eventId)); // Lấy lại để đảm bảo form được điền đúng
+                request.setAttribute("event", eventDAO.getEventById(eventId)); 
                 request.getRequestDispatcher("admin/event/adminEventUpdate.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {

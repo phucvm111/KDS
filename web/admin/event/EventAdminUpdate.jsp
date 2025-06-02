@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="admin/class/boot/bootstrap.min.css">
         <link rel="stylesheet" href="admin/class/boot/bootstrap.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-        <title>Update Event</title> <%-- Thêm tiêu đề cho dễ nhìn --%>
+        <title>Update Event</title> 
     </head>
 
     <body>
@@ -113,7 +113,7 @@
 
                     <div class="d-grid gap-2 d-md-block" style="margin-top: 30px; margin-bottom: 30px;">
                         <input type="submit" class="btn btn-primary" value="Save Changes">
-                        <a href="listevent" class="btn btn-secondary">Cancel</a> <%-- Nút quay lại --%>
+                        <a href="listevent" class="btn btn-secondary">Cancel</a> 
                     </div>
                 </div>
             </div>
