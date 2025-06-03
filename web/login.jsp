@@ -87,7 +87,7 @@
                         <h1>Hello, Friend!</h1>
                         <p>Enter your personal details and start journey with us</p>
                         <button class="ghost" id="signUp">
-                            <a href="register">Sign Up</a>
+                            <a href="get_otp_register">Sign Up</a>
                         </button>
                         
                        
