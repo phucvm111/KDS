@@ -103,7 +103,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case 1:
                     session.setAttribute("account", acc);
-                    response.sendRedirect("listschedule");
+                    response.sendRedirect("event");
                     break;
                 case 3:
                     session.setAttribute("account", acc);
