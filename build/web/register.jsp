@@ -765,25 +765,25 @@
             var password2 = document.getElementById("password2")
 
             fname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (fname.value.match(numbers) || fname.value.match(specs)) {
+                var vietnameseRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸỳỵỷỹ\s]+$/;
+
+                if (!vietnameseRegex.test(fname.value)) {
                     document.getElementById("fnameinvalid").style.visibility = "visible";
                 } else {
                     document.getElementById("fnameinvalid").style.visibility = "hidden";
                 }
-
-            }
+            };
 
             lname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (lname.value.match(numbers) || lname.value.match(specs)) {
+                var vietnameseRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸỳỵỷỹ\s]+$/;
+
+                if (!vietnameseRegex.test(lname.value)) {
                     document.getElementById("lnameinvalid").style.visibility = "visible";
                 } else {
                     document.getElementById("lnameinvalid").style.visibility = "hidden";
                 }
-            }
+            };
+
 
             phone.onkeyup = function () {
                 var letters = /[a-zA-Z]/g;
@@ -843,7 +843,7 @@
                     document.getElementById("dobinvalid").style.visibility = "hidden";
                 }
             }
-             password.onkeyup = function() {
+            password.onkeyup = function () {
                 var lowerCaseLetters = /[a-z]/g;
                 var upperCaseLetters = /[A-Z]/g;
                 var numbers = /[0-9]/g;
@@ -880,7 +880,7 @@
 
             // You might also want to add validation for password2 (re-enter password)
             // For example, to check if password and password2 match.
-            password2.onkeyup = function() {
+            password2.onkeyup = function () {
                 if (password.value === password2.value) {
                     // Hide a "passwords do not match" message if you implement one
                     // document.getElementById("password-match").style.visibility = "hidden";
