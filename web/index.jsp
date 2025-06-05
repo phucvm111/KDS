@@ -14,7 +14,7 @@
               rel="stylesheet">
         <title>ATKD ChildCare</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style_2.css">
-
+       
         <style>
             /* CSS cho body và các section của fullpage.js */
             body {
@@ -30,7 +30,7 @@
                 display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử */
                 justify-content: space-between; /* Đẩy logo sang trái, menu ra giữa, avatar sang phải */
                 align-items: center;
-               
+
                 padding: 10px 20px;
                 background-color: white; /* Đảm bảo có màu nền */
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -310,18 +310,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"
                 integrity="sha512-JSVRnP8UFs0ieN/cvP9v4vmW1CotIaEKKN7W+4JaKNrllZolTv2aJfVGn4BFdfZ1jRZxgTAAaXWdlZbEm9iwFA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!--        <script>
-            // Khởi tạo FullPage.js
-            new fullpage('#fullpage', {
-                autoScrolling: true,
-                scrollHorizontally: true, // Giữ nguyên nếu bạn có slide ngang
-                navigation: true,
-                navigationPosition: 'right',
-                scrollingSpeed: 700, // Tốc độ cuộn (mặc định là 700)
-                easingcss3: 'ease-in-out', // Hiệu ứng cuộn CSS3
-                // Đối với các liên kết trong navbar, FullPage.js sẽ tự động cuộn đến section tương ứng
-            });
-        </script>-->
+        <!--        <script>
+                    // Khởi tạo FullPage.js
+                    new fullpage('#fullpage', {
+                        autoScrolling: true,
+                        scrollHorizontally: true, // Giữ nguyên nếu bạn có slide ngang
+                        navigation: true,
+                        navigationPosition: 'right',
+                        scrollingSpeed: 700, // Tốc độ cuộn (mặc định là 700)
+                        easingcss3: 'ease-in-out', // Hiệu ứng cuộn CSS3
+                        // Đối với các liên kết trong navbar, FullPage.js sẽ tự động cuộn đến section tương ứng
+                    });
+                </script>-->
     </body>
 
 </html>
