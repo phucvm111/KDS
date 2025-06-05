@@ -52,9 +52,6 @@ public class AddEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Chỉ cần forward đến trang JSP để hiển thị form.
-        // Các tham số event_name, event_description... sẽ là null ở lần tải đầu tiên.
-        // Nếu có lỗi từ POST request trước đó và forward lại, thì các param vẫn còn.
         request.getRequestDispatcher("admin/event/EventAdminAdd.jsp").forward(request, response);
     }
 
