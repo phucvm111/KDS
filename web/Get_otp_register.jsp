@@ -609,293 +609,31 @@
             }
         </style>
 
-    <body>
-        <div class="limiter">
-            <div class="container-login100">
-                <div class="wrap-login100">
-                    <form class="login100-form validate-form" method="post" action="register">
-                        <span class="login100-form-title"> Member Register </span>
-                        <p class="text-center danger" id="err">
-                            ${error1}
-                            ${error4}
-                        </p>
-                        <!-- Name -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="text" pattern="[a-zA-Z]+" title="Alphabetical letters only"
-                                   name="fname" id="fname" placeholder="First Name" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </span>
-                        </div>
+  <body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post" action="get_otp_register">
+                    <span class="login100-form-title"> Member Register </span>
 
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="text" pattern="[a-zA-Z]+" title="Alphabetical letters only"
-                                   name="lname" id="lname" placeholder="Last Name" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </span>
-                        </div>
-
-                        <!-- Gender -->
-                        <div class="wrap-input100 validate-input">
-                            <select name="gender">
-                                <!--<option selected disabled>Gender</option>-->
-                                <option selected value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <!-- Address -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="text" name="address" placeholder="Address" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa-solid fa-house"></i>
-                            </span>
-                        </div>
-                        <!-- Phone -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="text" pattern="(0)(3|5|7|8|9)+([0-9]{8})" id="phone"
-                                   title="Must start with 09/03/07/08/05 and contain 10 characters" name="phone"
-                                   placeholder="Phone" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100"><i class="fa-solid fa-mobile-button"></i>
-                            </span>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="text" name="email" id="email" placeholder="Email"
-                                   title="Must contain @" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100"><i class="fa-solid fa-envelope"></i>
-                            </span>
-
-                        </div>
-                        <!-- DOB -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="date" name="dob" id="dob" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100"><i class="fa-regular fa-calendar"></i>
-                            </span>
-                        </div>
-                        <!-- Password -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="password" name="password" id="password" placeholder="Password"
-                                   required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-lock" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <!-- Re-password -->
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" type="password" name="password2" id="password2"
-                                   placeholder="Re-enter password" required />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-lock" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="btn btn-danger login100-form-btn">Create Account</button>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a class="btn btn-outline-dark" href="http://localhost:5000/auth/google" role="button"
-                                   style="text-transform:none; width: 290px">
-                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
-                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                    Sign up with Google
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="text-center p-t-136" id="create-account">
-                            <a class="txt2" href="./login">
-                                <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
-                                Already have account? Login
-                            </a>
-                        </div>
-                    </form>
-                    <div class="chat-bubbles">
-                        <div class="message bubbles" id="fnameinvalid">
-                            <p>Names cannot contain numeric or special characters</p>
-                        </div>
-                        <div class="message bubbles" id="lnameinvalid">
-                            <p>Names cannot contain numeric or special characters</p>
-                        </div>
-                        <div class="message bubbles">
-                            <br /><br /><br /><br />
-                        </div>
-                        <div class="message bubbles" id="phoneinvalid">
-                            <span>Phone numbers cannot contain alphabetical characters, </span><br />
-                            <span> special characters, must start with 09/03/07/08/05 and</span><br />
-                            <span> contain exactly 10 characters</span>
-                        </div>
-                        <div class="message bubbles" id="emailinvalid">
-                            <p>Emails must contain '@'</p>
-                        </div>
-
-                        <div class="message bubbles" id="dobinvalid">
-                            <p>Year must be between 1900 and current year</p>
-                        </div>
-                        <div class="message bubbles" id="passwordinvalid">
-                            <p id="password-length">Mật khẩu phải có ít nhất 8 ký tự.</p>
-                            <p id="password-uppercase">Mật khẩu phải có ít nhất 1 chữ cái viết hoa.</p>
-                            <p id="password-number">Mật khẩu phải có ít nhất 1 chữ số.</p>
-                            <p id="password-special">Mật khẩu phải có ít nhất 1 ký tự đặc biệt.</p>
-                        </div>
+                    <!-- Email -->
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" name="email" id="email" placeholder="Email"
+                            title="Must contain @" required />
+                        <span class="focus-input100"></span>
                     </div>
-                </div>
+                    <p style="color: red">${emailexisted}</p>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="btn btn-danger login100-form-btn">GET OTP</button>
+                    </div>
+
+                    <hr />
+                </form>
             </div>
         </div>
+    </div>
 
-        <!-- Bootstrap core JS-->
-        <script>
-            var fname = document.getElementById("fname");
-            var lname = document.getElementById("lname");
-            var phone = document.getElementById("phone");
-            var email = document.getElementById("email");
-            var password = document.getElementById("password");
-            var DOB = document.getElementById("dob");
-            var password = document.getElementById("password");
-            var password2 = document.getElementById("password2")
-
-            fname.onkeyup = function () {
-                var vietnameseRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸỳỵỷỹ\s]+$/;
-
-                if (!vietnameseRegex.test(fname.value)) {
-                    document.getElementById("fnameinvalid").style.visibility = "visible";
-                } else {
-                    document.getElementById("fnameinvalid").style.visibility = "hidden";
-                }
-            };
-
-            lname.onkeyup = function () {
-                var vietnameseRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸỳỵỷỹ\s]+$/;
-
-                if (!vietnameseRegex.test(lname.value)) {
-                    document.getElementById("lnameinvalid").style.visibility = "visible";
-                } else {
-                    document.getElementById("lnameinvalid").style.visibility = "hidden";
-                }
-            };
-
-
-            phone.onkeyup = function () {
-                var letters = /[a-zA-Z]/g;
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
-                if (phone.value.startsWith("03") || phone.value.startsWith("05") || phone.value.startsWith("07") || phone.value.startsWith("08") || phone.value.startsWith("09")) {
-                    if (phone.value.match(letters) || phone.value.match(specs) || phone.value.length !== 10) {
-                        document.getElementById("phoneinvalid").style.visibility = "visible";
-                    } else {
-                        document.getElementById("phoneinvalid").style.visibility = "hidden";
-                    }
-                } else {
-                    document.getElementById("phoneinvalid").style.visibility = "visible";
-                }
-
-                // if (phone.value.match(letters)) {
-                //     document.getElementById("phoneinvalid1").style.display = "block";
-                // } else {
-                //     document.getElementById("phoneinvalid1").style.display = "none";
-                // }
-                // var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                // if (phone.value.match(specs)) {
-                //     document.getElementById("phoneinvalid2").style.display = "block";
-                // } else {
-                //     document.getElementById("phoneinvalid2").style.display = "none";
-                // }
-                // if (phone.value.length !== 10) {
-                //     document.getElementById("phoneinvalid3").style.display = "block";
-                // } else {
-                //     document.getElementById("phoneinvalid3").style.display = "none";
-                // }
-                // if (phone.value.startsWith("03") || phone.value.startsWith("05") || phone.value.startsWith("07") || phone.value.startsWith("08") || phone.value.startsWith("09")) {
-                //     document.getElementById("phoneinvalid4").style.display = "none";
-                // } else {
-                //     document.getElementById("phoneinvalid4").style.display = "block";
-                // }
-            }
-
-            email.onkeyup = function () {
-                if (email.value.includes('@') === true) {
-                    document.getElementById("emailinvalid").style.visibility = "hidden";
-                } else {
-                    document.getElementById("emailinvalid").style.visibility = "visible";
-                }
-            }
-
-            // Trong phần JavaScript, sửa lại hàm kiểm tra DOB
-            dob.onchange = function () {
-                var dobDate = new Date(dob.value);
-                var currentDate = new Date();
-                var minDate = new Date('1900-01-01');
-
-                // Kiểm tra năm hợp lệ (1900 <= năm <= năm hiện tại)
-                if (dobDate < minDate || dobDate > currentDate || dob.value.substring(0, 4) === '0000') {
-                    document.getElementById("dobinvalid").style.visibility = "visible";
-                } else {
-                    document.getElementById("dobinvalid").style.visibility = "hidden";
-                }
-            }
-            password.onkeyup = function () {
-                var lowerCaseLetters = /[a-z]/g;
-                var upperCaseLetters = /[A-Z]/g;
-                var numbers = /[0-9]/g;
-                var specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g;
-
-                // Validate length
-                if (password.value.length >= 8) {
-                    document.getElementById("password-length").style.visibility = "hidden";
-                } else {
-                    document.getElementById("password-length").style.visibility = "visible";
-                }
-
-                // Validate uppercase letters
-                if (password.value.match(upperCaseLetters)) {
-                    document.getElementById("password-uppercase").style.visibility = "hidden";
-                } else {
-                    document.getElementById("password-uppercase").style.visibility = "visible";
-                }
-
-                // Validate numbers
-                if (password.value.match(numbers)) {
-                    document.getElementById("password-number").style.visibility = "hidden";
-                } else {
-                    document.getElementById("password-number").style.visibility = "visible";
-                }
-
-                // Validate special characters
-                if (password.value.match(specialCharacters)) {
-                    document.getElementById("password-special").style.visibility = "hidden";
-                } else {
-                    document.getElementById("password-special").style.visibility = "visible";
-                }
-            };
-
-            // You might also want to add validation for password2 (re-enter password)
-            // For example, to check if password and password2 match.
-            password2.onkeyup = function () {
-                if (password.value === password2.value) {
-                    // Hide a "passwords do not match" message if you implement one
-                    // document.getElementById("password-match").style.visibility = "hidden";
-                } else {
-                    // Show a "passwords do not match" message
-                    // document.getElementById("password-match").style.visibility = "visible";
-                }
-            };
-
-
-        </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
 </html>

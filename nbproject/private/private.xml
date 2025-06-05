@@ -3,16 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/SWP391/New%20folder/KDS/web/admin/event/css/style.css</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/web/admin/event/EventAdminPage.jsp</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/web/changepassword.jsp</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/controller/admin/event/UpdateEventServlet.java</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/controller/LoginServlet.java</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/controller/admin/event/AddEventServlet.java</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/model/Event.java</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/dal/DBContext.java</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/web/admin/event/EventAdminUpdate.jsp</file>
-            <file>file:/F:/SWP391/New%20folder/KDS/src/java/dal/EventDAO.java</file>
+
         </group>
     </open-files>
 </project-private>
