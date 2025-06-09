@@ -137,6 +137,58 @@
                 /* FullPage.js tự động xử lý vị trí.
                    padding-top body đã giải quyết việc không bị header che. */
             }
+
+            /* --- CSS CHO Events Section (MỚI) --- */
+            .events-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px; /* Khoảng cách giữa các card sự kiện */
+                padding: 20px;
+                max-width: 1200px;
+                margin: 0 auto; /* Căn giữa container */
+            }
+
+            .event-card {
+                background-color: #f9f9f9;
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 25px;
+                width: 400px; /* Chiều rộng cố định cho mỗi card */
+                text-align: left;
+                transition: transform 0.3s ease;
+            }
+
+            .event-card:hover {
+                transform: translateY(-5px); /* Hiệu ứng khi hover */
+            }
+
+            .event-card h3 {
+                color: #7d44c8;
+                font-size: 1.5em;
+                margin-top: 0;
+                margin-bottom: 10px;
+                font-family: 'Caveat Brush', cursive; /* Hoặc font khác bạn thích */
+            }
+
+            .event-card .event-date {
+                font-weight: bold;
+                color: #555;
+                margin-bottom: 5px;
+            }
+
+            .event-card .event-location {
+                color: #777;
+                font-style: italic;
+                margin-bottom: 15px;
+            }
+
+            .event-card .event-description {
+                font-size: 0.95em;
+                line-height: 1.6;
+                color: #333;
+            }
         </style>
     </head>
     <body>
@@ -146,11 +198,12 @@
             </a>
             <nav>
                 <ul>
+                    <li><a href="#events-section" class="navigation-links">Events</a></li>
                     <li><a href="#about-us" class="navigation-links">About us</a></li>
                     <li><a href="#section-2" class="navigation-links">Where we are</a></li>
                     <li><a href="#section-3" class="navigation-links">Vision & Mission</a></li>
                     <li><a href="#section-4" class="navigation-links">What we do</a></li>
-                    <li><a href="#parent-meetings" class="navigation-links">Parent Meetings</a></li> <%-- Thêm liên kết đến section cuộc họp --%>
+
                     <li><a href="#feedback" class="navigation-links">Parent's feedback</a></li>
                 </ul>
             </nav>
@@ -165,39 +218,42 @@
 
         <div id="fullpage">
 
-
-            <div class="section section-custom" id="parent-meetings">
-                <h2 style="text-align: center;">📅 Upcoming <span class="highlight">Parent Meetings</span></h2>
-                <div style="max-width: 800px; margin: auto;">
+            <%-- Section Events (Đã thay thế và cấu trúc lại từ Parent Meetings) --%>
+            <div class="section section-custom" id="events-section">
+                <h2 style="text-align: center; margin-bottom: 40px;">🗓️ Upcoming <span class="highlight">Events</span></h2>
+                <div class="events-container">
                     <c:choose>
-                        <c:when test="${not empty meetingsList}"> 
-                            <c:forEach var="m" items="${meetingsList}">
-                                <div style="border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 10px; background: #f9f9f9;">
-                                    <h3>${m.topic}</h3>
-                                    <p><strong>Meeting ID:</strong> ${m.meetingId}</p>
-                                    <p><strong>Class ID:</strong> ${m.classId}</p>
-                                    <p><strong>Teacher ID:</strong> ${m.teacherId}</p>
-                                    <p><strong>Date:</strong> <fmt:formatDate value="${m.meetingDate}" pattern="dd-MM-yyyy HH:mm"/></p>
-                                    <p><strong>Notes:</strong> ${m.notes}</p>
-                                    <p><em>Created at: <fmt:formatDate value="${m.createdAt}" pattern="dd-MM-yyyy HH:mm:ss"/></em></p>
+                        <c:when test="${not empty events}"> <%-- Sử dụng 'events' thay vì 'meetingsList' --%>
+                            <c:forEach var="event" items="${events}" varStatus="loop"> <%-- Vòng lặp cho Event object --%>
+                                <div class="event-card">
+                                    <h3 class="event-title"><c:out value="Sự kiện sắp tới: ${event.eventName}" /></h3>
+                                    <p class="event-info"><strong>Thời gian:</strong>
+                                        <fmt:formatDate value="${event.eventDate}" pattern="dd/MM/yyyy" />
+                                    </p>
+                                    <p class="event-info"><strong>Địa chỉ:</strong>
+                                        <c:out value="${event.location}" />
+                                    </p>
+                                    <p class="event-info"><strong>Mô tả:</strong>
+                                        <c:out value="${event.eventDescription}" />
+                                    </p>
                                 </div>
+
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            <p style="text-align: center;">No parent meetings scheduled at the moment.</p>
+                            <p style="text-align: center;">Hiện chưa có sự kiện nào được lên lịch.</p>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </div>
-            
+            <%-- Kết thúc Section Events --%>
+
             <div class="section section-custom" id="welcome">
                 <div class="title-container">
                     <h1>We embrace<br /><span class="highlight">the magic</span> of childhood</h1>
                     <p style="color: #dad4e3">We aim to care for your child <br />as you would at home in a safe, fun and happy way...</p>
                 </div>
             </div>
-
-
 
             <div class="section section-custom" id="about-us">
                 <h2>A little bit <span class="highlight">about us</span></h2>
@@ -334,17 +390,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"
                 integrity="sha512-JSVRnP8UFs0ieN/cvP9v4vmW1CotIaEKKN7W+4JaKNrllZolTv2aJfVGn4BFdfZ1jRZxgTAAaXWdlZbEm9iwFA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            // Khởi tạo FullPage.js
-            new fullpage('#fullpage', {
-                autoScrolling: true,
-                scrollHorizontally: true, // Giữ nguyên nếu bạn có slide ngang
-                navigation: true,
-                navigationPosition: 'right',
-                scrollingSpeed: 700, // Tốc độ cuộn (mặc định là 700)
-                easingcss3: 'ease-in-out', // Hiệu ứng cuộn CSS3
-                // Đối với các liên kết trong navbar, FullPage.js sẽ tự động cuộn đến section tương ứng
-            });
-        </script>
+
     </body>
 </html>
