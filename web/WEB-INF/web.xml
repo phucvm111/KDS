@@ -260,6 +260,10 @@
         <servlet-name>get_otp_register_Servlet</servlet-name>
         <servlet-class>controller.get_otp_register_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewEvent</servlet-name>
+        <servlet-class>controller.ViewEvent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -543,6 +547,10 @@
     <servlet-mapping>
         <servlet-name>get_otp_register_Servlet</servlet-name>
         <url-pattern>/get_otp_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewEvent</servlet-name>
+        <url-pattern>/events</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

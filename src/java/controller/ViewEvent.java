@@ -4,24 +4,21 @@
  */
 package controller;
 
-import dal.AccountDAO;
-import dal.ClassDAO;
-
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import model.Class;
-import model.Account;
+import model.Event;
+import dal.EventDAO;
+import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class LoginServlet extends HttpServlet {
+public class ViewEvent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +32,15 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet ViewEvent</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ViewEvent at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,18 +58,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action != null) {
-            HttpSession session = request.getSession(true);
-            session.removeAttribute("account");
-            session.removeAttribute("teacher");
-            session.removeAttribute("kinder_class");
-            session.removeAttribute("present_kids");
-            session.removeAttribute("checkoutkids");
-            response.sendRedirect("login");
-        } else {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        EventDAO dao = new EventDAO();
+        List<Event> events = dao.getAllEvents();
+        request.setAttribute("events", events); 
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+
     }
 
     /**
@@ -86,37 +76,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        AccountDAO d = new AccountDAO();
-        ClassDAO classDao = new ClassDAO();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        Account acc = d.getAccountByMailPass(email, password);
-        if (acc != null) {
-            int  role = acc.getRole().getRoleID();
-            switch (role) {
-                case 2:
-                    Class kc = classDao.getTeacherClass(acc.getAccountID());
-                    session.setAttribute("kinder_class", kc);
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("attendance");
-                    break;
-                case 1:
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("event");
-                    break;
-                case 3:
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("events");
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            request.setAttribute("error", "Account do not exist");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -124,6 +84,7 @@ public class LoginServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
