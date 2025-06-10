@@ -6,9 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin - Event Management</title>
-    <link rel="stylesheet" href="admin/class/css/style.css">
-    <link rel="stylesheet" href="admin/class/boot/bootstrap.min.css">
-    <link rel="stylesheet" href="admin/class/boot/bootstrap.css">
+    <link rel="stylesheet" href="admin/event/css/style.css">
+    <link rel="stylesheet" href="admin/event/boot/bootstrap.min.css">
+    <link rel="stylesheet" href="admin/event/boot/bootstrap.css">
     <link rel="icon" href="./assets/image/logo2-removebg-preview.png">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <style>
@@ -195,27 +195,30 @@
 </head>
 <body>
     <form action="event" method="POST">
-        <nav>
-            <div class="logo-name">
-                <div class="logo-image">
-                    <img src="images/logo.jpg" alt="">
+       <nav>
+                <div class="logo-name">
+                    <div class="logo-image">
+                        <img src="images/logo.jpg" alt="Logo">
+                    </div>
+                    <span class="logo_name">
+                        <a href="listaccount">Admin Page</a>
+                    </span>
                 </div>
-                <span class="logo_name"><a href="listaccount" style="text-decoration: none;color: black">Admin Page</a></span>
-            </div>
-            <div class="menu-items">
-                <ul class="nav-links">
-                    <li><a href="listaccount"><i class="uil uil-estate"></i><span class="link-name">Account</span></a></li>
-                    <li><a href="listkinder"><i class="uil uil-chart"></i><span class="link-name">Kindergartner</span></a></li>
-                    <li><a href="listclass"><i class="uil uil-thumbs-up"></i><span class="link-name">Class</span></a></li>
-                    <li><a href="listschedule"><i class="uil uil-comments"></i><span class="link-name">Schedule</span></a></li>
-                    <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
-                    <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
-                </ul>
-                <ul class="logout-mode">
-                    <li><a href="logout"><i class="uil uil-signout"></i><span class="link-name">Logout</span></a></li>
-                </ul>
-            </div>
-        </nav>
+
+                <div class="menu-items">
+                    <ul class="nav-links">
+                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
+                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
+                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
+                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
+                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
+                        <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
+                    </ul>
+                    <ul class="logout-mode">
+                        <li><a href="logout"><i class="uil uil-signout"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
 
         <div class="dashboard">
             <div class="dash-lefttop">

@@ -88,10 +88,10 @@
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <servlet-class>controller.GoogleRegisterServlet</servlet-class>
     </servlet>
-    <!--    <servlet>
+        <servlet>
         <servlet-name>ListAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
-    </servlet>-->
+    </servlet>
     <!--    <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.AddAccountServlet</servlet-class>
