@@ -24,7 +24,7 @@ public class Enter_Otp_RegisterServlet extends HttpServlet {
         Object otpInSession = session.getAttribute("otpregister");
 
         if (otpInSession == null || otpInput == null || otpInput.trim().isEmpty()) {
-            request.setAttribute("otpfalse", "Vui lòng nhập mã OTP");
+            request.setAttribute("otpfalse", "Please enter OTP code ");
             request.getRequestDispatcher("Enter_otp_register.jsp").forward(request, response);
             return;
         }
@@ -47,11 +47,11 @@ public class Enter_Otp_RegisterServlet extends HttpServlet {
                 // ✅ Forward để giữ session
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
-                request.setAttribute("otpfalse", "Mã OTP không chính xác");
+                request.setAttribute("otpfalse", "OTP code is incorrect");
                 request.getRequestDispatcher("Enter_otp_register.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
-            request.setAttribute("otpfalse", "Mã OTP phải là số");
+            request.setAttribute("otpfalse", "OTP is not a number");
             request.getRequestDispatcher("Enter_otp_register.jsp").forward(request, response);
         }
     }

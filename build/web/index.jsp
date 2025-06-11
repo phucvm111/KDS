@@ -18,80 +18,79 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style_2.css">
        
         <style>
-            /* CSS cho body và các section của fullpage.js */
+            
             body {
                 margin: 0;
                 font-family: 'Patrick Hand', cursive;
-                padding-top: 70px; /* Đảm bảo nội dung không bị header cố định che */
+                padding-top: 70px; 
                 box-sizing: border-box;
             }
 
-            /* --- CSS CHO HEADER CHÍNH --- */
+            
             .main-header {
                 width: 100%;
-                display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử */
-                justify-content: space-between; /* Đẩy logo sang trái, menu ra giữa, avatar sang phải */
+                display: flex; 
+                justify-content: space-between; 
                 align-items: center;
 
                 padding: 10px 20px;
-                background-color: white; /* Đảm bảo có màu nền */
+                background-color: white; 
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                position: fixed; /* Cố định header khi cuộn */
+                position: fixed;
                 top: 0;
                 left: 0;
-                z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
-            }
+                z-index: 1000;             }
 
-            /* CSS cho phần Logo trong Header */
+            
             .main-header .logo-main {
                 font-size: 24px;
                 font-weight: bold;
-                color: #333; /* Màu chữ cho tên logo */
+                color: #333; 
                 text-decoration: none;
                 display: flex;
                 align-items: center;
-                flex-shrink: 0; /* Ngăn logo bị co lại */
+                flex-shrink: 0; 
             }
 
             .main-header .logo-main img {
-                height: 40px; /* Kích thước logo */
+                height: 40px; 
                 margin-right: 10px;
             }
 
-            /* CSS cho Navigation Menu */
+            
             .main-header nav {
-                flex-grow: 1; /* Cho phép nav chiếm không gian còn lại để căn giữa */
-                text-align: center; /* Căn giữa nội dung của nav */
+                flex-grow: 1; 
+                text-align: center; 
             }
 
             .main-header nav ul {
                 list-style: none;
                 margin: 0;
                 padding: 0;
-                display: flex; /* Sử dụng Flexbox cho các mục menu */
-                justify-content: center; /* Căn giữa các mục menu */
-                gap: 20px; /* Khoảng cách giữa các mục menu */
+                display: flex; 
+                justify-content: center; 
+                gap: 20px; 
             }
 
             .main-header nav ul li a {
                 text-decoration: none;
-                color: #555; /* Màu chữ mặc định của menu */
+                color: #555; 
                 font-weight: bold;
                 padding: 5px 10px;
                 transition: color 0.3s ease;
-                white-space: nowrap; /* Ngăn chữ bị ngắt dòng */
+                white-space: nowrap; 
             }
 
             .main-header nav ul li a:hover {
-                color: #7d44c8; /* Màu hover của menu */
+                color: #7d44c8; 
             }
 
-            /* CSS cho Avatar và Dropdown Menu */
+            
             .avatar-container {
                 position: relative;
                 cursor: pointer;
-                margin-left: 20px; /* Khoảng cách giữa menu và avatar */
-                flex-shrink: 0; /* Ngăn avatar bị co lại */
+                margin-left: 20px; 
+                flex-shrink: 0; 
             }
 
             .avatar-container img {
@@ -104,15 +103,15 @@
             .dropdown-menu {
                 position: absolute;
                 right: 0;
-                top: 50px; /* Đặt dưới avatar một chút */
+                top: 50px; 
                 background-color: white;
                 color: black;
                 border: 1px solid #ccc;
                 border-radius: 8px;
                 width: 180px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                display: none; /* Mặc định ẩn */
-                z-index: 1001; /* Đảm bảo dropdown nằm trên header */
+                display: none; 
+                z-index: 1001; 
             }
 
             .dropdown-menu a {
@@ -127,26 +126,25 @@
                 background-color: #f0f0f0;
             }
 
-            /* Đảm bảo FullPage.js navigation không bị che bởi header */
+            
             #fp-nav {
-                z-index: 999; /* Đặt thấp hơn header nhưng cao hơn nội dung */
+                z-index: 999;
             }
 
-            /* Các section của FullPage.js */
+            
             .section {
-                /* FullPage.js tự động xử lý vị trí.
-                   padding-top body đã giải quyết việc không bị header che. */
+                
             }
 
-            /* --- CSS CHO Events Section (MỚI) --- */
+            
             .events-container {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 20px; /* Khoảng cách giữa các card sự kiện */
+                gap: 20px; 
                 padding: 20px;
                 max-width: 1200px;
-                margin: 0 auto; /* Căn giữa container */
+                margin: 0 auto; 
             }
 
             .event-card {
@@ -155,13 +153,13 @@
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 padding: 25px;
-                width: 400px; /* Chiều rộng cố định cho mỗi card */
+                width: 400px; 
                 text-align: left;
                 transition: transform 0.3s ease;
             }
 
             .event-card:hover {
-                transform: translateY(-5px); /* Hiệu ứng khi hover */
+                transform: translateY(-5px);
             }
 
             .event-card h3 {
@@ -169,7 +167,7 @@
                 font-size: 1.5em;
                 margin-top: 0;
                 margin-bottom: 10px;
-                font-family: 'Caveat Brush', cursive; /* Hoặc font khác bạn thích */
+                font-family: 'Caveat Brush', cursive; 
             }
 
             .event-card .event-date {
@@ -218,13 +216,13 @@
 
         <div id="fullpage">
 
-            <%-- Section Events (Đã thay thế và cấu trúc lại từ Parent Meetings) --%>
+            
             <div class="section section-custom" id="events-section">
                 <h2 style="text-align: center; margin-bottom: 40px;">🗓️ Upcoming <span class="highlight">Events</span></h2>
                 <div class="events-container">
                     <c:choose>
-                        <c:when test="${not empty events}"> <%-- Sử dụng 'events' thay vì 'meetingsList' --%>
-                            <c:forEach var="event" items="${events}" varStatus="loop"> <%-- Vòng lặp cho Event object --%>
+                        <c:when test="${not empty events}"> 
+                            <c:forEach var="event" items="${events}" varStatus="loop">
                                 <div class="event-card">
                                     <h3 class="event-title"><c:out value="Sự kiện sắp tới: ${event.eventName}" /></h3>
                                     <p class="event-info"><strong>Thời gian:</strong>

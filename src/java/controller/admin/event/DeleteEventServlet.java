@@ -2,23 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.admin.event;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import dal.EventDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Event;
-import dal.EventDAO;
-import java.util.List;
+import jakarta.servlet.http.HttpSession; 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException; 
+import java.util.logging.Level;
+import java.util.logging.Logger; 
 
 /**
  *
- * @author admin
+ * @author Admin
  */
-public class ViewEvent extends HttpServlet {
+@WebServlet(name = "DeleteEventServlet", urlPatterns = {"/deleteevent"}) 
+public class DeleteEventServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +36,7 @@ public class ViewEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ViewEvent</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ViewEvent at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,10 +51,32 @@ public class ViewEvent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EventDAO dao = new EventDAO();
-        List<Event> events = dao.getAllEvents(null); 
-        request.setAttribute("events", events); 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        String idParam = request.getParameter("id"); 
+        int eventId = -1;
+        HttpSession session = request.getSession(); 
+
+        if (idParam != null && !idParam.isEmpty()) {
+            try {
+                eventId = Integer.parseInt(idParam);
+                EventDAO eventDAO = new EventDAO();
+                eventDAO.deleteEvent(eventId); 
+
+                session.setAttribute("successMessage", "Event with ID " + eventId + " deleted successfully!");
+            } catch (NumberFormatException e) {
+                Logger.getLogger(DeleteEventServlet.class.getName()).log(Level.WARNING, "Invalid event ID format: " + idParam, e);
+                session.setAttribute("message", "Invalid event ID provided.");
+            } catch (SQLException e) {
+                Logger.getLogger(DeleteEventServlet.class.getName()).log(Level.SEVERE, "Database error when deleting event ID: " + eventId, e);
+                session.setAttribute("message", "Database error: Could not delete event. Please try again.");
+            } catch (Exception e) {
+                Logger.getLogger(DeleteEventServlet.class.getName()).log(Level.SEVERE, "Unexpected error when deleting event ID: " + eventId, e);
+                session.setAttribute("message", "An unexpected error occurred. Could not delete event.");
+            }
+        } else {
+            session.setAttribute("message", "No event ID specified for deletion.");
+        }
+
+        response.sendRedirect("event"); 
     }
 
     /**
@@ -75,7 +90,7 @@ public class ViewEvent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**
@@ -85,7 +100,7 @@ public class ViewEvent extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for deleting events.";
     }// </editor-fold>
 
 }
