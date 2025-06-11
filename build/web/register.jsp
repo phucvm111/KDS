@@ -29,51 +29,51 @@
     </head>
     <body>
         <div class="form-container">
-            <h3 class="text-center mb-4">Tạo tài khoản</h3>
+            <h3 class="text-center mb-4">Create Account</h3>
             <form id="registerForm" action="register" method="post" novalidate>
                 <div class="mb-3">
-                    <label for="fname" class="form-label">Họ</label>
+                    <label for="fname" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="fname" name="fname" maxlength="25" required>
                     <span id="fnameError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="lname" class="form-label">Tên</label>
+                    <label for="lname" class="form-label">Last Name</label>
                     <input type="text" class="form-control" id="lname" name="lname" maxlength="25" required>
                     <span id="lnameError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Giới tính</label>
+                    <label for="gender" class="form-label">Sex</label>
                     <select class="form-select" name="gender" id="gender">
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Địa chỉ</label>
+                    <label for="address" class="form-label">Address</label>
                     <textarea class="form-control" name="address" id="address" rows="3" maxlength="255" required></textarea>
                     <span id="addressError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <label for="phone" class="form-label">Phone Number</label>
                     <input type="text" class="form-control" id="phone" name="phone" maxlength="10" required>
                     <span id="phoneError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="dob" class="form-label">Ngày sinh</label>
+                    <label for="dob" class="form-label">Date of Birth</label>
                     <input type="date" class="form-control" id="dob" name="dob" required>
                     <span id="dobError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Mật khẩu</label>
+                    <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                     <span id="passwordError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="password2" class="form-label">Xác nhận mật khẩu</label>
+                    <label for="password2" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="password2" name="password2" required>
                     <span id="password2Error" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
             </form>
         </div>
 
@@ -102,41 +102,41 @@
                 const nameRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸỳỵỷỹ\s]{1,25}$/;
                 if (!nameRegex.test(fname.value)) {
                     isValid = false;
-                    document.getElementById('fnameError').textContent = 'Họ không hợp lệ hoặc quá dài (tối đa 25 ký tự).';
+                    document.getElementById('fnameError').textContent = 'First name is invalid or too long';
                 }
 
                 if (!nameRegex.test(lname.value)) {
                     isValid = false;
-                    document.getElementById('lnameError').textContent = 'Tên không hợp lệ hoặc quá dài (tối đa 25 ký tự).';
+                    document.getElementById('lnameError').textContent = 'Last name is invalid or too long.';
                 }
 
                 if (address.value === '') {
                     isValid = false;
-                    document.getElementById('addressError').textContent = 'Vui lòng nhập địa chỉ.';
+                    document.getElementById('addressError').textContent = 'Please enter your address.';
                 }
 
                 const phoneRegex = /^(03|05|07|08|09)[0-9]{8}$/;
                 if (!phoneRegex.test(phone.value)) {
                     isValid = false;
-                    document.getElementById('phoneError').textContent = 'Số điện thoại không hợp lệ.';
+                    document.getElementById('phoneError').textContent = 'Invalid phone number.';
                 }
 
                 const year = new Date(dob.value).getFullYear();
                 const currentYear = new Date().getFullYear();
                 if (isNaN(year) || year < 1951 || year >= currentYear) {
                     isValid = false;
-                    document.getElementById('dobError').textContent = 'Năm sinh phải từ 1951 đến hiện tại.';
+                    document.getElementById('dobError').textContent = 'Year of birth must be from 1951 to present.';
                 }
 
                 const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
                 if (!passwordRegex.test(password.value)) {
                     isValid = false;
-                    document.getElementById('passwordError').textContent = 'Mật khẩu phải có ít nhất 8 ký tự, gồm 1 chữ hoa và 1 số.';
+                    document.getElementById('passwordError').textContent = 'Password must have at least 8 characters, include 1 uppercase letter and 1 number.';
                 }
 
                 if (password.value !== password2.value) {
                     isValid = false;
-                    document.getElementById('password2Error').textContent = 'Mật khẩu xác nhận không khớp.';
+                    document.getElementById('password2Error').textContent = 'Confirmation password does not match.';
                 }
 
                 if (!isValid)

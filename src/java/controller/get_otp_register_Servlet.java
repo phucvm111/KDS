@@ -10,8 +10,11 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class get_otp_register_Servlet extends HttpServlet {
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w.-]+@gmail\\.com$");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,36 +30,32 @@ public class get_otp_register_Servlet extends HttpServlet {
         AccountDAO dao = new AccountDAO();
 
         String email = request.getParameter("email");
-        if (email == null || email.trim().isEmpty()) {
-            request.setAttribute("emailexisted", "Vui lòng nhập email hợp lệ.");
+
+        // Validate email is not empty and has correct format
+        if (email == null || email.trim().isEmpty() || !EMAIL_PATTERN.matcher(email.trim()).matches()) {
+            request.setAttribute("emailexisted", "Please enter a valid Gmail address.");
             request.getRequestDispatcher("Get_otp_register.jsp").forward(request, response);
             return;
         }
 
         List<String> existingEmails = dao.getAllEmail();
-        boolean emailExists = false;
-
-        for (String existing : existingEmails) {
-            if (existing != null && existing.equalsIgnoreCase(email.trim())) {
-                emailExists = true;
-                break;
-            }
-        }
+        boolean emailExists = existingEmails.stream()
+                .anyMatch(existing -> existing != null && existing.equalsIgnoreCase(email.trim()));
 
         if (emailExists) {
-            request.setAttribute("emailexisted", "Email đã được sử dụng. Vui lòng chọn email khác.");
+            request.setAttribute("emailexisted", "This email is already in use. Please use a different one.");
             request.getRequestDispatcher("Get_otp_register.jsp").forward(request, response);
         } else {
-            int otpCode = 100000 + new Random().nextInt(900000); // 6 chữ số
+            int otpCode = 100000 + new Random().nextInt(900000); // 6-digit OTP
 
-            // Gửi OTP qua email
+            // Send OTP to email
             EmailService.sendEmailgetPassword(email, String.valueOf(otpCode));
 
-            // Lưu vào session để kiểm tra sau
+            // Store in session
             session.setAttribute("otpregister", otpCode);
             session.setAttribute("emailregister", email);
 
-            // Chuyển sang trang nhập OTP
+            // Redirect to enter OTP page
             request.getRequestDispatcher("Enter_otp_register.jsp").forward(request, response);
         }
     }
