@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case 3:
                     session.setAttribute("account", acc);
-                    response.sendRedirect("meetings");
+                    response.sendRedirect("index.jsp");
                     break;
                 default:
                     break;

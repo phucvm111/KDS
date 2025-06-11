@@ -3,7 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/src/java/dal/ParentMeetingDAO.java</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/kinder/kinderAdminPage.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/teacher/checkin.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/index.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/admin_send_notification.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/src/java/dal/NotificationDAO.java</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/class/adminClassAdd.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/class/adminClassPage.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/notifications.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/kinder/kinderAdminUpdate.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/kinder/kinderAdminAdd.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/account/adminAccountUpdate.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/login.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/account/adminAccountAdd.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/web/admin/account/adminAccountPage.jsp</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Ky%205%20-%20FPT/SWP391/KDS/src/java/controller/teacher/TeacherNotificationServlet.java</file>
         </group>
     </open-files>
 </project-private>

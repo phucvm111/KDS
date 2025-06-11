@@ -93,6 +93,20 @@
                                     </div>
                                     <p>${parent.address}</p>
                                 </div>
+                                
+                                <div class="content-item gender">
+                                    <div class="item-title">
+                                        <strong>Sex</strong>
+                                    </div>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${kid.gender == true}">Male</c:when>
+                                            <c:when test="${kid.gender == false}">FeMale</c:when>
+                                            <c:otherwise>Khác</c:otherwise>
+                                        </c:choose>
+                                    </p>
+                                </div>
+                                
                                 <div class="content-item description">
                                     <div class="item-title">
                                         <strong>Description</strong>

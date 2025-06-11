@@ -1,45 +1,27 @@
-
 package dal;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author pc
- */
 public class DBContext {
-    private static DBContext instance = new DBContext();
-    Connection connection;
-    public static DBContext getInstance() {
-        return instance;
+
+    private final String user = "sa";
+    private final String password = "123";
+    private final String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=KD;TrustServerCertificate=true;";
+
+    public Connection getConnection() throws Exception {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        return DriverManager.getConnection(url, user, password);
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-    public DBContext() {
-    try {
-        if (connection == null || connection.isClosed()) {
-            String user = "sa";
-            String password = "123";
-            String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=KD;TrustServerCertificate=true;";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-            connection = DriverManager.getConnection(url, user, password); 
-        }
-    } catch (Exception e) { 
-        connection = null;
-    }
-}
+  
     public static void main(String[] args) {
-        DBContext dbContext = new DBContext();
-        if (dbContext.connection != null) {
-            System.out.println("Kết nối thành công với cơ sở dữ liệu!");
-        } else {
-            System.out.println("Kết nối thất bại!");
+        try (Connection conn = new DBContext().getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Kết nối thành công với cơ sở dữ liệu!");
+            }
+        } catch (Exception e) {
+            System.out.println("Kết nối thất bại: " + e.getMessage());
         }
     }
-
 }

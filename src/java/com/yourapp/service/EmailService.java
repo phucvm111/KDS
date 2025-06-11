@@ -1,6 +1,5 @@
 package com.yourapp.service;
 
-import com.sun.jdi.connect.Transport;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -9,9 +8,6 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.websocket.Session;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.Properties;
 
 public class EmailService {
@@ -69,8 +65,7 @@ public class EmailService {
     props.put("mail.smtp.port", "587");
 
     Session session = Session.getInstance(props, new Authenticator() {
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(username, password);
+        protected PasswordAuthentication getPasswordAuthentication() {return new PasswordAuthentication(username, password);
         }
     });
 
