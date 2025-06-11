@@ -5,6 +5,7 @@
 
 package controller.admin.account;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -55,7 +56,10 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("sid"));
+        AccountDAO dao = new AccountDAO();
+        dao.deleteAccount(id);
+        response.sendRedirect("listaccount");
     } 
 
     /** 
