@@ -5,6 +5,7 @@
 
 package controller.admin.classs;
 
+import dal.ClassDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -55,7 +57,10 @@ public class ListClassServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ClassDAO cld = new ClassDAO();
+        List<model.Class> list = cld.getAllClass();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("admin/class/adminClassPage.jsp").forward(request, response);
     } 
 
     /** 
