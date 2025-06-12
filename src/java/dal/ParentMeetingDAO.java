@@ -10,7 +10,8 @@ public class ParentMeetingDAO extends DBContext {
         List<ParentMeeting> list = new ArrayList<>();
         String sql = "SELECT * FROM ParentMeeting ORDER BY meeting_date DESC";
 
-        try (Connection conn = connection;
+        try (Connection conn = getConnection();
+
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 

@@ -3,17 +3,34 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/index.html</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/Enter_otp_register.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/ViewEvent.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/index.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/EnterOtp.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/get_otp_register_Servlet.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/register.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/ResetPassword.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/Get_otp_register.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/EnterOTPServlet.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/Enter_Otp_RegisterServlet.java</file>
+            <file>file:/F:/KD/KDS/web/admin/event/EventAdminPage.jsp</file>
+            <file>file:/F:/KD/KDS/src/java/model/Attendance.java</file>
+            <file>file:/F:/KD/KDS/src/java/controller/parent/MarkNotificationReadServlet.java</file>
+            <file>file:/F:/KD/KDS/src/java/controller/admin/notifications/AdminNotificationServlet.java</file>
+            <file>file:/F:/KD/KDS/src/java/dal/ParentMeetingDAO.java</file>
+            <file>file:/F:/KD/KDS/src/java/controller/teacher/KidProfile.java</file>
+            <file>file:/F:/KD/KDS/web/notifications.jsp</file>
+            <file>file:/F:/KD/KDS/web/teacher/checkin.jsp</file>
+            <file>file:/F:/KD/KDS/src/java/model/Kindergartner.java</file>
+            <file>file:/F:/KD/KDS/src/java/controller/teacher/AttendanceServlet.java</file>
+            <file>file:/F:/KD/KDS/src/java/controller/teacher/TeacherNotificationServlet.java</file>
+            <file>file:/F:/KD/KDS/web/teacher/kidprofile.jsp</file>
+            <file>file:/F:/KD/KDS/web/WEB-INF/web.xml</file>
+            <file>file:/F:/KD/KDS/src/java/controller/admin/event/ListEventServlet.java</file>
+            <file>file:/F:/KD/KDS/web/teacher/css/kidprofile.css</file>
+            <file>file:/F:/KD/KDS/src/java/dal/NotificationDAO.java</file>
+            <file>file:/F:/KD/KDS/src/java/dal/RoleDAO.java</file>
+            <file>file:/F:/KD/KDS/web/teacher/checkAttendence.jsp</file>
+            <file>file:/F:/KD/KDS/src/java/dal/DBContext.java</file>
+            <file>file:/F:/KD/KDS/src/java/dal/AttendanceDAO.java</file>
+            <file>file:/F:/KD/KDS/web/parent/parent_notifications.jsp</file>
+            <file>file:/F:/KD/KDS/web/admin/account/adminAccountPage.jsp</file>
+            <file>file:/F:/KD/KDS/src/java/controller/admin/account/ListAccountServlet.java</file>
+            <file>file:/F:/KD/KDS/src/java/dal/KindergartnerDAO.java</file>
+            <file>file:/F:/KD/KDS/web/admin/admin_send_notification.jsp</file>
+            <file>file:/F:/KD/KDS/web/index.jsp</file>
+            <file>file:/F:/KD/KDS/src/java/controller/parent/ParentNotificationServlet.java</file>
+            <file>file:/F:/KD/KDS/web/admin/kinder/kinderAdminPage.jsp</file>
         </group>
     </open-files>
 </project-private>

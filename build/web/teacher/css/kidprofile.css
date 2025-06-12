@@ -1,9 +1,15 @@
 .kid-profile {
-    height: 665px;
-    margin-top: 15px;
-    background-color: #fff;
+    min-height: 700px; /* Tự động giãn theo nội dung */
+    margin: 30px auto; /* Căn giữa */
+    padding: 30px;
+    background-color: #ffffff;
     border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* đổ bóng nhẹ */
+    max-width: 900px; /* Giới hạn độ rộng */
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.3s ease;
 }
+
 
 .kid-profile .kid-profile_header {
     display: flex;

@@ -41,6 +41,10 @@
                         <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
                         <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
                         <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
+                        <li><a href="adminNotifyTeachers">
+                                <i class="uil uil-bell"></i>
+                                <span class="link-name">Send Notification</span>
+                            </a></li>
                         <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
                     </ul>
                     <ul class="logout-mode">

@@ -205,6 +205,17 @@
                     <li><a href="#feedback" class="navigation-links">Parent's feedback</a></li>
                 </ul>
             </nav>
+            <!-- 🔔 Notification Bell -->
+            <div class="notification-bell" style="margin-left: 20px;">
+                <a href="${pageContext.request.contextPath}/parentNotifications" style="text-decoration: none; color: inherit; position: relative;">
+                    🔔
+                    <c:if test="${not empty unreadCount && unreadCount > 0}">
+                        <span style="position: absolute; top: -8px; right: -8px; background: red; color: white; font-size: 12px; border-radius: 50%; padding: 2px 6px;">
+                            ${unreadCount}
+                        </span>
+                    </c:if>
+                </a>
+            </div>
             <div class="avatar-container" onclick="toggleMenu()">
                 <img src="https://i.pravatar.cc/40" alt="Avatar" />
                 <div class="dropdown-menu" id="dropdown">

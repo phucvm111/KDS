@@ -32,9 +32,9 @@
                                 <li class="menu-item">
                                     <a href="attendance">Home</a>
                                 </li>
-<!--                                <li class="menu-item">
-                                    <a href="#">View schedule</a>
-                                </li>-->
+                                <!--                                <li class="menu-item">
+                                                                    <a href="#">View schedule</a>
+                                                                </li>-->
                                 <li class="menu-item current1">
                                     <a href="#" style="color: #fff;">View student</a>
                                 </li>
@@ -57,7 +57,7 @@
 
                                 <div class="personel-section">
                                     <h1>${kid.first_name} ${kid.last_name}</h1>
-                                    <p>${kid.dob}</p>
+
                                 </div>
                             </div>
 
@@ -76,22 +76,41 @@
                             <div class="kid-profile_content">
                                 <div class="class content-item">
                                     <div class="item-title">
-                                        <strong>Class</strong>
+                                        <strong>Lớp</strong>
                                     </div>
                                     <p>${sessionScope.kinder_class.class_name}</p>
                                 </div>
                                 <div class="content-item phone">
                                     <div class="item-title">
-                                        <strong>Parent's phone</strong>
+                                        <strong>Số phụ huynh</strong>
                                     </div>
                                     <c:set var="parent" value="${requestScope.parent}"/>
                                     <p>${parent.phoneNumber}</p>
                                 </div>
                                 <div class="content-item address">
                                     <div class="item-title">
-                                        <strong>Address</strong>
+                                        <strong>Địa chỉ</strong>
                                     </div>
                                     <p>${parent.address}</p>
+                                </div>
+                                <!--dathem-->
+                                <div class="content-item gender">
+                                    <div class="item-title">
+                                        <strong>Giới tính</strong>
+                                    </div>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${kid.gender == true}">Male</c:when>
+                                            <c:when test="${kid.gender == false}">FeMale</c:when>
+                                            <c:otherwise>Khác</c:otherwise>
+                                        </c:choose>
+                                    </p>
+                                </div>
+                                <div class="content-item dob">
+                                    <div class="item-title">
+                                        <strong>Ngày sinh</strong>
+                                    </div>
+                                    <p>${kid.dob}</p>
                                 </div>
                                 <div class="content-item description">
                                     <div class="item-title">

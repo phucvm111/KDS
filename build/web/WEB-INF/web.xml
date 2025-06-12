@@ -88,7 +88,7 @@
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <servlet-class>controller.GoogleRegisterServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>ListAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
     </servlet>
@@ -263,6 +263,30 @@
     <servlet>
         <servlet-name>ViewEvent</servlet-name>
         <servlet-class>controller.ViewEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminNotificationServlet</servlet-name>
+        <servlet-class>controller.admin.notifications.AdminNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeacherNotificationServlet</servlet-name>
+        <servlet-class>controller.teacher.TeacherNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
+        <servlet-class>controller.teacher.MarkTeacherNotificationReadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KidProfile</servlet-name>
+        <servlet-class>controller.teacher.KidProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkNotificationReadServlet</servlet-name>
+        <servlet-class>controller.parent.MarkNotificationReadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ParentNotificationServlet</servlet-name>
+        <servlet-class>controller.parent.ParentNotificationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -551,6 +575,30 @@
     <servlet-mapping>
         <servlet-name>ViewEvent</servlet-name>
         <url-pattern>/events</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminNotificationServlet</servlet-name>
+        <url-pattern>/adminNotifyTeachers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeacherNotificationServlet</servlet-name>
+        <url-pattern>/notifications</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
+        <url-pattern>/markTeacherRead</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KidProfile</servlet-name>
+        <url-pattern>/KidProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkNotificationReadServlet</servlet-name>
+        <url-pattern>/markRead</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ParentNotificationServlet</servlet-name>
+        <url-pattern>/parentNotifications</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
