@@ -268,6 +268,10 @@
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewEventDetailsServlet</servlet-name>
+        <servlet-class>controller.admin.event.ViewEventDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -559,6 +563,10 @@
     <servlet-mapping>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <url-pattern>/viewmeetings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewEventDetailsServlet</servlet-name>
+        <url-pattern>/vieweventdetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

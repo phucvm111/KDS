@@ -2,23 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.admin.event;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import dal.EventDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Event;
-import dal.EventDAO;
+import java.io.IOException;
+import java.io.PrintWriter; 
 import java.util.List;
+import model.Event;
 
 /**
  *
- * @author admin
+ * @author Admin
  */
-public class ViewEvent extends HttpServlet {
+public class ViewEventDetailsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,20 +30,41 @@ public class ViewEvent extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ViewEvent</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ViewEvent at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String eventIdStr = request.getParameter("id");
+        int eventId = -1; // Default invalid ID
+
+        if (eventIdStr != null && !eventIdStr.isEmpty()) {
+            try {
+                eventId = Integer.parseInt(eventIdStr);
+            } catch (NumberFormatException e) {
+                // Handle invalid ID format, e.g., log error or redirect with error message
+                System.err.println("Invalid Event ID format: " + eventIdStr);
+                request.setAttribute("message", "Invalid event ID.");
+                request.getRequestDispatcher("admin/event/EventAdminPage.jsp").forward(request, response);
+                return;
+            }
+        }
+
+        if (eventId != -1) {
+            EventDAO eventDAO = new EventDAO(); // Khởi tạo DAO của bạn
+            Event event = eventDAO.getEventById(eventId); // Giả sử bạn có phương thức getEventById trong DAO của mình
+
+            if (event != null) {
+                request.setAttribute("event", event); // Đặt đối tượng event vào request scope
+                request.getRequestDispatcher("admin/event/EventAdminView.jsp").forward(request, response);
+            } else {
+                // Event not found
+                request.setAttribute("message", "Event not found for ID: " + eventId);
+                request.getRequestDispatcher("admin/event/EventAdminPage.jsp").forward(request, response);
+            }
+        } else {
+            // No event ID provided or invalid
+            request.setAttribute("message", "No event ID provided.");
+            request.getRequestDispatcher("admin/event/EventAdminPage.jsp").forward(request, response);
         }
     }
 
@@ -58,10 +80,7 @@ public class ViewEvent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EventDAO dao = new EventDAO();
-        List<Event> events = dao.getUpcomingEvents(2); 
-        request.setAttribute("events", events); 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
