@@ -11,6 +11,10 @@ public class ParentMeeting {
     private String notes;
     private Date createdAt;
 
+    // Thêm để hiển thị
+    private String className;
+    private String teacherName;
+
     public ParentMeeting() {}
 
     public ParentMeeting(int meetingId, int classId, int teacherId, Date meetingDate, String topic, String notes, Date createdAt) {
@@ -23,6 +27,7 @@ public class ParentMeeting {
         this.createdAt = createdAt;
     }
 
+    // Getters và Setters
     public int getMeetingId() {
         return meetingId;
     }
@@ -77,5 +82,21 @@ public class ParentMeeting {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

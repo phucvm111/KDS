@@ -7,11 +7,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/ATKD_Project/homepage/assets/image/logo2-removebg-preview.png">
-        <title>ATKD ChildCare - Update Parent Profile</title>
-        <link rel="stylesheet" href="/ATKD_Project/homepage/parent/css/parenthome.css">
-        <link rel="stylesheet" href="/ATKD_Project/homepage/parent/css/childprofile.css">
-        <link rel="stylesheet" href="/ATKD_Project/homepage/parent/css/childregister.css">
+        <link rel="icon" href="${pageContext.request.contextPath}//assets/image/logo2-removebg-preview.png">
+        <title>KDS - Parent Update Profile</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childregister.css">
     </head>
 
     <body>
@@ -20,25 +20,25 @@
                 <div class="left-side-menu">
                     <div class="vertical-menu" style="position: relative;">
                         <div class="user-welcome">
-                            <img class="user-img" src="/ATKD_Project/homepage/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
+                            <img class="user-img" src="${pageContext.request.contextPath}/homepage/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
                             <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
                                 <li class="menu-item ">
-                                    <a href="/ATKD_Project/homepage/childdetailservlet">Child Information</a>
+                                    <a href="${pageContext.request.contextPath}/homepage/childdetailservlet">Child Information</a>
                                 </li>
                                 <li class="menu-item current1">
-                                    <a href="/ATKD_Project/homepage/parent/parentprofile.jsp">Parent Information</a>
+                                    <a href="${pageContext.request.contextPath}/homepage/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="/ATKD_Project/homepage/childregister">Child Register</a>
+                                    <a href="${pageContext.request.contextPath}/homepage/childregister">Child Register</a>
                                 </li>
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
                         <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('/ATKD_Project/homepage/logout')" value="Log out"/>
+                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/logout')" value="Log out"/>
                         </div>
                     </div>
                 </div>
