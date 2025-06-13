@@ -28,16 +28,16 @@ public class RegisterServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
 
-        // Lấy email đã xác thực OTP từ session
+       
         String email = (String) session.getAttribute("email_otp_verified");
 
-        // Nếu chưa có email trong session, chuyển về trang gửi OTP
+        
         if (email == null || email.isEmpty()) {
             response.sendRedirect("Get_otp_register.jsp");
             return;
         }
 
-        // Lấy các dữ liệu còn lại từ form
+        
         String fname = request.getParameter("fname").trim();
         String lname = request.getParameter("lname").trim();
         String gender_raw = request.getParameter("gender");

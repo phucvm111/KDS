@@ -1,224 +1,443 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/node_modules/fullpage.js/dist/fullpage.min.css">
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Hi+Melody&family=Patrick+Hand&display=swap"
-              rel="stylesheet">
-        <title>KDS</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style_2.css">
-       
-        <style>
-            
-            body {
-                margin: 0;
-                font-family: 'Patrick Hand', cursive;
-                padding-top: 70px; 
-                box-sizing: border-box;
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kindergarten Management System</title>
+        <!-- AOS animate on scroll -->
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Hi+Melody&family=Patrick+Hand&display=swap" rel="stylesheet" />
+
+        <link rel="icon" href="./assets/image/logo2-removebg-preview.png" />
+        <link rel="stylesheet" href="/./node_modules/fullpage.js/dist/fullpage.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="./assets/css/style_2.css" />
+
+
+    </head>
+    <style>
+        .vision-section {
+            display: flex;
+            gap: 30px;
+            padding: 80px 60px;
+            background-color: #e6dff1;
+            justify-content: center;
+            flex-wrap: wrap;
+
+        }
+
+        .mission-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 300px;
+            max-width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .mission-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .mission-card span {
+            color: #8e44ad;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Patrick Hand', sans-serif;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            background-color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .header-logo img {
+            height: 40px;
+        }
+
+        .header-nav {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            gap: 17px;
+        }
+
+        .navigation-links {
+            text-decoration: none;
+            color: #8e44ad;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .navigation-links:hover {
+            text-decoration: underline;
+        }
+
+        .right-side {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+
+
+
+        .navigation-links {
+            text-decoration: none;
+            color: #8e44ad;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .navigation-links:hover {
+            text-decoration: underline;
+        }
+
+        .right-side {
+            display: flex;
+            gap: 12px;
+        }
+
+        .login-btns {
+            padding: 8px 16px;
+            border: 1px solid #8e44ad;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #8e44ad;
+            font-weight: bold;
+        }
+
+        .btn-highlight {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        .section {
+            padding-top: 80px;
+        }
+
+        .section-text-img {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .section-text-img > .swiper.mySwiper {
+            width: 100% !important;
+            height: auto;
+
+
+            max-width: 100%;
+            align-self: stretch;
+            display: block;
+        }
+
+        .swiper-wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #8e44ad;
+            background: rgba(255, 255, 255, 0.9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin: 0 20px;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(142, 68, 173, 0.1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .swiper-button-prev {
+            left: 0px;
+        }
+
+        .swiper-button-next {
+            right: 0px;
+        }
+
+        .text-container {
+
+            flex: 0 0 50%;
+
+        }
+
+        .text-container h2 {
+            font-size: 2.5em;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: left;
+        }
+
+        .text-container p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #666;
+            text-align: left;
+        }
+
+        .highlight {
+            background: #d1c4e9;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .swiper.mySwiper {
+            flex: 0 0 60%;               /* tăng chiều ngang */
+            height: auto;
+            aspect-ratio: 5 / 3;         /* giảm chiều cao tương đối */
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
 
-            
-            .main-header {
-                width: 100%;
-                display: flex; 
-                justify-content: space-between; 
-                align-items: center;
-
-                padding: 10px 20px;
-                background-color: white; 
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 1000;             }
-
-            
-            .main-header .logo-main {
-                font-size: 24px;
-                font-weight: bold;
-                color: #333; 
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                flex-shrink: 0; 
+            .header-left {
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .main-header .logo-main img {
-                height: 40px; 
-                margin-right: 10px;
-            }
-
-            
-            .main-header nav {
-                flex-grow: 1; 
-                text-align: center; 
-            }
-
-            .main-header nav ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                display: flex; 
-                justify-content: center; 
-                gap: 20px; 
-            }
-
-            .main-header nav ul li a {
-                text-decoration: none;
-                color: #555; 
-                font-weight: bold;
-                padding: 5px 10px;
-                transition: color 0.3s ease;
-                white-space: nowrap; 
-            }
-
-            .main-header nav ul li a:hover {
-                color: #7d44c8; 
-            }
-
-            
-            .avatar-container {
-                position: relative;
-                cursor: pointer;
-                margin-left: 20px; 
-                flex-shrink: 0; 
-            }
-
-            .avatar-container img {
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                object-fit: cover;
-            }
-
-            .dropdown-menu {
-                position: absolute;
-                right: 0;
-                top: 50px; 
-                background-color: white;
-                color: black;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                width: 180px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                display: none; 
-                z-index: 1001; 
-            }
-
-            .dropdown-menu a {
-                display: block;
-                padding: 10px;
-                text-decoration: none;
-                color: black;
-                text-align: left;
-            }
-
-            .dropdown-menu a:hover {
-                background-color: #f0f0f0;
-            }
-
-            
-            #fp-nav {
-                z-index: 999;
-            }
-
-            
-            .section {
-                
-            }
-
-            
-            .events-container {
-                display: flex;
+            .header-nav {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 20px; 
-                padding: 20px;
-                max-width: 1200px;
-                margin: 0 auto; 
             }
 
-            .event-card {
-                background-color: #f9f9f9;
-                border: 1px solid #e0e0e0;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                padding: 25px;
-                width: 400px; 
-                text-align: left;
-                transition: transform 0.3s ease;
+            .section-text-img {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                text-align: center;
+                gap: 30px;
+            }
+            .swiper.mySwiper {
+                height: 300px;
+                flex: 0 0 70%;
+                aspect-ratio: 5 / 3;
+                border-radius: 12px;
+                overflow: hidden;
             }
 
-            .event-card:hover {
-                transform: translateY(-5px);
+
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 35px;
+                height: 35px;
             }
 
-            .event-card h3 {
-                color: #7d44c8;
-                font-size: 1.5em;
-                margin-top: 0;
-                margin-bottom: 10px;
-                font-family: 'Caveat Brush', cursive; 
+            .swiper-button-prev {
+                left: 15px;
             }
 
-            .event-card .event-date {
-                font-weight: bold;
-                color: #555;
-                margin-bottom: 5px;
+            .swiper-button-next {
+                right: 15px;
             }
+        }
+        .avatar-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+            flex-shrink: 0;
+        }
 
-            .event-card .event-location {
-                color: #777;
-                font-style: italic;
-                margin-bottom: 15px;
-            }
+        .avatar-container img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
 
-            .event-card .event-description {
-                font-size: 0.95em;
-                line-height: 1.6;
-                color: #333;
-            }
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 180px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1001;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            text-align: left;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        #fp-nav {
+            z-index: 999;
+        }
+
+
+        .section {
+
+        }
+
+
+        .events-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            width: 400px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-card h3 {
+            color: #7d44c8;
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-family: 'Caveat Brush', cursive;
+        }
+
+        .event-card .event-date {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .event-card .event-location {
+            color: #777;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .event-card .event-description {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
         </style>
-    </head>
-    <body>
-        <header class="main-header">
-            <a href="#welcome" class="logo-main">
-                <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="" />
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#events-section" class="navigation-links">Events</a></li>
-                    <li><a href="#about-us" class="navigation-links">About us</a></li>
-                    <li><a href="#section-2" class="navigation-links">Where we are</a></li>
-                    <li><a href="#section-3" class="navigation-links">Vision & Mission</a></li>
-                    <li><a href="#section-4" class="navigation-links">What we do</a></li>
 
-                    <li><a href="#feedback" class="navigation-links">Parent's feedback</a></li>
-                </ul>
-            </nav>
-            <div class="avatar-container" onclick="toggleMenu()">
-                <img src="https://i.pravatar.cc/40" alt="Avatar" />
-                <div class="dropdown-menu" id="dropdown">
-                    <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">⚙ Information</a>
-                    <a href="${pageContext.request.contextPath}/index.html">🚪 Logout</a>
+
+        <body>
+            <header>
+                <div class="header-logo">
+                    <a href="#welcome">
+                        <img src="./assets/image/logo.png" alt="logo" />
+                    </a>
                 </div>
-            </div>
-        </header>
 
-        <div id="fullpage">
+                <nav class="header-nav">
+                    <a href="#events-section" class="navigation-links">Events</a>
+                    <a href="#about-us" class="navigation-links">About us</a>
+                    <a href="#section-2" class="navigation-links">Where we are</a>
+                    <a href="#section-3" class="navigation-links">Vision & Mission</a>
+                    <a href="#section-4" class="navigation-links">What we do</a>
+                    <a href="#feedback" class="navigation-links">Parents's feedback</a>
+                </nav>
 
-            
+                <div class="avatar-container" onclick="toggleMenu()">
+                    <img src="https://i.pravatar.cc/40" alt="Avatar" />
+                    <div class="dropdown-menu" id="dropdown">
+                        <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">⚙ Information</a>
+                        <a href="${pageContext.request.contextPath}/index.html">🚪 Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="section section-custom" id="events-section">
-                <h2 style="text-align: center; margin-bottom: 40px;">🗓️ Upcoming <span class="highlight">Events</span></h2>
+                <h2 style="text-align: center;
+                    margin-bottom: 40px;">🗓️ Upcoming <span class="highlight">Events</span></h2>
                 <div class="events-container">
                     <c:choose>
                         <c:when test="${not empty events}"> 
@@ -244,150 +463,177 @@
                     </c:choose>
                 </div>
             </div>
-            <%-- Kết thúc Section Events --%>
+
+
 
             <div class="section section-custom" id="welcome">
                 <div class="title-container">
                     <h1>We embrace<br /><span class="highlight">the magic</span> of childhood</h1>
-                    <p style="color: #dad4e3">We aim to care for your child <br />as you would at home in a safe, fun and happy way...</p>
+                    <p style="color: #dad4e3">
+                            We aim to care for your child <br />as you would at home in a safe, fun and happy way...
+                        </p>
+                    </div>
                 </div>
+
+
+
+
+                <div class="section section-custom" id="about-us">
+                    <h2>A little bit <span class="highlight">about us</span></h2>
+                    <div class="sub-text">
+                        <p>
+                            After more than <span class="highlight">10 years</span> of dedication to early childhood education, our Kindergarten Management System is trusted by both parents and
+                            <span class="highlight">educational experts</span> for helping schools apply modern management methods effectively.
+                        </p>
+                        <p>
+                            With a deep understanding of the needs of children aged <span class="highlight">0-6 years old</span>, the system assists teachers through detailed observations, attendance tracking, and health monitoring. A personal
+                            <span class="highlight">roadmap for each child</span> is developed to ensure support and care.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section section-custom section-text-img" id="section-2">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="./assets/image/section-2.jpeg" alt="Image 1" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="./assets/image/image2.jpg" alt="Image 2" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="./assets/image/image3.jpg" alt="Image 3" />
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+
+                    <div class="text-container">
+                        <h2><span>Vietnam's leading solution</span><br />for kindergarten management</h2>
+                        <p>
+                            Launched in May 2025, the KMS is designed to streamline and modernize how kindergartens operate, supporting <span class="highlight">Educational experts</span> through technology.
+                        </p>
+                        <p>
+                            KMS is being used in <span class="highlight">Hanoi</span>, <span class="highlight">Ho Chi Minh City</span>, and <span class="highlight">Quang Ninh</span>, helping schools manage attendance, health, communication, and scheduling.
+                        </p>
+                    </div>
+                </div>
+                <div class="section section-custom vision-section" id="section-3">
+                    <div class="mission-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Our <span>mission</span></h3>
+                        <p>
+                            KMS is committed to providing the community with a sustainable educational environment, inspiring creativity.
+                        </p>
+                        <p>
+                            We feel privileged to share your child’s early years and are committed to making sure this is the right place for your child and your family.
+                        </p>
+                    </div>
+
+                    <div class="mission-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Our <span>goals</span></h3>
+                        <p>
+                            Our carers provide love and care in a warm, friendly environment where your child will feel safe and happy.
+                        </p>
+                        <p>
+                            We believe that families and educators must work together – sharing information and building lasting partnerships.
+                        </p>
+                    </div>
+
+                    <div class="mission-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Things <span>to do</span></h3>
+                        <ul>
+                            <li>Create an engaging environment through role play</li>
+                            <li>Encourage respect and awareness of nature</li>
+                            <li>Provide healthy meals with natural ingredients</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section section-custom section-text-img" id="section-4">
+                    <div class="text-container">
+                        <h2><span>Teaching, nurturing, and building </span>confidence is our specialty</h2>
+                        <p>To become a leading institution in the field of education and training throughout from
+                            Kindergarten
+                            to Pre-University with the goal of combining Eastern values with international education to
+                            train
+                            global citizens. bridge.</p>
+                        <p>
+                            Provide high-quality educational programs in an innovative and challenging learning environment.
+                            Applying innovative and advanced methods in teaching and learning keeps students interested and
+                            passionate about lifelong learning.</p>
+                        <!-- <button class="button-9" role="button">GET IN TOUCH</button> -->
+                    </div>
+                    <img src="./assets/image/section-4.jpeg" alt="">
+                </div>
+                <div class="section section-custom section-small-blocks" id="feedback">
+                    <div class="small-block small-block-2">
+                        <h1>"</h1>
+                        <p>Mình có một bé 3,5 tuổi đã theo học tại trường ngay từ thời gian đầu mới thành lập. Quan điểm của
+                            mình và gia đình là đối với việc giáo dục con trẻ thì môi trường và phương pháp là hai yếu tố
+                            rất
+                            quan trọng, ảnh hưởng lớn đến trẻ. Cả hai yếu tố này nhà trường đều đáp ứng được rất tốt…</p>
+                        <h5><span>Mr. Phạm Thanh Tùng - Ph Bé Nancy
+                            </span></h5>
+                    </div>
+                    <div class="small-block small-block-2">
+                        <h1>"</h1>
+                        <p>Điều tôi ấn tượng nhất ở nhà trường chính là các hoạt động ngoại khóa của trường. Mỗi sự kiện của
+                            trường được tổ chức quy mô, hướng tới những thông điệp ý nghĩa mà thông qua đó các con được tự
+                            do
+                            sáng tạo, trau dồi kỹ năng và hình thành những đức tính tốt.
+
+                        </p>
+                        <h5><span>Mrs. Ngô Thanh Thúy - Phụ huynh bé Bin, lớp Orchid</span></h5>
+                    </div>
+                </div>
+
+
+
+
+                <footer class="section section-custom" id="footer">
+                    Copyright © 2025. All Rights Reserved | Designed by: @phucvm |
+                </footer>
             </div>
 
-            <div class="section section-custom" id="about-us">
-                <h2>A little bit <span class="highlight">about us</span></h2>
-                <div class="sub-text">
-                    <p>After more than <span class="highlight">10 years</span> of dedication to early childhood education, our
-                        Kindergarten Management System is trusted by both parents and <span class="highlight">educational experts</span> for helping
-                        schools apply modern management methods effectively. The system supports personalized learning and care,
-                        aiming to unlock the full potential of each child.</p>
-                    <p>With a deep understanding of the needs of children aged <span class="highlight">0-6 years old</span>, the system assists teachers
-                        through detailed observations, attendance tracking, and health monitoring. A personal <span class="highlight">roadmap for each
-                            child</span> is developed to ensure timely support, nutritious meals, safe environments, and quality rest for every child.</p>
-                </div>
-            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-            <div class="section section-custom section-text-img" id="section-2">
-                <img src="${pageContext.request.contextPath}/assets/image/section-2.jpeg" alt="">
-                <div class="text-container">
-                    <h2><span>Vietnam's leading solution</span><br />for kindergarten management</h2>
-                    <p>Launched in May 2025, the KMS (Kindergarten Management System) is designed to streamline and modernize how kindergartens operate
-                        , supporting the implementation of the <span class="highlight">Educational
-                            experts</span> educational approach through technology and data-driven tools.</p>
-                    <p>Currently, KMS is being used in multiple locations including <span class="highlight">Hanoi</span>, <span class="highlight">Ho Chi Minh City</span>,
-                        and <span class="highlight">Quang Ninh</span>, helping schools manage student information, attendance, health tracking, parent
-                        communication, and activity scheduling in an efficient and secure way. The platform supports kindergartens in providing personalized
-                        care and education for every child.</p>
-                </div>
-            </div>
-
-            <div class="section section-custom section-small-blocks" id="section-3">
-                <div class="small-block small-block-3">
-                    <h2>Our <span>mission</span></h2>
-                    <p>KMS is committed to providing the community with a sustainable educational
-                        environment, inspiring creativity.
-                        <br /><br />
-                        Here at KMS, we feel privileged to share your child's early years and
-                        we are committed to making sure that this is the right place for your child and for you. We
-                        fully recognise the great trust that you have placed in us when deciding to leave your child here
-                        and
-                        we will work hard to ensure that we repay that trust.
-                    </p>
-                </div>
-                <div class="small-block small-block-3">
-                    <h2>Our <span>goals</span></h2>
-                    <p>Our carers provide genuine love and concern for the children in their care, thus providing them
-                        with
-                        a warm, friendly and inviting atmosphere where your child will feel secure and happy in their
-                        new
-                        environment.
-                        <br /><br />
-                        We want every part of our service to not only meet, but to exceed
-                        your needs and those of
-                        your child. This requires partnership, so at ATKD ChildCare we believe that families and
-                        educators
-                        must cooperate and work together, sharing information and building relationships and a sense of
-                        community and belonging.
-                    </p>
-                </div>
-                <div class="small-block small-block-3">
-                    <h2>Things <span>to do</span></h2>
-                    <p>We will:<br />
-                        <br />
-                        - Create a learning environment which will encourage children to interact, take on roles and
-                        develop
-                        relationships with others through play<br />
-                        <br />
-                        - Encourage children to be respectful, sensitive and thoughtful towards their natural
-                        environment<br />
-                        <br />
-                        - Provide a nutritious and varied menu with the emphasis on organic, natural foods and a nut
-                        free
-                        environment.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section section-custom section-text-img" id="section-4">
-                <div class="text-container">
-                    <h2><span>Teaching, nurturing, and building </span>confidence is our specialty</h2>
-                    <p>To become a leading institution in the field of education and training throughout from
-                        Kindergarten
-                        to Pre-University with the goal of combining Eastern values with international education to
-                        train
-                        global citizens. bridge.</p>
-                    <p>
-                        Provide high-quality educational programs in an innovative and challenging learning environment.
-                        Applying innovative and advanced methods in teaching and learning keeps students interested and
-                        confident about lifelong learning.</p>
-                </div>
-                <img src="${pageContext.request.contextPath}/assets/image/section-4.jpeg" alt="">
-            </div>
-
-            <div class="section section-custom section-small-blocks" id="feedback">
-                <div class="small-block small-block-2">
-                    <h1>"</h1>
-                    <p>Mình có một bé 3,5 tuổi đã theo học tại trường ngay từ thời gian đầu mới thành lập. Quan điểm của
-                        mình và gia đình là đối với việc giáo dục con trẻ thì môi trường và phương pháp là hai yếu tố
-                        rất
-                        quan trọng, ảnh hưởng lớn đến trẻ. Cả hai yếu tố này nhà trường đều đáp ứng được rất tốt…</p>
-                    <h5><span>Mr. Phạm Thanh Tùng - Phụ huynh bé Nancy
-                        </span></h5>
-                </div>
-                <div class="small-block small-block-2">
-                    <h1>"</h1>
-                    <p>Điều tôi ấn tượng nhất ở nhà trường chính là các hoạt động ngoại khóa của trường. Mỗi sự kiện của
-                        trường được tổ chức quy mô, hướng tới những thông điệp ý nghĩa mà thông qua đó các con được tự
-                        do
-                        sáng tạo, trau dồi kỹ năng và hình thành những đức tính tốt.
-                    </p>
-                    <h5><span>Mrs. Ngô Thanh Thúy - Phụ huynh bé Bin, lớp Orchid</span></h5>
-                </div>
-            </div>
-
-            <footer class="section section-custom" id="footer">Copyright © 2022. All Rights Reserved | Designed by:
-                @trananhhh | </footer>
-        </div>
-
-        <script>
-            function toggleMenu() {
-                const menu = document.getElementById("dropdown");
-                menu.style.display = menu.style.display === "block" ? "none" : "block";
-            }
-
-            document.addEventListener("click", function (event) {
-                const avatar = document.querySelector(".avatar-container");
-                const menu = document.getElementById("dropdown");
-                // Đảm bảo rằng click không phải bên trong avatar hoặc dropdown menu
-                if (!avatar.contains(event.target) && !menu.contains(event.target)) {
-                    menu.style.display = "none";
+            <script>
+                        const swiper = new Swiper('.mySwiper', {
+                            loop: true,
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            },
+                        });
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+            <script>
+                        AOS.init({
+                            duration: 800,
+                            once: true
+                        });
+            </script>
+            <script>
+                function toggleMenu() {
+                    const menu = document.getElementById("dropdown");
+                    menu.style.display = menu.style.display === "block" ? "none" : "block";
                 }
-            });
-        </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"
-                integrity="sha512-JSVRnP8UFs0ieN/cvP9v4vmW1CotIaEKKN7W+4JaKNrllZolTv2aJfVGn4BFdfZ1jRZxgTAAaXWdlZbEm9iwFA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                document.addEventListener("click", function (event) {
+                    const avatar = document.querySelector(".avatar-container");
+                    const menu = document.getElementById("dropdown");
+                    // Đảm bảo rằng click không phải bên trong avatar hoặc dropdown menu
+                    if (!avatar.contains(event.target) && !menu.contains(event.target)) {
+                        menu.style.display = "none";
+                    }
+                });
+            </script>
 
-    </body>
-</html>
+        </body>
+    </html>
