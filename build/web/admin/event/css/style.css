@@ -1,14 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jun 21, 2022, 11:08:07 AM
-    Author     : win
-*/
-
-/* ===== Google Font Import - Poppins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
     margin: 0;
@@ -19,6 +8,7 @@ and open the template in the editor.
 
 :root{
     /* ===== Colors ===== */
+    --primary-color: #0E4BF1;
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;
@@ -39,40 +29,8 @@ body{
     min-height: 100vh;
     background-color: var(--primary-color);
 }
- body.dark{
-    --primary-color: #3A3B3C;
-    --panel-color: #242526;
-    --text-color: #CCC;
-    --black-light-color: #CCC;
-    --border-color: #4D4C4C;
-    --toggle-color: #FFF;
-    --box1-color: #3A3B3C;
-    --box2-color: #3A3B3C;
-    --box3-color: #3A3B3C;
-    --title-icon-color: #CCC;
-} 
-/* === Custom Scroll Bar CSS === */
- ::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
 
-::-webkit-scrollbar-thumb:hover {
-    background: #0b3cc1;
-} 
- 
-body.dark::-webkit-scrollbar-thumb:hover,
-body.dark .activity-data::-webkit-scrollbar-thumb:hover{
-    background: #3A3B3C;
-} 
-
+/* ===== Sidebar (Navigation) Styles ===== */
 nav{
     position: fixed;
     top: 0;
@@ -84,9 +42,7 @@ nav{
     border-right: 1px solid var(--border-color);
     transition: var(--tran-05);
 }
-nav.close{
-    width: 73px;
-}
+
 nav .logo-name{
     display: flex;
     align-items: center;
@@ -109,10 +65,7 @@ nav .logo-name .logo_name{
     margin-left: 14px;
     transition: var(--tran-05);
 }
-nav.close .logo_name{
-    opacity: 0;
-    pointer-events: none;
-}
+
 nav .menu-items{
     margin-top: 40px;
     height: calc(100% - 90px);
@@ -139,9 +92,7 @@ nav .menu-items{
     border-radius: 50%;
     background-color: var(--primary-color);
 }
-body.dark li a:hover:before{
-    background-color: var(--text-color);
-}
+
 .menu-items li a i{
     font-size: 24px;
     min-width: 45px;
@@ -157,150 +108,324 @@ body.dark li a:hover:before{
     color: var(--black-light-color);
     transition: var(--tran-05);
 }
-nav.close li a .link-name{
-    opacity: 0;
-    pointer-events: none;
-}
+
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
     color: var(--primary-color);
 }
-body.dark .nav-links li a:hover i,
-body.dark .nav-links li a:hover .link-name{
-    color: var(--text-color);
-}
+
 .menu-items .logout-mode{
     padding-top: 10px;
     border-top: 1px solid var(--border-color);
 }
-.menu-items .mode{
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-.menu-items .mode-toggle{
-    position: absolute;
-    right: 14px;
-    height: 50px;
-    min-width: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-.mode-toggle .switch{
-    position: relative;
-    display: inline-block;
-    height: 22px;
-    width: 40px;
-    border-radius: 25px;
-    background-color: var(--toggle-color);
-}
-.switch:before{
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 15px;
-    width: 15px;
-    background-color: var(--panel-color);
-    border-radius: 50%;
-    transition: var(--tran-03);
-}
-body.dark .switch:before{
-    left: 20px;
-}
 
+/* ===== Dashboard (Main Content Area) Positioning ===== */
 .dashboard{
     position: relative;
     left: 250px;
     background-color: var(--panel-color);
-
     width: calc(100% - 250px);
-
     transition: var(--tran-05);
 }
-/* .dash-top{
-    width: 100%;
-    height: 70px;
-    background: #000;
-} */
-.dash-lefttop{
-    width: 100%;
-    height: 70px;
-    background-color: #D8D8D8;
-    display: flex;
-    justify-content: right;
-}
-.dash-lefttop a{
-    /* display: flex;
-    justify-content: right; */
-    /* margin-right: 30px;
-    padding-top: 20px; */
-    padding-right: 50px;
-    padding-top: 20px;
-    padding-left: 10px;
 
+/* Top bar within the dashboard (already identified as dash-lefttop) */
+.dash-lefttop {
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    height: 70px;
 }
-.dash-lefttop img{
-    margin-top: 10px;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
+
+.dash-lefttop a {
+    color: black;
+    font-weight: 500;
+}
+
+.dash-lefttop img {
+    margin-right: 10px;
     height: 40px;
-
-}
-.dash-bottom{
-    display: flex;
-    padding-top: 30px;
-    padding-right: 30px;
-    padding-left: 70px;
-}
-.btn-outline-success{
-    margin-left: 10px;
-}
-.table{
-    /*margin-top: 40px;*/
-    margin: 0;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-.table thead {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: darkgray;
-}
-
-.dash-bottomtable{
-    display: flex;
-    overflow: auto;
-    height: 72vh;
-}
-
-
-.dashboard-bootom{
-    width: 70%;
-    height: auto;
-    display: flex;
-    justify-content: right;
-
-}
-.date-select{
-    padding-top: 30px;
-    padding-right: 30px;
-    padding-left: 70px;
-    width: 20%;
-}
 .sl-id{
-    display: flex;
-    margin-bottom: 10px;
-    display: flex;
+    display: none;
 }
 
 
+/* ===== slide bar ===== */
 
 
+:root {
+    --panel-color: #f0f2f5;
+    --border-color: #dee2e6;
+    --text-color: #333;
+    --primary-color: #007bff;
+}
+
+.dashboard-content {
+    padding: 20px;
+    background-color: var(--panel-color);
+    min-height: calc(100vh - 70px);
+    box-sizing: border-box;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-add-section {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    width: 300px;
+}
+
+.search-button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    opacity: 0.9;
+}
+
+.add-new-event-button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    line-height: normal;
+}
+
+.add-new-event-button:hover {
+    background-color: #4cae4c;
+}
+
+.table-container {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.event-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.event-table th, .event-table td {
+    padding: 15px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.event-table thead th {
+    background-color: #e9ecef;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.event-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.event-table tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* --- Fix for long text in table cells --- */
+.event-table td.long-text {
+    /* Đảm bảo các ô này vẫn hoạt động nếu được sử dụng, nhưng không cần cho Description nữa */
+    max-width: 250px; /* Điều chỉnh lại max-width cho các cột còn lại nếu cần */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow-wrap: normal;
+}
+
+/* Specific widths for columns - ĐÃ CHỈNH SỬA VỊ TRÍ VÀ CHIỀU RỘNG */
+.event-table th:nth-child(1), .event-table td:nth-child(1) { width: 8%; } /* STT */
+.event-table th:nth-child(2), .event-table td:nth-child(2) { width: 35%; } /* Title (formerly 2nd) */
+/* Cột Description đã bị loại bỏ */
+.event-table th:nth-child(3), .event-table td:nth-child(3) { width: 20%; } /* Date (now 3rd) */
+.event-table th:nth-child(4), .event-table td:nth-child(4) { width: 22%; } /* Location (now 4th) */
+.event-table th:nth-child(5), .event-table td:nth-child(5) { width: 7.5%; } /* Action (Edit) (now 5th) */
+.event-table th:nth-child(6), .event-table td:nth-child(6) { width: 7.5%; } /* Action (Delete) (now 6th) */
+
+/* Cho phép title tự động xuống dòng nếu quá dài, tận dụng không gian mới */
+.event-table td.event-title-cell {
+    white-space: normal; /* Cho phép text xuống dòng */
+    word-wrap: break-word; /* Ngắt từ nếu cần để tránh tràn */
+    overflow-wrap: break-word; 
+    max-width: none; /* Bỏ giới hạn max-width để nó chiếm hết không gian được phân bổ */
+}
+
+/* Removed .description-cell rules */
 
 
+.action-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 5px;
+}
 
+.edit-button {
+    background-color: #28a745;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.action-button:hover {
+    opacity: 0.9;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.pagination-item {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination-item a {
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.pagination-item.active a {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pagination-item a:hover:not(.active) {
+    background-color: #e9ecef;
+}
+
+/* Override specific dash-bottomtable styles if they conflict */
+.dashboard .dash-bottomtable {
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding: 0 20px;
+}
+
+/* Adjustments for the main content area to align with the image */
+.dashboard {
+    background-color: #f4f6f9;
+    padding: 0;
+}
+
+.dash-lefttop {
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    height: 70px;
+}
+
+.dash-lefttop a {
+    color: black;
+    font-weight: 500;
+}
+
+.dash-lefttop img {
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sl-id {
+    display: none;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 10px;
+    }
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-add-section {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .search-input {
+        width: calc(100% - 70px);
+    }
+    .add-new-event-button {
+        width: 100%;
+        text-align: center;
+    }
+    .event-table th, .event-table td {
+        padding: 10px;
+    }
+    .event-table td.long-text {
+        max-width: 150px;
+    }
+    .event-table th:nth-child(1), .event-table td:nth-child(1) { width: 10%; } /* STT */
+    .event-table th:nth-child(2), .event-table td:nth-child(2) { width: 40%; } /* Title */
+    .event-table th:nth-child(3), .event-table td:nth-child(3) { width: 20%; } /* Date */
+    .event-table th:nth-child(4), .event-table td:nth-child(4) { width: 20%; } /* Location */
+    .event-table th:nth-child(5), .event-table td:nth-child(5) { width: 5%; } /* Edit */
+    .event-table th:nth-child(6), .event-table td:nth-child(6) { width: 5%; } /* Delete */
+}
+
+/* Styles for event title cell interaction */
+.event-table tbody .event-title-cell {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.event-table tbody .event-title-cell:hover {
+    text-decoration: underline;
+    color: #6f42c1; /* Màu tím khi di chuột qua */
+}
