@@ -88,7 +88,7 @@
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <servlet-class>controller.GoogleRegisterServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>ListAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
     </servlet>
@@ -263,6 +263,10 @@
     <servlet>
         <servlet-name>ViewEvent</servlet-name>
         <servlet-class>controller.ViewEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMeetingsServlet</servlet-name>
+        <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -551,6 +555,10 @@
     <servlet-mapping>
         <servlet-name>ViewEvent</servlet-name>
         <url-pattern>/events</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMeetingsServlet</servlet-name>
+        <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
