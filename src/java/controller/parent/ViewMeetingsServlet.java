@@ -61,15 +61,22 @@ public class ViewMeetingsServlet extends HttpServlet {
             throws ServletException, IOException {
         // Không cần kiểm tra login/role vì đã kiểm tra trước khi vào trang này
         Account account = (Account) request.getSession().getAttribute("account");
-
         int parentId = account.getAccountID();
 
+        String status = request.getParameter("status"); // Lấy status từ form gửi lên
+
         ParentMeetingDAO dao = new ParentMeetingDAO();
-        List<ParentMeeting> meetings = dao.getMeetingsByParentId(parentId);
+        List<ParentMeeting> meetings;
+
+        if (status != null && !status.trim().isEmpty()) {
+            meetings = dao.getMeetingsByParentIdAndStatus(parentId, status);
+        } else {
+            meetings = dao.getMeetingsByParentId(parentId);
+        }
 
         request.setAttribute("meetings", meetings);
+        request.setAttribute("selectedStatus", status); // Gửi lại để JSP biết lọc gì
 
-        // Forward đến trang hiển thị lịch họp
         request.getRequestDispatcher("/parent/meeting.jsp").forward(request, response);
 
     }

@@ -32,44 +32,44 @@
             <h3 class="text-center mb-4">Create Account</h3>
             <form id="registerForm" action="register" method="post" novalidate>
                 <div class="mb-3">
-                    <label for="fname" class="form-label">First Name</label>
+                    <label for="fname" class="form-label">First Name <span style="color: red">(*)</span></label>
                     <input type="text" class="form-control" id="fname" name="fname" maxlength="25" required>
                     <span id="fnameError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="lname" class="form-label">Last Name</label>
+                    <label for="lname" class="form-label">Last Name <span style="color: red">(*)</span></label>
                     <input type="text" class="form-control" id="lname" name="lname" maxlength="25" required>
                     <span id="lnameError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Sex</label>
+                    <label for="gender" class="form-label">Sex <span style="color: red">(*)</span></label>
                     <select class="form-select" name="gender" id="gender">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
+                    <label for="address" class="form-label">Address <span style="color: red">(*)</span></label>
                     <textarea class="form-control" name="address" id="address" rows="3" maxlength="255" required></textarea>
                     <span id="addressError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Phone Number</label>
+                    <label for="phone" class="form-label">Phone Number <span style="color: red">(*)</span></label>
                     <input type="text" class="form-control" id="phone" name="phone" maxlength="10" required>
                     <span id="phoneError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="dob" class="form-label">Date of Birth</label>
+                    <label for="dob" class="form-label">Date of Birth <span style="color: red">(*)</span></label>
                     <input type="date" class="form-control" id="dob" name="dob" required>
                     <span id="dobError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Password <span style="color: red">(*)</span></label>
                     <input type="password" class="form-control" id="password" name="password" required>
                     <span id="passwordError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="password2" class="form-label">Confirm Password</label>
+                    <label for="password2" class="form-label">Confirm Password <span style="color: red">(*)</span></label>
                     <input type="password" class="form-control" id="password2" name="password2" required>
                     <span id="password2Error" class="text-danger"></span>
                 </div>

@@ -10,14 +10,16 @@ public class ParentMeeting {
     private String topic;
     private String notes;
     private Date createdAt;
+    private String status;
 
     // Thêm để hiển thị
     private String className;
     private String teacherName;
 
-    public ParentMeeting() {}
+    public ParentMeeting() {
+    }
 
-    public ParentMeeting(int meetingId, int classId, int teacherId, Date meetingDate, String topic, String notes, Date createdAt) {
+    public ParentMeeting(int meetingId, int classId, int teacherId, Date meetingDate, String topic, String notes, Date createdAt, String status, String className, String teacherName) {
         this.meetingId = meetingId;
         this.classId = classId;
         this.teacherId = teacherId;
@@ -25,7 +27,12 @@ public class ParentMeeting {
         this.topic = topic;
         this.notes = notes;
         this.createdAt = createdAt;
+        this.status = status;
+        this.className = className;
+        this.teacherName = teacherName;
     }
+
+    
 
     // Getters và Setters
     public int getMeetingId() {
@@ -99,4 +106,13 @@ public class ParentMeeting {
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 }
