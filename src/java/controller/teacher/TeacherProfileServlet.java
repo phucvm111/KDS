@@ -2,26 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.teacher;
 
 import dal.AccountDAO;
-import dal.ClassDAO;
-
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import model.Class;
 import model.Account;
 
 /**
  *
- * @author Admin
+ * @author Vu Tuan Hai <HE176383>
  */
-public class LoginServlet extends HttpServlet {
+public class TeacherProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +32,15 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet TeacherProfileServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TeacherProfileServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,21 +56,30 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action != null) {
-            HttpSession session = request.getSession(true);
-            session.removeAttribute("account");
-            session.removeAttribute("teacher");
-            session.removeAttribute("kinder_class");
-            session.removeAttribute("present_kids");
-            session.removeAttribute("checkoutkids");
-            response.sendRedirect("login");
-        } else {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    HttpSession session = request.getSession(false);
+    if (session == null || session.getAttribute("account") == null) {
+        response.sendRedirect("login");
+        return;
     }
+
+    Account sessionAccount = (Account) session.getAttribute("account");
+
+    AccountDAO dao = new AccountDAO();
+    Account teacher = dao.getTeacherById(sessionAccount.getAccountID());
+
+    if (teacher != null) {
+        session.setAttribute("account", teacher); // Cập nhật session
+        request.setAttribute("account", teacher); // Truyền đến JSP
+        request.getRequestDispatcher("teacher/teacherprofile.jsp").forward(request, response);
+    } else {
+        request.setAttribute("error", "Teacher not found");
+        request.getRequestDispatcher("not found").forward(request, response); // Trang thông báo lỗi
+    }
+}
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -86,37 +92,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        AccountDAO d = new AccountDAO();
-        ClassDAO classDao = new ClassDAO();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        Account acc = d.getAccountByMailPass(email, password);
-        if (acc != null) {
-            int  role = acc.getRole().getRoleID();
-            switch (role) {
-                case 2:
-                    Class kc = classDao.getTeacherClass(acc.getAccountID());
-                    session.setAttribute("kinder_class", kc);
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("teacherprofile?id="+acc.getAccountID());
-                    break;
-                case 1:
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("dashboard");
-                    break;
-                case 3:
-                    session.setAttribute("account", acc);
-                    response.sendRedirect("events");
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            request.setAttribute("error", "Account do not exist");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -124,6 +100,7 @@ public class LoginServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

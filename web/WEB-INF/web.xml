@@ -268,6 +268,10 @@
         <servlet-name>DashboardServlet</servlet-name>
         <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TeacherProfileServlet</servlet-name>
+        <servlet-class>controller.teacher.TeacherProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -559,6 +563,10 @@
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeacherProfileServlet</servlet-name>
+        <url-pattern>/teacherprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
