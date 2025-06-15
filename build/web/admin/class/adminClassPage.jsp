@@ -30,7 +30,7 @@
             <nav>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <img src="images/logo.jpg" alt="Logo">
+                        <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
                     </div>
                     <span class="logo_name">
                         <a href="listaccount">Admin Page</a>
@@ -39,6 +39,7 @@
 
                 <div class="menu-items">
                     <ul class="nav-links">
+                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
                         <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
                         <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
                         <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>

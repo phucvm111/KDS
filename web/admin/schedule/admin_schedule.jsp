@@ -27,58 +27,30 @@
 
     <body>
         <nav>
-            <div class="logo-name">
-                <div class="logo-image">
-                    <!--<img src="images/logo.png" alt="">-->
+                <div class="logo-name">
+                    <div class="logo-image">
+                        <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
+                    </div>
+                    <span class="logo_name">
+                        <a href="listaccount">Admin Page</a>
+                    </span>
                 </div>
 
-                <span class="logo_name">Admin Page</span>
-            </div>
-
-            <div class="menu-items">
-                <ul class="nav-links">
-                    <li><a href="listaccount">
-                            <i class="uil uil-estate"></i>
-                            <span class="link-name">Account</span>
-                        </a></li>
-
-                    <li><a href="listkinder">
-                            <i class="uil uil-chart"></i>
-                            <span class="link-name">Kindergartner</span>
-                        </a></li>
-                    <li><a href="listclass">
-                            <i class="uil uil-thumbs-up"></i>
-                            <span class="link-name">Class</span>
-                        </a></li>
-                    <li><a href="listschedule">
-                            <i class="uil uil-comments"></i>
-                            <span class="link-name">Schedule</span>
-                        </a></li>
-                    <li><a href="changepassword">
-                            <i class="uil uil-lock-alt"></i>
-                            <span class="link-name">Change Password</span>
-                        </a></li>
-                        <li><a href="event">
-                            <i class="uil uil-calendar-alt"></i>
-                            <span class="link-name">Event</span>
-                        </a></li>
-
-                    <!--                    <li><a href="#">
-                                                <i class="uil uil-share"></i>
-                                                <span class="link-name">Attendance</span>
-                                            </a></li>-->
-                </ul>
-
-                <ul class="logout-mode">
-                    <li>
-                        <a href="logout">
-                            <i class="uil uil-signout"></i>
-                            <span class="link-name">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                <div class="menu-items">
+                    <ul class="nav-links">
+                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
+                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
+                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
+                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
+                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
+                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
+                        <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
+                    </ul>
+                    <ul class="logout-mode">
+                        <li><a href="logout"><i class="uil uil-signout"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
 
         <div class="dashboard">
             <div class="dash-lefttop">

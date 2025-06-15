@@ -8,6 +8,45 @@ import java.util.logging.Logger;
 
 public class EventDAO extends DBContext { 
 
+        public List<Event> getAllEvent() {
+        List<Event> list = new ArrayList<>();
+        String sql = "SELECT event_id, event_name, event_description, event_date, location FROM Event ORDER BY event_date DESC";
+        
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            connection = new DBContext().getConnection(); 
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Event ev = new Event();
+                ev.setEventId(rs.getInt("event_id"));
+                ev.setEventName(rs.getString("event_name"));
+                ev.setEventDescription(rs.getString("event_description"));
+                ev.setEventDate(rs.getDate("event_date"));
+                ev.setLocation(rs.getString("location"));
+                list.add(ev);
+            }
+            Logger.getLogger(EventDAO.class.getName()).log(Level.INFO, "Retrieved {0} events from DB.", list.size());
+        } catch (SQLException e) { 
+            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "SQL Error when getting all events", e);
+        } catch (Exception e) { 
+            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "Error when getting all events", e);
+        } finally {
+           
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "Error closing resources in getAllEvents", ex);
+            }
+        }
+        return list;
+    }
+        
     // Lấy tất cả các sự kiện
     public List<Event> getAllEvents(String searchTitle, int page, int recordsPerPage) {
         List<Event> list = new ArrayList<>();
