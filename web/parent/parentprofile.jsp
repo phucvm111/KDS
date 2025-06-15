@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="${pageContext.request.contextPath}//assets/image/logo2-removebg-preview.png">
-        <title>ATKD ChildCare - Parent Profile</title>
+        <title>KDS - Parent Profile</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childregister.css">
@@ -37,6 +37,10 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
+                                </li>
+                                
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
@@ -140,7 +144,7 @@
                                     
                                 </div>-->
                                 <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 300px ">
-                                    <a href="/ATKD_Project/homepage/parent/parentupdateprofile.jsp">
+                                    <a href="${pageContext.request.contextPath}/homepage/parent/parentupdateprofile.jsp">
                                         <input type="submit" class="button" value="Update profile"/>
                                     </a>
                                 </div>    

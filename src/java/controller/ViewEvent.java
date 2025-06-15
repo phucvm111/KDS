@@ -59,10 +59,9 @@ public class ViewEvent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         EventDAO dao = new EventDAO();
-        List<Event> events = dao.getAllEvents();
+        List<Event> events = dao.getUpcomingEvents(2); 
         request.setAttribute("events", events); 
         request.getRequestDispatcher("index.jsp").forward(request, response);
-
     }
 
     /**

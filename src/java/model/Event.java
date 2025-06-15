@@ -14,11 +14,11 @@ import java.sql.Date;
 
 
 public class Event {
-     private int eventId; // Corresponds to event_id in the database
-    private String eventName; // Corresponds to event_name in the database
-    private String eventDescription; // Corresponds to event_description in the database
-    private Date eventDate; // Corresponds to event_date in the database
-    private String location; // Corresponds to location in the database
+     private int eventId; 
+    private String eventName; 
+    private String eventDescription; 
+    private Date eventDate; 
+    private String location; 
 
     public Event() {
     }

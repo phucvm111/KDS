@@ -7,10 +7,10 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/ATKD_Project/homepage/assets/image/logo2-removebg-preview.png">
-        <title>>ATKD ChildCare - Update Child Profile</title>
-        <link rel="stylesheet" href="/ATKD_Project/homepage/parent/css/parenthome.css">
-        <link rel="stylesheet" href="/ATKD_Project/homepage/parent/css/childprofile.css">
+        <link rel="icon" href="${pageContext.request.contextPath}/homepage/assets/image/logo2-removebg-preview.png">
+        <title>>KDS ChildCare - Update Child Profile</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/parent/css/parenthome.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/parent/css/childprofile.css">
 
     </head>
 
@@ -20,25 +20,32 @@
                 <div class="left-side-menu">
                     <div class="vertical-menu">
                         <div class="user-welcome">
-                            <img class="user-img" src="/ATKD_Project/homepage/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
+                            <img class="user-img" src="${pageContext.request.contextPath}/homepage/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
                             <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/homepage/childdetailservlet">Child Information</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/homepage/parent/parentprofile.jsp">Parent Information</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/homepage/parent/childregister.jsp">Child Register</a>
+                                </li>
+                                </li>
+                                <li class="menu-item  ">
+                                    <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
+                                </li>
                                 <li class="menu-item current1">
-                                    <a href="/ATKD_Project/homepage/childdetailservlet">Child Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="/ATKD_Project/homepage/parent/parentprofile.jsp">Parent Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="/ATKD_Project/homepage/parent/childregister.jsp">Child Register</a>
+                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
                                 </li>
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
                         <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('/ATKD_Project/homepage/logout')" value="Log out"/>
+                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/logout')" value="Log out"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +56,7 @@
                             <div class="kid-profile_header">
 
                                 <div class="img-section">
-                                    <img src="/ATKD_Project/homepage/parent/img/userImg/download.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/homepage/parent/img/userImg/download.png" alt="">
                                 </div>
                                 
                                 <div class="personel-section">
@@ -81,7 +88,7 @@
                                     <a href="childdetailcontrol?action=childprofile&mainchildid=${mainchild.getKinder_id()}">Profile</a>
                                 </div>
                             </div>
-                                <form action="/ATKD_Project/homepage/childupdateservlet"  method="POST">                 
+                                <form action="${pageContext.request.contextPath}/homepage/childupdateservlet"  method="POST">                 
                             <div class="kid-profile_content">
                                 <div class="class content-item wrap-input100 validate-input">
                                     <div class="item-title">
@@ -160,10 +167,10 @@
                             </div>
                         
                         <div class="mb-6">
-                            <input style="margin-left: 30%;margin-bottom: 20px" type="button" class="cancel_button"  onclick="window.location.replace('/ATKD_Project/homepage/parent/childprofile.jsp')" value="Cancel"/>
+                            <input style="margin-left: 30%;margin-bottom: 20px" type="button" class="cancel_button"  onclick="window.location.replace('${pageContext.request.contextPath}/homepage/parent/childprofile.jsp')" value="Cancel"/>
                             <input style="margin-left: 150px;margin-bottom: 20px" type="button" class="confirm_button" onclick="openPopup()" value="Confirm Update"/>
                             <div class="popup" id="popup">
-                                <img src="/ATKD_Project/homepage/parent/img/icon/tick.png">
+                                <img src="${pageContext.request.contextPath}/homepage/parent/img/icon/tick.png">
                                 <h2>Confirm Update ?</h2>
                                 <input type="button" class="cancel_button" onclick="closePopup()" value="Cancel">
                                 <input style="margin-left: 60px;" type="submit" class="confirm_button"  value="Confirm">

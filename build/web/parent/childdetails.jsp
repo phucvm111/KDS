@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
-        <title>ATKD ChildCare - Child Attendance</title>
+        <title>KDS - Child Attendance</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
         <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
