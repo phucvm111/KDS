@@ -270,8 +270,8 @@ public class AccountDAO extends DBContext {
             String sql = "UPDATE Account SET password = ? WHERE email = ?";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
-            ps.setString(1, pass); 
-            ps.setString(2, mail);  
+            ps.setString(1, pass);
+            ps.setString(2, mail);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -335,6 +335,49 @@ public class AccountDAO extends DBContext {
             return list;
         } catch (Exception e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+
+    public Account getTeacherById(int id) {
+        String sql = "SELECT * FROM Account WHERE account_id = ? AND role_id = 2";
+        RoleDAO rd = new RoleDAO();
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("fullname"),
+                        rs.getBoolean("gender"),
+                        rs.getString("email"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("bio"),
+                        rs.getString("avatar"),
+                        rs.getString("password"),
+                        rd.getRoleByID(rs.getInt("role_id"))
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -513,16 +556,16 @@ public class AccountDAO extends DBContext {
         }
 
     }
+
     public static void main(String[] args) {
-        AccountDAO d= new AccountDAO();
-        List<String> emails= d.getAllEmail();
-        for(String em:emails){
-            System.out.println(em);
-        }
+        AccountDAO d = new AccountDAO();
+        System.out.println(d.getTeacherById(2));
+//        List<String> emails = d.getAllEmail();
+//        for (String em : emails) {
+//            System.out.println(em);
+//        }
     }
 
- 
-      
 //        AccountDAO d = new AccountDAO();
 //            Account a = new Account();
 //            a.setFirstName("Alex");
@@ -556,5 +599,4 @@ public class AccountDAO extends DBContext {
 //        GoogleAccount a = new GoogleAccount(account, googleID)
 //        dao.addGoogleAccount(a);
 //        System.out.println(role);
-    }
-
+}
