@@ -265,21 +265,22 @@
         <servlet-class>controller.ViewEvent</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
+
         <servlet-name>DashboardServlet</servlet-name>
         <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TeacherProfileServlet</servlet-name>
         <servlet-class>controller.teacher.TeacherProfileServlet</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewEventDetailsServlet</servlet-name>
         <servlet-class>controller.admin.event.ViewEventDetailsServlet</servlet-class>
->>>>>>> 27a86ff064dc4ee8c59d2ae44810ad033f2ed8d8
+
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -570,21 +571,22 @@
         <url-pattern>/events</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
+
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TeacherProfileServlet</servlet-name>
         <url-pattern>/teacherprofile</url-pattern>
-=======
+    </servlet-mapping>   
+    <servlet-mapping>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewEventDetailsServlet</servlet-name>
         <url-pattern>/vieweventdetails</url-pattern>
->>>>>>> 27a86ff064dc4ee8c59d2ae44810ad033f2ed8d8
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

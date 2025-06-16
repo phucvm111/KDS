@@ -72,7 +72,8 @@ public class DashboardServlet extends HttpServlet {
         List<Account> teacher = account.getAllTeacherInfor();
         List<Class> cl = cls.getAllClass();
         List<Kindergartner> kindergartners = kinder.getAllStudent();
-        List<Event> events = event.getAllEvents();
+        List<Event> events = event.getAllEvents(LEGACY_DO_HEAD, 0, 0);
+        
         
         int accountNum = acc.size();
         int parentNum = parent.size();
