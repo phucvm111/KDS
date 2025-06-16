@@ -88,6 +88,13 @@
                         <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
                         <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
                         <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
+                        <li>
+                            <a href="day_class">
+                                <i class="uil uil-utensils-alt"></i>
+                                <span class="link-name">Nutrition</span>
+                            </a>
+                        </li>
+
                     </ul>
                     <ul class="logout-mode">
                         <li><a href="logout"><i class="uil uil-signout"></i>Logout</a></li>
