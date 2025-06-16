@@ -73,7 +73,7 @@ public class ListEventServlet extends HttpServlet {
         int noOfPages = 1;
 
         try {
-            events = dao.getAllEvents(searchName, currentPage, RECORDS_PER_PAGE);
+            events = dao.getEventsPaged(searchName, currentPage, RECORDS_PER_PAGE);
             logger.info("Retrieved " + events.size() + " events for searchName '" + searchName + "' on page " + currentPage);
 
             noOfRecords = dao.getNoOfRecords(searchName); // lay tổng so bản ghi cho phân trang

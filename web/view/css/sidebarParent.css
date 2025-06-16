@@ -1,0 +1,105 @@
+/* sidebarParent.css */
+
+/* CSS Variables for primary and light colors (if not defined globally elsewhere) */
+/* If you have a main style.css that already defines these, you can remove them here */
+:root {
+    --primary-color: #6a5af9; /* Màu tím chính */
+    --primary-light: #f0efff;
+    --white-color: #fff;
+    --border-color: #e0e0e0;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    --text-color: #333; /* Make sure this is consistent if used in sidebar */
+}
+
+/* Styles for the left-side-menu (sidebar) */
+.left-side-menu {
+    width: 260px;
+    background-color: var(--white-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--box-shadow);
+    z-index: 10;
+    height: 100vh; /* Đảm bảo sidebar chiếm toàn bộ chiều cao */
+}
+
+.user-welcome {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-welcome .user-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.user-welcome p {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.menu-item-container {
+    flex-grow: 1; /* Cho phép menu items chiếm không gian còn lại */
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    color: var(--text-color); /* Ensure text color is defined or inherited */
+}
+
+.menu-item a i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-item a:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+/* Lớp .current được áp dụng cho mục menu đang active */
+.menu-item.current a {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-weight: 600;
+}
+
+.logout-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.log-out_button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ff4d4f; /* Màu đỏ cho nút logout */
+    color: var(--white-color);
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.log-out_button:hover {
+    background-color: #d63436; /* Màu đỏ đậm hơn khi hover */
+}
