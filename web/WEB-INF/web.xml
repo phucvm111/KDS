@@ -36,6 +36,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>ViewEvent</servlet-name>
+        <servlet-class>controller.ViewEvent</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AttendanceServlet</servlet-name>
         <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
@@ -280,6 +284,10 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <url-pattern>/loadteacherhome</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewEvent</servlet-name>
+        <url-pattern>/events</url-pattern>
+    </servlet-mapping> 
     <!--    <servlet-mapping>
         <servlet-name>KidProfile</servlet-name>
         <url-pattern>/kidprofile</url-pattern>
@@ -312,7 +320,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>

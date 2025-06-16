@@ -97,7 +97,7 @@
 
                     </ul>
                     <ul class="logout-mode">
-                        <li><a href="logout"><i class="uil uil-signout"></i>Logout</a></li>
+                        <li><a href="login"><i class="uil uil-signout"></i>Logout</a></li>
                     </ul>
                 </div>
             </nav>
