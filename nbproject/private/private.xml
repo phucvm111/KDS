@@ -6,8 +6,12 @@
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/RegisterServlet.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/dal/KindergartnerDAO.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/dal/ParentMeetingDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/admin/dashboard/DashboardServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/admin/dashboard/adminDashboard.jsp</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/dal/AccountDAO.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/get_otp_register_Servlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/src/java/controller/Enter_Otp_RegisterServlet.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS/web/Get_otp_register.jsp</file>
         </group>

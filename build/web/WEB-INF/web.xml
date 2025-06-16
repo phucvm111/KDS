@@ -9,6 +9,10 @@
         <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
@@ -31,6 +35,10 @@
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>ViewEvent</servlet-name>
+        <servlet-class>controller.ViewEvent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AttendanceServlet</servlet-name>
@@ -88,10 +96,10 @@
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <servlet-class>controller.GoogleRegisterServlet</servlet-class>
     </servlet>
-    <servlet>
+    <!--    <servlet>
         <servlet-name>ListAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
-    </servlet>
+    </servlet>-->
     <!--    <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.AddAccountServlet</servlet-class>
@@ -237,50 +245,36 @@
         <servlet-class>controller.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddEventServlet</servlet-name>
-        <servlet-class>controller.admin.event.AddEventServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListEventServlet</servlet-name>
-        <servlet-class>controller.admin.event.ListEventServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateEventServlet</servlet-name>
-        <servlet-class>controller.admin.event.UpdateEventServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MeetingListServlet</servlet-name>
-        <servlet-class>controller.parent.MeetingListServlet</servlet-class>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <servlet-class>controller.get_otp_register_Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
         <servlet-class>controller.Enter_Otp_RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>get_otp_register_Servlet</servlet-name>
-        <servlet-class>controller.get_otp_register_Servlet</servlet-class>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <servlet-class>controller.Information.Informations_ervlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewEvent</servlet-name>
-        <servlet-class>controller.ViewEvent</servlet-class>
+        <servlet-name>day_class_Servlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.day_class_Servlet</servlet-class>
     </servlet>
     <servlet>
-
-        <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
+        <servlet-name>InsertMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.InsertMenuServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TeacherProfileServlet</servlet-name>
-        <servlet-class>controller.teacher.TeacherProfileServlet</servlet-class>
+        <servlet-name>deleteMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.deleteMenuServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewMeetingsServlet</servlet-name>
-        <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
+        <servlet-name>editMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.editMenu</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewEventDetailsServlet</servlet-name>
-        <servlet-class>controller.admin.event.ViewEventDetailsServlet</servlet-class>
-
+        <servlet-name>updateMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.updateMenuServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -290,6 +284,10 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <url-pattern>/loadteacherhome</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewEvent</servlet-name>
+        <url-pattern>/events</url-pattern>
+    </servlet-mapping> 
     <!--    <servlet-mapping>
         <servlet-name>KidProfile</servlet-name>
         <url-pattern>/kidprofile</url-pattern>
@@ -322,6 +320,11 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
     <!--    <servlet-mapping>
         <servlet-name>DeleteScheduleServlet</servlet-name>
         <url-pattern>/DeleteScheduleServlet</url-pattern>
@@ -543,50 +546,36 @@
         <url-pattern>/resetpassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddEventServlet</servlet-name>
-        <url-pattern>/addevent</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListEventServlet</servlet-name>
-        <url-pattern>/event</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateEventServlet</servlet-name>
-        <url-pattern>/updateevent</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MeetingListServlet</servlet-name>
-        <url-pattern>/meetings</url-pattern>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <url-pattern>/get_otp_register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
         <url-pattern>/enter_otp_register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>get_otp_register_Servlet</servlet-name>
-        <url-pattern>/get_otp_register</url-pattern>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <url-pattern>/information</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewEvent</servlet-name>
-        <url-pattern>/events</url-pattern>
+        <servlet-name>day_class_Servlet</servlet-name>
+        <url-pattern>/day_class</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
-        <servlet-name>DashboardServlet</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
+        <servlet-name>InsertMenuServlet</servlet-name>
+        <url-pattern>/insert_menu</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TeacherProfileServlet</servlet-name>
-        <url-pattern>/teacherprofile</url-pattern>
-    </servlet-mapping>   
-    <servlet-mapping>
-        <servlet-name>ViewMeetingsServlet</servlet-name>
-        <url-pattern>/viewmeetings</url-pattern>
+        <servlet-name>deleteMenuServlet</servlet-name>
+        <url-pattern>/deleteMenu</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewEventDetailsServlet</servlet-name>
-        <url-pattern>/vieweventdetails</url-pattern>
-
+        <servlet-name>editMenuServlet</servlet-name>
+        <url-pattern>/editmenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateMenuServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

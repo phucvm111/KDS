@@ -3,29 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.admin.dashboard;
+package controller.mnage_nutrition;
 
-import dal.AccountDAO;
 import dal.ClassDAO;
-import dal.EventDAO;
-import dal.KindergartnerDAO;
-import model.Account;
-import model.Event;
-import model.Class;
-import model.Kindergartner;
+import dal.MenuDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import model.Menu;
 
 /**
  *
- * @author Vu Tuan Hai <HE176383>
+ * @author ACE
  */
-public class DashboardServlet extends HttpServlet {
+public class updateMenuServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,10 +36,10 @@ public class DashboardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DashboardServlet</title>");  
+            out.println("<title>Servlet updateMenuServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DashboardServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet updateMenuServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,38 +56,7 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AccountDAO account = new AccountDAO();
-        ClassDAO cls = new ClassDAO ();
-        KindergartnerDAO kinder = new KindergartnerDAO();
-        EventDAO event = new EventDAO();
-        
-        List<Account> acc = account.getAllAccounts();
-        List<Account> parent = account.getAllParentInfor();
-        List<Account> teacher = account.getAllTeacherInfor();
-        List<Class> cl = cls.getAllClass();
-        List<Kindergartner> kindergartners = kinder.getAllStudent();
-
-        List<Event> events = event.getAllEvents(null, 1, 2);
-        
-
-      
-
-        
-        int accountNum = acc.size();
-        int parentNum = parent.size();
-        int teacherNum = teacher.size();
-        int classNum = cl.size();
-        int kindergartnerNum = kindergartners.size();
-        int eventNum = events.size();
-        
-        request.setAttribute("accountNum", accountNum);
-        request.setAttribute("parentNum", parentNum);
-        request.setAttribute("teacherNum", teacherNum);
-        request.setAttribute("classNum", classNum);
-        request.setAttribute("kindergartnerNum", kindergartnerNum);
-        request.setAttribute("eventNum", eventNum);
-        
-        request.getRequestDispatcher("admin/dashboard/adminDashboard.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -104,11 +67,36 @@ public class DashboardServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        
+            int menuId = Integer.parseInt(request.getParameter("menuId"));
+            int classId = Integer.parseInt(request.getParameter("classId"));
+            String menudate = request.getParameter("menudate");
+            String mealType = request.getParameter("mealType");
+            String dish = request.getParameter("dish");
+            float calories = Float.parseFloat(request.getParameter("calories"));
+            String notes = request.getParameter("notes");
+
+            Menu m = new Menu();
+            m.setMenu_id(menuId);
+            m.setMenudate(menudate);
+            m.setMenutype(mealType);
+            m.setDish(dish);
+            m.setCalories(calories);
+            m.setNotes(notes != null ? notes : "");
+            m.setCalssid(new ClassDAO().getClassByID(classId));
+
+            MenuDao.updateMenu(m);
+
+           
+            request.setAttribute("selectedDate", menudate);
+            request.setAttribute("selectedClassId", classId);
+            request.getRequestDispatcher("day_class").forward(request, response);
+
+        }
+    
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description
