@@ -31,6 +31,6 @@
         </ul>
     </div>
     <div class="logout-container">
-        <input type="button" class="log-out_button" onclick="window.location.href='${pageContext.request.contextPath}/logout'" value="Log Out"/>
+        <input type="button" class="log-out_button" onclick="window.location.href='${pageContext.request.contextPath}/login'" value="Log Out"/>
     </div>
 </div>
