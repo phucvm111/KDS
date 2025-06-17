@@ -380,7 +380,7 @@
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <url-pattern>/googleregister</url-pattern>
     </servlet-mapping>
-    <!--    <servlet-mapping>
+    <!--   <servlet-mapping>
         <servlet-name>ListAccountServlet</servlet-name>
         <url-pattern>/listaccount</url-pattern>
     </servlet-mapping>-->

@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/management_nutrition/menu.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/mnage_nutrition/InsertMenuServlet.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/mnage_nutrition/day_class_Servlet.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/LogoutServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/LoginServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/index.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/login.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/DBContext.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

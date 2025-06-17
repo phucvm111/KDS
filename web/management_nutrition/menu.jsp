@@ -50,7 +50,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Dish name" name="dish" required="">
+                    <input type="text" class="form-control" placeholder="Dish name" name="dish" >
                 </div>
                 <div class="col-md-2">
                     <input type="number" class="form-control" placeholder="Calories" name="calories" step="any"required="">
@@ -96,7 +96,7 @@
                                 <!-- Form Edit (redirect) -->
                                 <form action="editmenu" method="get" style="display:inline;">
                                     <input type="hidden" name="menuId" value="${menu.menu_id}" />
-                                    <!--<button type="submit" class="btn btn-warning btn-sm">Edit</button>-->
+                                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
                                 </form>
                             </td>
 
