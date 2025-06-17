@@ -20,17 +20,17 @@
             body {
                 margin: 0;
                 font-family: 'Patrick Hand', cursive;
-                padding-top: 70px; /* Đảm bảo nội dung không bị header cố định che */
+                padding-top: 70px; 
                 box-sizing: border-box;
             }
 
-            /* --- CSS CHO HEADER CHÍNH --- */
+        
             .main-header {
                 width: 100%;
-                display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử */
-                justify-content: space-between; /* Đẩy logo sang trái, menu ra giữa, avatar sang phải */
+                display: flex;
+                justify-content: space-between;
                 align-items: center;
-                Căn giữa theo chiều dọc
+            
                 padding: 10px 20px;
                 background-color: white; /* Đảm bảo có màu nền */
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

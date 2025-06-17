@@ -236,6 +236,38 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>controller.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <servlet-class>controller.get_otp_register_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
+        <servlet-class>controller.Enter_Otp_RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <servlet-class>controller.Information.Informations_ervlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>day_class_Servlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.day_class_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.InsertMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.deleteMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.editMenu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateMenuServlet</servlet-name>
+        <servlet-class>controller.mnage_nutrition.updateMenuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -495,6 +527,38 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <url-pattern>/get_otp_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
+        <url-pattern>/enter_otp_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <url-pattern>/information</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>day_class_Servlet</servlet-name>
+        <url-pattern>/day_class</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertMenuServlet</servlet-name>
+        <url-pattern>/insert_menu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteMenuServlet</servlet-name>
+        <url-pattern>/deleteMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editMenuServlet</servlet-name>
+        <url-pattern>/editmenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateMenuServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
