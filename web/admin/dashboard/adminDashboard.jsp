@@ -6,6 +6,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!DOCTYPE html>
 <link rel="icon" href="./assets/image/logo2-removebg-preview.png">
 <link rel="stylesheet" href="admin/account/css/style.css">
@@ -30,7 +32,7 @@
                 flex: 1 1 200px;
                 padding: 20px;
                 border-radius: 12px;
-                color: white;
+                color: black;
                 font-weight: bold;
                 display: flex;
                 flex-direction: column;
@@ -63,6 +65,7 @@
             }
             .label {
                 margin-top: 10px;
+                color: black;
             }
 
         </style>
@@ -86,8 +89,8 @@
                         <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
                         <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
                         <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
+                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
+                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
                         <li>
                             <a href="day_class">
                                 <i class="uil uil-utensils-alt"></i>
@@ -103,38 +106,133 @@
             </nav>
             <h2>Dashboard</h2>
             <div class="dashboard">
-                <div class="card card1">
+                <div class="card ">
                     <div class="count">${accountNum}</div>
                     <div class="label">Account</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i> </a>
                 </div>
-                <div class="card card2">
+                <div class="card ">
                     <div class="count">${parentNum}</div>
                     <div class="label">Parent</div>
                     <a href="listaccount"> View all<i class="uil uil-arrow-right"></i> </a>
                 </div>
-                <div class="card card2">
+                <div class="card ">
                     <div class="count">${teacherNum}</div>
                     <div class="label">Teacher</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card3">
+                <div class="card ">
                     <div class="count">${classNum}</div>
                     <div class="label">Class</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card4">
+                <div class="card ">
                     <div class="count">${kindergartnerNum}</div>
                     <div class="label">Kindergartner</div>
                     <a href="listkinder"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card5">
+                <div class="card ">
                     <div class="count">${eventNum}</div>
                     <div class="label">Event</div>
                     <a href="event"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
+                <h2>Chart of number of accounts</h2>
+                <div class="container">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <h2>List of Classes</h2>
+                <c:choose>
+                    <c:when test="${not empty classList}">
+                        <div class="dashboard">
+                            <c:forEach var="c" items="${classList}">
+                                <div class="card ">
+                                    <div class="count">${c.class_name}</div>
+                                    <div class="label">Grade: ${c.grade}</div>
+                                    <div class="label">Description: ${c.class_description}</div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <p>No classes found.</p>
+                    </c:otherwise>
+                </c:choose>
+
+                <h2>List of Events</h2>
+                <c:choose>
+                    <c:when test="${not empty event}">
+                        <div class="dashboard">
+                            <c:forEach var="e" items="${event}">
+                                <div class="card ">
+                                    <div class="count">${e.eventName}</div>
+                                    <div class="label">Date: ${e.eventDate}</div>
+                                    <div class="label">Description: ${e.eventDescription}</div>
+                                    <div class="label">Location: ${e.location}</div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <p>No events found.</p>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </form>
+        <script>
+            let myChart = document.getElementById('myChart').getContext('2d');
+            // Global Options
+            Chart.defaults.global.defaultFontFamily = 'Lato';
+            Chart.defaults.global.defaultFontSize = 18;
+            Chart.defaults.global.defaultFontColor = '#777';
+
+            let massPopChart = new Chart(myChart, {
+                type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                data: {
+                    labels: ['Teacher', 'Parent'],
+                    datasets: [{
+                            label: 'Population',
+                            data: [
+            ${teacherNum},
+            ${parentNum}
+                            ],
+                            //backgroundColor:'green',
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.6)'
+                            ],
+                            borderWidth: 1,
+                            borderColor: '#777',
+                            hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                        }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Chart of number of accounts',
+                        fontSize: 25
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            fontColor: '#000'
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            left: 50,
+                            right: 0,
+                            bottom: 0,
+                            top: 0
+                        }
+                    },
+                    tooltips: {
+                        enabled: true
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
 

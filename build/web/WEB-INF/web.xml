@@ -217,6 +217,10 @@
         <servlet-class>controller.parent.ParentUpdateServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewMeetingsServlet</servlet-name>
+        <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CalServlet</servlet-name>
         <servlet-class>controller.CalServlet</servlet-class>
     </servlet>
@@ -568,6 +572,10 @@
     <servlet-mapping>
         <servlet-name>deleteMenuServlet</servlet-name>
         <url-pattern>/deleteMenu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMeetingsServlet</servlet-name>
+        <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editMenuServlet</servlet-name>
