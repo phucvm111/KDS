@@ -32,7 +32,7 @@
                 flex: 1 1 200px;
                 padding: 20px;
                 border-radius: 12px;
-                color: white;
+                color: black;
                 font-weight: bold;
                 display: flex;
                 flex-direction: column;
@@ -40,6 +40,7 @@
                 justify-content: center;
                 box-shadow: 0 2px 6px rgba(0,0,0,0.1);
                 height: 150px;
+               
             }
             .icon {
                 font-size: 36px;
@@ -65,6 +66,7 @@
             }
             .label {
                 margin-top: 10px;
+                color: black;
             }
 
         </style>
@@ -98,32 +100,32 @@
             </nav>
             <h2>Dashboard</h2>
             <div class="dashboard">
-                <div class="card card1">
+                <div class="card ">
                     <div class="count">${accountNum}</div>
                     <div class="label">Account</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i> </a>
                 </div>
-                <div class="card card5">
+                <div class="card ">
                     <div class="count">${parentNum}</div>
                     <div class="label">Parent</div>
                     <a href="listaccount"> View all<i class="uil uil-arrow-right"></i> </a>
                 </div>
-                <div class="card card2">
+                <div class="card ">
                     <div class="count">${teacherNum}</div>
                     <div class="label">Teacher</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card3">
+                <div class="card ">
                     <div class="count">${classNum}</div>
                     <div class="label">Class</div>
                     <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card4">
+                <div class="card ">
                     <div class="count">${kindergartnerNum}</div>
                     <div class="label">Kindergartner</div>
                     <a href="listkinder"> View all <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <div class="card card5">
+                <div class="card ">
                     <div class="count">${eventNum}</div>
                     <div class="label">Event</div>
                     <a href="event"> View all <i class="uil uil-arrow-right"></i></a>
@@ -137,7 +139,7 @@
                     <c:when test="${not empty classList}">
                         <div class="dashboard">
                             <c:forEach var="c" items="${classList}">
-                                <div class="card card1">
+                                <div class="card ">
                                     <div class="count">${c.class_name}</div>
                                     <div class="label">Grade: ${c.grade}</div>
                                     <div class="label">Description: ${c.class_description}</div>
@@ -155,7 +157,7 @@
                     <c:when test="${not empty event}">
                         <div class="dashboard">
                             <c:forEach var="e" items="${event}">
-                                <div class="card card2">
+                                <div class="card ">
                                     <div class="count">${e.eventName}</div>
                                     <div class="label">Date: ${e.eventDate}</div>
                                     <div class="label">Description: ${e.eventDescription}</div>
