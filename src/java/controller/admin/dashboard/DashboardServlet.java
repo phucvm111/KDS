@@ -87,8 +87,10 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("parentNum", parentNum);
         request.setAttribute("teacherNum", teacherNum);
         request.setAttribute("classNum", classNum);
+        request.setAttribute("classList", cl);
         request.setAttribute("kindergartnerNum", kindergartnerNum);
         request.setAttribute("eventNum", eventNum);
+        request.setAttribute("event", events);
 
         request.getRequestDispatcher("admin/dashboard/adminDashboard.jsp").forward(request, response);
     }

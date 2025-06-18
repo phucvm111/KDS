@@ -272,7 +272,8 @@
     <servlet>
         <servlet-name>TeacherProfileServlet</servlet-name>
         <servlet-class>controller.teacher.TeacherProfileServlet</servlet-class>
-
+</servlet>
+<servlet>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
     </servlet>
@@ -577,7 +578,8 @@
     <servlet-mapping>
         <servlet-name>TeacherProfileServlet</servlet-name>
         <url-pattern>/teacherprofile</url-pattern>
-
+</servlet-mapping>
+<servlet-mapping>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>

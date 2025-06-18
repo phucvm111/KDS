@@ -65,14 +65,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         return;
     }
 
-    Account sessionAccount = (Account) session.getAttribute("account");
+    Account sessionAccount = (Account) session.getAttribute("kinder_class");
 
     AccountDAO dao = new AccountDAO();
     Account teacher = dao.getTeacherById(sessionAccount.getAccountID());
 
     if (teacher != null) {
-        session.setAttribute("account", teacher); // Cập nhật session
-        request.setAttribute("account", teacher); // Truyền đến JSP
+        session.setAttribute("kinder_class", teacher); // Cập nhật session
+        request.setAttribute("kinder_class", teacher); // Truyền đến JSP
         request.getRequestDispatcher("teacher/teacherprofile.jsp").forward(request, response);
     } else {
         request.setAttribute("error", "Teacher not found");
