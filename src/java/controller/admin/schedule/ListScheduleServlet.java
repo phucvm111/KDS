@@ -22,6 +22,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import model.Account;
 import model.Activity;
 import model.Class;
 import model.ScheduleDetails;
@@ -45,7 +46,7 @@ public class ListScheduleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -92,7 +93,7 @@ public class ListScheduleServlet extends HttpServlet {
         request.setAttribute("cid_raw", classid);
         session.setAttribute("cid", classid);
 
-        LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2022);
+        LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2025);
         request.setAttribute("weeks", allWeeks);
 
         ClassDAO cd = new ClassDAO();
@@ -102,10 +103,9 @@ public class ListScheduleServlet extends HttpServlet {
         ActivityDAO ad = new ActivityDAO();
         List<Activity> listActivity = ad.getAllActivity();
         request.setAttribute("activity", listActivity);
-        
-        
-        SlotDAO slotdao=new SlotDAO();
-        List<Slot> slots=slotdao.getAllSlots();
+
+        SlotDAO slotdao = new SlotDAO();
+        List<Slot> slots = slotdao.getAllSlots();
         request.setAttribute("slots", slots);
 
         String date = request.getParameter("recentMonday");
@@ -199,10 +199,16 @@ public class ListScheduleServlet extends HttpServlet {
             List<Activity> listActivity = ad.getAllActivity();
             request.setAttribute("activity", listActivity);
 
+           
+
+            SlotDAO slotdao = new SlotDAO();
+            List<Slot> slots = slotdao.getAllSlots();
+            request.setAttribute("slots", slots);
+
             ScheduleDetails sde = sd.getScheduleDetailsByClassDate(classID, date);
             request.setAttribute("scheduleDetails", sde);
 
-            LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2022);
+            LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2025);
             request.setAttribute("weeks", allWeeks);
 
             ClassDAO cd = new ClassDAO();

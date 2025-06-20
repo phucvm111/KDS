@@ -26,59 +26,61 @@
     </head>
 
     <body>
-        <nav>
-            <div class="logo-name">
-                <div class="logo-image">
-                    <!--<img src="images/logo.png" alt="">-->
+        <c:if test="${sessionScope.userid == 1}">
+            <nav>
+                <div class="logo-name">
+                    <div class="logo-image">
+                        <!--<img src="images/logo.png" alt="">-->
+                    </div>
+
+                    <span class="logo_name">Admin Page</span>
                 </div>
 
-                <span class="logo_name">Admin Page</span>
-            </div>
+                <div class="menu-items">
+                    <ul class="nav-links">
+                        <li><a href="listaccount">
+                                <i class="uil uil-estate"></i>
+                                <span class="link-name">Account</span>
+                            </a></li>
 
-            <div class="menu-items">
-                <ul class="nav-links">
-                    <li><a href="listaccount">
-                            <i class="uil uil-estate"></i>
-                            <span class="link-name">Account</span>
-                        </a></li>
+                        <li><a href="listkinder">
+                                <i class="uil uil-chart"></i>
+                                <span class="link-name">Kindergartner</span>
+                            </a></li>
+                        <li><a href="listclass">
+                                <i class="uil uil-thumbs-up"></i>
+                                <span class="link-name">Class</span>
+                            </a></li>
+                        <li><a href="listschedule">
+                                <i class="uil uil-comments"></i>
+                                <span class="link-name">Schedule</span>
+                            </a></li>
+                        <li><a href="changepassword">
+                                <i class="uil uil-lock-alt"></i>
+                                <span class="link-name">Change Password</span>
+                            </a></li>
+                        <li><a href="/kinder2852025/day_class">
+                                <i class="uil uil-user-square"></i>
+                                <span class="link-name">Nutrition</span>
+                            </a></li>
 
-                    <li><a href="listkinder">
-                            <i class="uil uil-chart"></i>
-                            <span class="link-name">Kindergartner</span>
-                        </a></li>
-                    <li><a href="listclass">
-                            <i class="uil uil-thumbs-up"></i>
-                            <span class="link-name">Class</span>
-                        </a></li>
-                    <li><a href="listschedule">
-                            <i class="uil uil-comments"></i>
-                            <span class="link-name">Schedule</span>
-                        </a></li>
-                    <li><a href="changepassword">
-                            <i class="uil uil-lock-alt"></i>
-                            <span class="link-name">Change Password</span>
-                        </a></li>
-                    <li><a href="/kinder2852025/day_class">
-                            <i class="uil uil-user-square"></i>
-                            <span class="link-name">Nutrition</span>
-                        </a></li>
+                        <!--                    <li><a href="#">
+                                                    <i class="uil uil-share"></i>
+                                                    <span class="link-name">Attendance</span>
+                                                </a></li>-->
+                    </ul>
 
-                    <!--                    <li><a href="#">
-                                                <i class="uil uil-share"></i>
-                                                <span class="link-name">Attendance</span>
-                                            </a></li>-->
-                </ul>
-
-                <ul class="logout-mode">
-                    <li>
-                        <a href="logout">
-                            <i class="uil uil-signout"></i>
-                            <span class="link-name">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                    <ul class="logout-mode">
+                        <li>
+                            <a href="logout">
+                                <i class="uil uil-signout"></i>
+                                <span class="link-name">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </c:if>
 
         <div class="dashboard">
             <div class="dash-lefttop">
@@ -172,59 +174,70 @@
                                             ${map.value[loop.index].activity.act_name}
                                             <!--${map.value[loop.index].schedule_id}-->
                                         </div>
+                                        <c:if test="${sessionScope.userid == 1}">
+                                            <div id="${schedule_update_index}" style="display: none">
 
-                                        <div id="${schedule_update_index}" style="display: none">
+                                                <form action="updateschedule" method="post">
+                                                    <!--<h1>${map.value[loop.index].schedule_id}</h1>-->
+                                                    <input name="schedule_id" value="${map.value[loop.index].schedule_id}" type="hidden"/>
+                                                    <input name="schedule-update-index" value="${schedule_update_index}" type="hidden"/>
+                                                    <input name="date_picked_converted" value="${date_picked_converted}" type="hidden"/>
+                                                    <input name="cid_raw" value="${cid_raw}" type="hidden"/>
+                                                    <!--<input name="cid_raw" value="${cid_raw}" type="hidden"/>-->
+                                                    <input name="slot_chosen" value="${loop.index + 1}" type="hidden"/>
 
-                                            <form action="updateschedule" method="post">
-                                                <!--<h1>${map.value[loop.index].schedule_id}</h1>-->
-                                                <input name="schedule_id" value="${map.value[loop.index].schedule_id}" type="hidden"/>
-                                                <input name="schedule-update-index" value="${schedule_update_index}" type="hidden"/>
-                                                <input name="date_picked_converted" value="${date_picked_converted}" type="hidden"/>
-                                                <input name="cid_raw" value="${cid_raw}" type="hidden"/>
-                                                <!--<input name="cid_raw" value="${cid_raw}" type="hidden"/>-->
-                                                <input name="slot_chosen" value="${loop.index + 1}" type="hidden"/>
-                                                <select name="select_activity" style="max-width: 100%; margin-bottom: 4px;">
-                                                    <c:forEach items="${requestScope.activity}" var="act">
-                                                        <option value="${act.activity_id}"
-                                                                <c:if test="${map.value[loop.index].activity.activity_id eq act.activity_id}">selected</c:if>>
-                                                            ${act.act_name}</option>
-                                                        </c:forEach>
-                                                </select>
-                                                <!--<div>-->
-                                                <a class="update_confirm" >
-                                                    <button type="submit">
-                                                        Update <i class="fa-solid fa-pen"></i> 
-                                                    </button>
-                                                </a>
+                                                    <select name="select_activity" style="max-width: 100%; margin-bottom: 4px;">
+                                                        <c:forEach items="${requestScope.activity}" var="act">
+                                                            <option value="${act.activity_id}"
+                                                                    <c:if test="${map.value[loop.index].activity.activity_id eq act.activity_id}">selected</c:if>>
+                                                                ${act.act_name}</option>
+                                                            </c:forEach>
+                                                    </select>
 
-                                                <a class="update_cancel" 
-                                                   onclick="cancelUpdate('${schedule_update_index}', '${schedule_update_old}')">
-                                                    Cancel <i class="fa-solid fa-ban"></i> 
-                                                </a>
-                                                <!--</div>-->
-                                            </form>
-                                        </div>
 
-                                        <div class="dropdown" style="flex-grow: 1;">
-                                            <button 
-                                                class="btn-sm btn-option btn-secondary dropdown-toggle" type="button" 
-                                                id="dropdownMenuButton" 
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#" 
-                                                   onclick="doDelete('${map.value[loop.index].schedule_id}')">
-                                                    <i class="fa-delete fa-solid fa-trash fa-fw fa-align-center"></i> Delete</a>
-                                                <a class="dropdown-item" href="#" 
-                                                   onclick="doUpdate('${schedule_update_index}', '${schedule_update_old}')">
-                                                    <i class="fa fa-edit"></i> Update</a>
+                                                    <!--<div>-->
+
+                                                    <a class="update_confirm" >
+                                                        <button type="submit">
+                                                            Update <i class="fa-solid fa-pen"></i> 
+                                                        </button>
+                                                    </a>
+
+
+
+                                                    <a class="update_cancel" 
+                                                       onclick="cancelUpdate('${schedule_update_index}', '${schedule_update_old}')">
+                                                        Cancel <i class="fa-solid fa-ban"></i> 
+                                                    </a>
+
+                                                    <!--</div>-->
+                                                </form>
+
+                                            </div>
+
+                                            <div class="dropdown" style="flex-grow: 1;">
+                                                <button 
+                                                    class="btn-sm btn-option btn-secondary dropdown-toggle" type="button" 
+                                                    id="dropdownMenuButton" 
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#" 
+                                                       onclick="doDelete('${map.value[loop.index].schedule_id}')">
+                                                        <i class="fa-delete fa-solid fa-trash fa-fw fa-align-center"></i> Delete</a>
+                                                    <a class="dropdown-item" href="#" 
+                                                       onclick="doUpdate('${schedule_update_index}', '${schedule_update_old}')">
+                                                        <i class="fa fa-edit"></i> Update</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </c:if>
                             </c:if>  
 
                             <!--if slot null-->
+
                             <c:if test="${map.value[loop.index] == null}">
                                 <td style="text-align: center;vertical-align: middle;" class="empty-cell"> 
                                     <form action="addschedule" method="post">
@@ -233,18 +246,19 @@
                                         <input name="date_picked_converted" value="${date_picked_converted}" type="hidden"/>
                                         <input name="cid_raw" value="${cid_raw}" type="hidden"/>
                                         <input name="slot_chosen" value="${loop.index + 1}" type="hidden"/>
+                                        <c:if test="${sessionScope.userid == 1}">
+                                            <div class="add-button">
+                                                <select name="select_activity" style="max-width: 100px">
+                                                    <c:forEach items="${requestScope.activity}" var="act">
+                                                        <option value="${act.activity_id}">${act.act_name}</option>
+                                                    </c:forEach>
+                                                </select>
 
-                                        <div class="add-button">
-                                            <select name="select_activity" style="max-width: 100px">
-                                                <c:forEach items="${requestScope.activity}" var="act">
-                                                    <option value="${act.activity_id}">${act.act_name}</option>
-                                                </c:forEach>
-                                            </select>
-
-                                            <button  type="submit">
-                                                <i class="fa-solid fa-2x fa-circle-plus fa-fw" style="color: #12ef73"></i>
-                                            </button>
-                                        </div>
+                                                <button  type="submit">
+                                                    <i class="fa-solid fa-2x fa-circle-plus fa-fw" style="color: #12ef73"></i>
+                                                </button>
+                                            </div>
+                                        </c:if>
                                     </form>
                                 </td>
                             </c:if> 

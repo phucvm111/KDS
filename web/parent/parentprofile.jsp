@@ -40,6 +40,9 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
+                                </li>
                                 
                             </ul>
                         </div>
