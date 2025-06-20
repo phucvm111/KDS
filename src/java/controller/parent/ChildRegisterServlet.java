@@ -105,8 +105,8 @@ public class ChildRegisterServlet extends HttpServlet {
         KindergartnerDAO d = new KindergartnerDAO();
         StudyRecordDAO srdao = new StudyRecordDAO();
         ClassDAO cdao = new ClassDAO();
-        Kindergartner newchild = new Kindergartner(0,acc, childfirstname, childlastname, DOB, childgd, childimg);
-        d.insertKinder(newchild);
+       Kindergartner k = new Kindergartner(kinder_classid, acc, childfirstname, childlastname, DOB, childgd, DOB, gender, gender);
+        d.insertKinder(k);
         List<Kindergartner> kidlist = d.getAllStudent();
         Kindergartner newaddedchild = kidlist.get(kidlist.size()-1); 
         srdao.addStudyRecord(new StudyRecord(0,cdao.getClassByID(kinder_classid), newaddedchild,year));

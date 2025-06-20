@@ -13,11 +13,13 @@ public class Kindergartner {
     private String dob;
     private boolean gender;
     private String img;
+    private String address ;
+    private String parentPhone ;
 
     public Kindergartner() {
     }
 
-    public Kindergartner(int kinder_id, Account parentAccount, String first_name, String last_name, String dob, boolean gender, String img) {
+    public Kindergartner(int kinder_id, Account parentAccount, String first_name, String last_name, String dob, boolean gender, String img,String address , String parentPhone) {
         this.kinder_id = kinder_id;
         this.parentAccount = parentAccount;
         this.first_name = first_name;
@@ -25,6 +27,9 @@ public class Kindergartner {
         this.dob = dob;
         this.gender = gender;
         this.img = img;
+        this.address = address ;
+        this.parentPhone = parentPhone ;
+        
     }
     
     
@@ -89,9 +94,28 @@ public class Kindergartner {
         this.img = img;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getParentPhone() {
+        return parentPhone;
+    }
+
+    public void setParentPhone(String parentPhone) {
+        this.parentPhone = parentPhone;
+    }
+
     @Override
     public String toString() {
-        return "Kindergartner{" + "kinder_id=" + kinder_id + ", parentAccount=" + parentAccount + ", first_name=" + first_name + ", last_name=" + last_name + ", dob=" + dob + ", gender=" + gender + ", img=" + img + '}';
+        return "Kindergartner{" + "kinder_id=" + kinder_id + ", parentAccount=" + parentAccount + ", first_name=" + first_name + ", last_name=" + last_name + ", dob=" + dob + ", gender=" + gender + ", img=" + img + ", address=" + address + ", parentPhone=" + parentPhone + '}';
     }
+    
+
+   
 
 }

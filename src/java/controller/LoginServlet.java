@@ -91,7 +91,7 @@ public class LoginServlet extends HttpServlet {
                     Class kc = classDao.getTeacherClass(acc.getAccountID());
                     session.setAttribute("kinder_class", kc);
                     session.setAttribute("account", acc);
-                    response.sendRedirect("teacher/teacherprofile.jsp");
+                    response.sendRedirect("attendance");
                     break;
                 case 1:
                     session.setAttribute("account", acc);
