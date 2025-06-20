@@ -87,8 +87,8 @@ public class ChildUpdateServlet extends HttpServlet {
         }if(childgender.equals("female")){
             newGender = false;
         }
+        Kindergartner newKid = new Kindergartner(0, acc, childfirstname, childlastname, childdob, newGender, childdob, childdob, childdob);
         
-        Kindergartner newKid = new Kindergartner(mainchild.getKinder_id(),acc,childfirstname,childlastname,childdob,newGender,mainchild.getImg());
         KindergartnerDAO kdao = new KindergartnerDAO();
         kdao.updateKinder(newKid);
         session.setAttribute("mainchild", kdao.getKinderById(newKid.getKinder_id()));

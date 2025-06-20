@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 import model.Account;
 import model.Feedback;
 import model.KinderRecordStudy;
@@ -30,7 +31,7 @@ public class KindergartnerDAO extends DBContext {
     private ResultSet rs;
     private AccountDAO accdao = new AccountDAO();
     private ClassDAO classdao = new ClassDAO();
-    
+
     public List<KinderRecordStudy> getKidsByClass(int class_id) {
         KindergartnerDAO kinderdao = new KindergartnerDAO();
         ClassDAO classDao = new ClassDAO();
@@ -44,17 +45,23 @@ public class KindergartnerDAO extends DBContext {
             rs = ps.executeQuery();
             while (rs.next()) {
                 KinderRecordStudy kinderRc = new KinderRecordStudy();
-                kinderRc.setKinder(new Kindergartner(rs.getInt(1),
+                kinderRc.setKinder(new Kindergartner(
+                        rs.getInt(1),
                         accDao.getAccountByID(rs.getInt(2)),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getBoolean(6),
-                        rs.getString(7)));
-                kinderRc.setStudyRecord(new StudyRecord(rs.getInt(8), 
-                        classDao.getClassByID(rs.getInt(9)), 
-                        kinderdao.getKinderById(rs.getInt(1)), 
-                        rs.getInt(10)));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                ));
+                kinderRc.setStudyRecord(new StudyRecord(
+                        rs.getInt(10),
+                        classDao.getClassByID(rs.getInt(11)),
+                        kinderdao.getKinderById(rs.getInt(1)),
+                        rs.getInt(12)
+                ));
                 list.add(kinderRc);
             }
             return list;
@@ -66,15 +73,17 @@ public class KindergartnerDAO extends DBContext {
 
     public void insertKinder(Kindergartner kindergartner) {
         try {
-            String sql = "INSERT INTO [Kindergartner]\n"
+            String sql = "INSERT INTO [dbo].[Kindergartner]\n"
                     + "           ([parent_id]\n"
                     + "           ,[first_name]\n"
                     + "           ,[last_name]\n"
                     + "           ,[dob]\n"
                     + "           ,[gender]\n"
-                    + "           ,[img])\n"
+                    + "           ,[img]\n"
+                    + "           ,[parentPhone]\n"
+                    + "           ,[address])\n"
                     + "     VALUES\n"
-                    + "           (?,?,?,?,?,?)";
+                    + "           (?,?,?,?,?,?,?,?)";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, kindergartner.getParentAccount().getAccountID());
@@ -83,6 +92,8 @@ public class KindergartnerDAO extends DBContext {
             ps.setString(4, kindergartner.getDob());
             ps.setBoolean(5, kindergartner.isGender());
             ps.setString(6, kindergartner.getImg());
+            ps.setString(7, kindergartner.getParentPhone());
+            ps.setString(8, kindergartner.getAddress());
 
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -95,9 +106,16 @@ public class KindergartnerDAO extends DBContext {
 
     public void updateKinder(Kindergartner kindergartner) {
         try {
-            String sql = "update Kindergartner \n"
-                    + "set parent_id = ?, first_name = ?, last_name = ?, dob = ?, gender = ?, img = ?\n"
-                    + "where kinder_id = ?;";
+            String sql = "UPDATE [dbo].[Kindergartner]\n"
+                    + "   SET [parent_id] = ?\n"
+                    + "      ,[first_name] = ?\n"
+                    + "      ,[last_name] = ?\n"
+                    + "      ,[dob] = ?\n"
+                    + "      ,[gender] =?\n"
+                    + "      ,[img] =?\n"
+                    + "      ,[parentPhone] = ?\n"
+                    + "      ,[address] = ?\n"
+                    + " WHERE where kinder_id = ?";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, kindergartner.getParentAccount().getAccountID());
@@ -106,44 +124,14 @@ public class KindergartnerDAO extends DBContext {
             ps.setString(4, kindergartner.getDob());
             ps.setBoolean(5, kindergartner.isGender());
             ps.setString(6, kindergartner.getImg());
-            ps.setInt(7, kindergartner.getKinder_id());
+            ps.setString(7, kindergartner.getParentPhone());
+            ps.setString(8, kindergartner.getAddress());
+            ps.setInt(9, kindergartner.getKinder_id());
             ps.executeUpdate();
             System.out.println("Update successfully");
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    public Kindergartner getKinderById(int id) {
-        try {
-            String sql = "SELECT [kinder_id]\n"
-                    + "      ,[parent_id]\n"
-                    + "      ,[first_name]\n"
-                    + "      ,[last_name]\n"
-                    + "      ,[dob]\n"
-                    + "      ,[gender]\n"
-                    + "      ,[img]\n"
-                    + "  FROM [Kindergartner] where kinder_id = " + id + "";
-            connection = new DBContext().getConnection();
-            ps = connection.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Kindergartner k = new Kindergartner(rs.getInt(1),
-                        accdao.getAccountByID(rs.getInt(2)),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getBoolean(6),
-                        rs.getString(7));
-                return k;
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
     public void deleteKinder(int id) {
@@ -169,13 +157,17 @@ public class KindergartnerDAO extends DBContext {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Kindergartner k = new Kindergartner(rs.getInt(1),
+                Kindergartner k = new Kindergartner(
+                        rs.getInt(1),
                         accdao.getAccountByID(rs.getInt(2)),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getBoolean(6),
-                        rs.getString(7));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                );
                 list.add(k);
             }
             return list;
@@ -203,6 +195,36 @@ public class KindergartnerDAO extends DBContext {
             if (parent.getAccountID() == id) {
                 return parent;
             }
+        }
+        return null;
+    }
+
+    public Kindergartner getKinderById(int id) {
+        try {
+            String sql = "SELECT [kinder_id], [parent_id], [first_name], [last_name], [dob], [gender], [img], [parentPhone], [address] "
+                    + "FROM [Kindergartner] WHERE kinder_id = ?";
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Kindergartner k = new Kindergartner(
+                        rs.getInt("kinder_id"),
+                        accdao.getAccountByID(rs.getInt("parent_id")),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("dob"),
+                        rs.getBoolean("gender"),
+                        rs.getString("img"),
+                        rs.getString("address"),
+                        rs.getString("parentPhone")
+                );
+                return k;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -285,10 +307,7 @@ public class KindergartnerDAO extends DBContext {
 
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-        List<StudyRecord> list = dao.getAllStudyRecord();
-        for (StudyRecord s : list) {
-            System.out.println(s.toString());
-        }
+        System.out.println(dao.getKidInfoById(1));
 
     }
 

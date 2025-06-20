@@ -1,45 +1,35 @@
-
 package dal;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author pc
- */
 public class DBContext {
-    private static DBContext instance = new DBContext();
-    Connection connection;
-    public static DBContext getInstance() {
-        return instance;
-    }
 
-    public Connection getConnection() {
-        return connection;
-    }
-    public DBContext() {
-    try {
-        if (connection == null || connection.isClosed()) {
+    public static Connection getConnection() {
+        Connection conn = null;
+        try {
             String user = "sa";
             String password = "123";
-            String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=KD;TrustServerCertificate=true;";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-            connection = DriverManager.getConnection(url, user, password); 
+            String url = "jdbc:sqlserver://localhost;databaseName=KD;TrustServerCertificate=true;";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection(url, user, password);
+        } catch (Exception e) {
+            e.printStackTrace(); // Đừng để trống, cần log để debug
         }
-    } catch (Exception e) { 
-        connection = null;
+        return conn;
     }
-}
+    
     public static void main(String[] args) {
-        DBContext dbContext = new DBContext();
-        if (dbContext.connection != null) {
-            System.out.println("Kết nối thành công với cơ sở dữ liệu!");
-        } else {
-            System.out.println("Kết nối thất bại!");
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.getConnection();
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("✅ Kết nối thành công với CSDL!");
+            } else {
+                System.out.println("❌ Kết nối thất bại!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 }

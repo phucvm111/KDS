@@ -23,8 +23,18 @@
             .current1>a{
                 color: #fff;
             }
-
-
+            .notification-btn {
+                padding: 8px 15px;
+                background-color: #6b48ff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+            .notification-btn:hover {
+                background-color: #5a3de6;
+            }
         </style>
     </head>
 
@@ -47,7 +57,12 @@
                                 <li class="menu-item current1">
                                     <a href="changepassword" style="color: #fff;">Change Password</a>
                                 </li>
-                               
+                                <li class="menu-item current1">
+                                    <a href="notifications" style="color: #fff;">Notification</a>
+                                </li>                              
+                                  <li class="menu-item current1">
+                                    <a href="${pageContext.request.contextPath}/teacher/teacherprofile.jsp">Teacher Information</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="log-out">
@@ -88,14 +103,6 @@
                                             <a href="checkout">Check out</a>
                                         </div>
                                     </div>
-                                    <!--                                    <div class="student-filter">
-                                                                            <div class="filter-item ${!requestScope.filter.equals("absent")?"current1":""}">
-                                                                                <a href="checkattendance?action=checkin&filteritem=getall&checkindate=${checkindate}" style="color: ${!requestScope.filter.equals("absent")?"#fff":""};">All</a>
-                                                                            </div>
-                                                                            <div class="filter-item ${requestScope.filter.equals("absent")?"current1":""}">
-                                                                                <a href="checkattendance?action=checkin&filteritem=absent&checkindate=${checkindate}" style="color: ${requestScope.filter.equals("absent")?"#fff":""};">Absent only</a>
-                                                                            </div>
-                                                                        </div>-->
                                 </div>
                             </div>
                         </div>
@@ -157,7 +164,6 @@
                                                             </div>
                                                         </c:if>
                                                     </c:if>
-
                                                 </c:forEach>
                                             </c:if>
                                         </div>
@@ -236,6 +242,5 @@
             console.log(output);
             document.getElementById("attendanceStatus").value = output;
         }
-
     </script>
 </html>
