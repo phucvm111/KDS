@@ -17,9 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,7 +43,7 @@ public class ListScheduleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -71,37 +69,83 @@ public class ListScheduleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        ScheduleDAO sd = new ScheduleDAO();
+        // get ClassID
+        String classid_raw = request.getParameter("cid");
+        int classid = 1;
+        if (classid_raw == null) {
+            classid = 1;
+            Integer cid = (Integer) session.getAttribute("cid");
+            if (cid != null) {
+                classid = cid;
+            }
+        } else {
+            try {
+                classid = Integer.parseInt(classid_raw);
+            } catch (Exception e) {
 
-        // 1. Lấy danh sách lớp
-        request.setAttribute("classs", new ClassDAO().getAllClass());
+            }
+        }
+        request.setAttribute("cid_raw", classid);
+        session.setAttribute("cid", classid);
 
-        // 2. Lấy danh sách các tuần trong năm
-        LinkedHashMap<LocalDate, String> weeks = new ScheduleDAO().getAllWeeksInYear(2025);
-        request.setAttribute("weeks", weeks);
+        LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2022);
+        request.setAttribute("weeks", allWeeks);
 
-        // 3. Nếu chưa chọn tuần (lần đầu vào), gán tuần hiện tại cho select
-        LocalDate currentMonday = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if (request.getParameter("action") == null) {
-            LinkedHashMap<LocalDate, String> currentWeek = new LinkedHashMap<>();
-            String label = fmt.format(currentMonday) + " to " + fmt.format(currentMonday.plusDays(6));
-            currentWeek.put(currentMonday, label);
-            request.setAttribute("currentweek", currentWeek);
+        ClassDAO cd = new ClassDAO();
+        List<Class> list = cd.getAllClass();
+        request.setAttribute("classes", list);
+
+        ActivityDAO ad = new ActivityDAO();
+        List<Activity> listActivity = ad.getAllActivity();
+        request.setAttribute("activity", listActivity);
+
+        String date = request.getParameter("recentMonday");
+        String date2 = date;
+
+        if (date != null) {
+            try {
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+                Date d = sdf1.parse(date);
+
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+                date = sdf2.format(d);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            date = sd.firstDayOfWeek(new Date());
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String date3 = "";
+            try {
+                Date d = sdf.parse(date);
+                sdf = new SimpleDateFormat("yyyy-MM-dd");
+                date3 = sdf.format(d);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            session.setAttribute("recentMonday", date3);
         }
 
-        // 4. Tạo danh sách 7 ngày của tuần được chọn (hoặc tuần hiện tại)
-        String datee = request.getParameter("datee");
-        LocalDate mondayOfSelectedWeek = (datee != null)
-                ? LocalDate.parse(datee)
-                : currentMonday;
+        ScheduleDetails sde = sd.getScheduleDetailsByClassDate(classid, date);
+        request.setAttribute("scheduleDetails", sde);
 
-        List<LocalDate> daysOfWeek = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            daysOfWeek.add(mondayOfSelectedWeek.plusDays(i));
+        //return true date
+        String action = request.getParameter("action");
+        if (action == null) {
+            LocalDate now = LocalDate.now();
+            LocalDate firstDayOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+            request.setAttribute("firstMonday", firstDayOfWeek);
+        } else {
+
+            request.setAttribute("recentMonday", date2);
+//            session.setAttribute("recentMonday", date);
+
         }
-        request.setAttribute("daysOfWeek", daysOfWeek);
 
-        // 5. Chuyển tiếp đến trang JSP
         request.getRequestDispatcher("admin/schedule/admin_schedule.jsp").forward(request, response);
     }
 
@@ -151,7 +195,7 @@ public class ListScheduleServlet extends HttpServlet {
             ScheduleDetails sde = sd.getScheduleDetailsByClassDate(classID, date);
             request.setAttribute("scheduleDetails", sde);
 
-            LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2025);
+            LinkedHashMap<LocalDate, String> allWeeks = sd.getAllWeeksInYear(2022);
             request.setAttribute("weeks", allWeeks);
 
             ClassDAO cd = new ClassDAO();

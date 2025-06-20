@@ -57,15 +57,10 @@
                     <li><a href="changepassword">
                             <i class="uil uil-lock-alt"></i>
                             <span class="link-name">Change Password</span>
-
-                        <li><a href="event">
-                            <i class="uil uil-calendar-alt"></i>
-                            <span class="link-name">Event</span>
-
-                    <li><a href="day_class">
+                        </a></li>
+                    <li><a href="/kinder2852025/day_class">
                             <i class="uil uil-user-square"></i>
                             <span class="link-name">Nutrition</span>
-
                         </a></li>
 
                     <!--                    <li><a href="#">
@@ -102,25 +97,17 @@
                 <div class="select-menu">
                     <!--class-->
                     <div class="class-select">
-
                         <c:set value="${requestScope.cid_raw}" var="cid_raw"/>
-
-
 
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="cid"
                                 style="height: 36px;">
-
+                            <!--<option selected>Select Class</option>-->
                             <c:forEach items="${requestScope.classes}" var="cl">
                                 <option <c:if test="${cl.class_id eq cid_raw}">selected</c:if> 
                                                                                value="${cl.class_id}">${cl.class_name}</option>
-
-                            <c:forEach items="${requestScope.classs}" var="cl">
-                                <option value= "${cl.class_id}" >${cl.class_name}
-
                             </c:forEach>
                         </select>
                     </div>
-
 
                     <c:set value="${requestScope.firstMonday}" var="fM"/>
                     <c:set value="${requestScope.recentMonday}" var="rM"/>
@@ -133,25 +120,13 @@
                         </c:forEach>
                     </select>
 
-
-
-                    <select name="datee" id="ddlViewBy">
-                        <c:forEach var="entry" items="${weeks}">
-                            <c:set var="currentKey" value="${currentweek.keySet().toArray()[0]}" />
-                            <option value="${entry.key}" <c:if test="${entry.key == currentKey}">selected</c:if>>
-                                ${entry.value}
-                            </option>
-                        </c:forEach>
-                    </select>
-
-
                     <button class="btn btn-outline-success" type="submit"
                             onclick="changeDate()">Search</button>
             </form>
         </div>
 
         <div class="dash-bottomtable">
-
+            <table class="table" style="margin-bottom: 0">
                 <thead style="bgcolor: red">
                     <c:set var="sde" value="${requestScope.scheduleDetails}">
                     </c:set>
@@ -274,36 +249,7 @@
                         </c:forEach>
                     </tr>
                 </c:forEach>
-
-                <thead>
-                    <tr>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                        <th>Sun</th>
-                    </tr>
-
-                    <tr>
-                        <c:if test="${not empty daysOfWeek}">
-                        <c:forEach var="day" items="${daysOfWeek}">
-                        <th><fmt:formatDate value="${day}"/></th>
-                        </c:forEach>
-                    </c:if>
-                    </tr>
-
-
-
-              
-                </thead>
-
-                <!-- TODO: render từng dòng slot từ 1 đến 7 -->
-                <!-- mỗi dòng là một slot, mỗi cột là một ngày -->
-                <!-- ô có thể có schedule hoặc rỗng để thêm mới -->
             </table>
-
         </div>
     </div>
 
