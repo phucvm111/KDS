@@ -296,7 +296,7 @@
 
 
 
-                <!-- TODO: render hàng thứ hai hiển thị ngày (dd/MM) -->
+              
                 </thead>
 
                 <!-- TODO: render từng dòng slot từ 1 đến 7 -->
