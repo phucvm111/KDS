@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 
 /**
@@ -68,7 +70,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     Account sessionAccount = (Account) session.getAttribute("account");
 
     AccountDAO dao = new AccountDAO();
-    Account teacher = dao.getTeacherById(sessionAccount.getAccountID());
+    Account teacher = null;
+        try {
+            teacher = dao.getTeacherById(sessionAccount.getAccountID());
+        } catch (Exception ex) {
+            Logger.getLogger(TeacherProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     if (teacher != null) {
         session.setAttribute("account", teacher); // Cập nhật session

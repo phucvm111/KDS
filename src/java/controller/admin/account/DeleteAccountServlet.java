@@ -9,13 +9,17 @@ import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
+
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
+<<<<<<< HEAD
  * @author Vu Tuan Hai <HE176383>
  */
 @WebServlet(name="DeleteAccountServlet_1", urlPatterns={"/DeleteAccountServlet_1"})
@@ -48,6 +52,16 @@ public class DeleteAccountServlet extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
+=======
+ * @author Admin
+ */
+
+
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+>>>>>>> toan12334
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -55,33 +69,50 @@ public class DeleteAccountServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
     throws ServletException, IOException {
+
+            
+
         int id = Integer.parseInt(request.getParameter("sid"));
         AccountDAO dao = new AccountDAO();
         dao.deleteAccount(id);
         response.sendRedirect("listaccount");
+
     } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
+=======
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+>>>>>>> toan12334
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
+ 
 
     /** 
      * Returns a short description of the servlet.
+=======
+            throws ServletException, IOException {
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+>>>>>>> toan12334
      * @return a String containing servlet description
      */
-    @Override
+
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
 }
+
