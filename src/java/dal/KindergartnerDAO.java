@@ -174,7 +174,7 @@ public class KindergartnerDAO extends DBContext {
         } catch (Exception ex) {
             Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return list;
     }
 
     public Kindergartner getKidInfoById(int id) {

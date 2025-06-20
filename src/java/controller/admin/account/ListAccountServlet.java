@@ -9,7 +9,9 @@ import dal.RoleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import model.Role;
 
 /**
  *
+<<<<<<< HEAD
  * @author Vu Tuan Hai <HE176383>
  */
 @WebServlet(name = "ListAccountServlet_1", urlPatterns = {"/ListAccountServlet_1"})
@@ -66,6 +69,15 @@ public class ListAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
+
+
+  
+    RoleDAO rd = new RoleDAO();
+
+   
+
         List<Account> ac = a.getAllAccounts();
         List<Role> roles = rd.getAllRoles();
         request.setAttribute("roles", roles);
@@ -85,6 +97,8 @@ public class ListAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
         String txtSearch = request.getParameter("search");
         AccountDAO ac = new AccountDAO();
         ArrayList<Account> list = new ArrayList<>();
@@ -111,6 +125,7 @@ public class ListAccountServlet extends HttpServlet {
 
     }
 
+
     /**
      * Returns a short description of the servlet.
      *
@@ -120,5 +135,6 @@ public class ListAccountServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

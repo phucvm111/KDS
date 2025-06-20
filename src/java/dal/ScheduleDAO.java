@@ -272,7 +272,7 @@ public class ScheduleDAO extends DBContext {
     public static void main(String[] args) {
         ScheduleDAO sd = new ScheduleDAO();
         LinkedHashMap<LocalDate, String> map = new LinkedHashMap<>();
-        map = sd.getAllWeeksInYear(2022);
+        map = sd.getAllWeeksInYear(2025);
         System.out.println(map);
     }
 }

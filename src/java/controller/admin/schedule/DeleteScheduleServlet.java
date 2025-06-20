@@ -2,31 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.admin.account;
+package controller.admin.schedule;
 
-import dal.AccountDAO;
-import dal.RoleDAO;
+import dal.ScheduleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-
-import jakarta.servlet.annotation.WebServlet;
-
-
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Account;
-import model.Role;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
-<<<<<<< HEAD
- * @author Vu Tuan Hai <HE176383>
+ * @author Admin
  */
-@WebServlet(name = "AddAccountServlet", urlPatterns = {"/AddAccountServlet"})
-public class AddAccountServlet extends HttpServlet {
+public class DeleteScheduleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +31,15 @@ public class AddAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAccountServlet</title>");
+            out.println("<title>Servlet DeleteScheduleServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAccountServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteScheduleServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,24 +54,22 @@ public class AddAccountServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    AccountDAO ad = new AccountDAO();
-
-
-
-    RoleDAO rd = new RoleDAO();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        ScheduleDAO sd = new ScheduleDAO();
+        String id_raw = request.getParameter("sid");
+        String recent_date = (String) session.getAttribute("recentMonday");
+        try {
+            int id = Integer.parseInt(id_raw);
+            sd.deleteSchedule(id);
+        } catch (Exception e) {
 
-
-
-
-        List<Account> acts = ad.getAllAccounts();
-        List<Role> roles = rd.getAllRoles();
-        request.setAttribute("acts", acts);
-        request.setAttribute("roles", roles);
-        request.getRequestDispatcher("admin/account/adminAccountAdd.jsp").forward(request, response);
+        }
+//        response.sendRedirect("listschedule");
+        response.sendRedirect("listschedule?action=delete&recentMonday=" + recent_date);
     }
 
     /**
@@ -94,32 +83,7 @@ public class AddAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        Account ac = new Account();
-        ac.setAccountID(0);
-
-
-        ac.setFirstName(request.getParameter("txtFirstName"));
-        ac.setLastName(request.getParameter("txtLastName"));
-        ac.setGender(request.getParameter("flexRadioDefault").equals("male"));
-        ac.setEmail(request.getParameter("txtEmail"));
-        ac.setPassword(request.getParameter("txtPassword"));
-        ac.setDob((request.getParameter("dob")));
-        ac.setPhoneNumber(request.getParameter("txtPhone"));
-        ac.setAddress(request.getParameter("ttAddress"));
-        ac.setImg(request.getParameter("txtImg"));
-        // ac.setRoleId(Integer.parseInt(request.getParameter("slRole")));
-        Role rr = rd.getRoleByID(Integer.parseInt(request.getParameter("slRole")));
-//        Role r = new Role(Integer.parseInt(request.getParameter("slRole")));
-        ac.setRole(rr);
-        ad.addAccount(ac);
-        PrintWriter out = response.getWriter();
-        out.print(ac.toString());
-        response.sendRedirect("listaccount");
-
-
-
-
+        processRequest(request, response);
     }
 
     /**
@@ -132,6 +96,4 @@ public class AddAccountServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
 }
-

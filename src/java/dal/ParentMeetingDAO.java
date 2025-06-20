@@ -17,7 +17,9 @@ public class ParentMeetingDAO extends DBContext {
             ORDER BY pm.meeting_date DESC
         """;
 
-        try (Connection conn = DBContext.getConnection();
+        try (
+               
+                Connection conn =  DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 

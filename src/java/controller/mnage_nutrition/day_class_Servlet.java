@@ -43,22 +43,25 @@ public class day_class_Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session= request.getSession();
+
+        HttpSession session = request.getSession();
         ClassDAO c = new ClassDAO();
         List<model.Class> cl = c.getAllClass();
-        Account account = (Account)request.getAttribute("account");
-      
+
+        Account account = (Account) request.getAttribute("account");
 
         List<Menu> getallmenu = MenuDao.getAllmenu();
-        request.setAttribute("classList", cl);
-        request.setAttribute("menuList", getallmenu);
+
+        // Hợp nhất: vẫn đảm bảo nếu có dữ liệu thì mới set
+        if (cl != null && getallmenu != null) {
+            request.setAttribute("classList", cl);
+            request.setAttribute("menuList", getallmenu);
+        }
 
         request.getRequestDispatcher("/management_nutrition/menu.jsp").forward(request, response);
-
     }
 
     @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -86,9 +89,8 @@ public class day_class_Servlet extends HttpServlet {
             List<Menu> getallmenu = MenuDao.getAllmenu();
             List<model.Class> classList = new ClassDAO().getAllClass();
             List<Menu> filteredMenu = MenuDao.getMenusByClassAndDate(classId, menuDate);
-
             model.Class selectedClass = new ClassDAO().getClassByID(classId);
-            
+
             request.setAttribute("menuList", getallmenu);
             request.setAttribute("menuListFiltered", filteredMenu);
             request.setAttribute("classList", classList);
@@ -103,11 +105,6 @@ public class day_class_Servlet extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
