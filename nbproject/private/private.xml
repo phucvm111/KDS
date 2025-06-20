@@ -3,21 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/ParentMeetingDAO.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/model/Slot.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/admin/schedule/admin_schedule.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/account/AddAccountServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/account/ListAccountServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/index.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/DBContext.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/CriteriaDAO.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/LoginServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/mnage_nutrition/day_class_Servlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/teacher/TeacherProfileServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/dashboard/DashboardServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/account/DeleteAccountServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/account/UpdateAccountServlet.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/management_nutrition/menu.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/SlotDAO.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/schedule/ListScheduleServlet.java</file>
         </group>
     </open-files>
 </project-private>

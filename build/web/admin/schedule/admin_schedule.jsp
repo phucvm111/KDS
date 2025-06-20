@@ -152,8 +152,10 @@
 
                 <c:forEach begin="0" end="6" varStatus="loop">
                     <tr>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold">
-                            Slot ${loop.index + 1}
+                        <td style="text-align: center; vertical-align: middle; font-weight: bold">
+                            Slot ${loop.index + 1}<br/>
+                            <c:out value="${slots[loop.index].start_hour}" /> - 
+                            <c:out value="${slots[loop.index].end_hour}" />
                         </td>
                         <c:forEach items="${sde.scheduleMap}" var="map">  
 

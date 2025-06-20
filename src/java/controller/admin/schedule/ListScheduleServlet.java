@@ -7,6 +7,7 @@ package controller.admin.schedule;
 import dal.ActivityDAO;
 import dal.ClassDAO;
 import dal.ScheduleDAO;
+import dal.SlotDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ import java.util.List;
 import model.Activity;
 import model.Class;
 import model.ScheduleDetails;
+import model.Slot;
 
 /**
  *
@@ -100,6 +102,11 @@ public class ListScheduleServlet extends HttpServlet {
         ActivityDAO ad = new ActivityDAO();
         List<Activity> listActivity = ad.getAllActivity();
         request.setAttribute("activity", listActivity);
+        
+        
+        SlotDAO slotdao=new SlotDAO();
+        List<Slot> slots=slotdao.getAllSlots();
+        request.setAttribute("slots", slots);
 
         String date = request.getParameter("recentMonday");
         String date2 = date;
