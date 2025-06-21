@@ -59,7 +59,8 @@ public class SlotDAO extends DBContext {
     public static void main(String[] args) {
         SlotDAO sd = new SlotDAO();
         List<Slot> list = sd.getAllSlots();
-        System.out.println(list.get(0));
-        System.out.println(sd.getSlotByID(1).getSlot_id());
+       for(Slot sl:list){
+           System.out.println(sl);
+       }
     }
 }
