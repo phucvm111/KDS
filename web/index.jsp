@@ -11,7 +11,6 @@
         <!-- AOS animate on scroll -->
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Hi+Melody&family=Patrick+Hand&display=swap" rel="stylesheet" />
@@ -20,32 +19,6 @@
         <link rel="stylesheet" href="/./node_modules/fullpage.js/dist/fullpage.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="./assets/css/style_2.css" />
-
-        <style>
-            /* CSS cho body và các section của fullpage.js */
-            body {
-                margin: 0;
-                font-family: 'Patrick Hand', cursive;
-                padding-top: 70px; 
-                box-sizing: border-box;
-            }
-
-        
-            .main-header {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            
-                padding: 10px 20px;
-                background-color: white; /* Đảm bảo có màu nền */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                position: fixed; /* Cố định header khi cuộn */
-                top: 0;
-                left: 0;
-                z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
-            }
-
 
 
     </head>

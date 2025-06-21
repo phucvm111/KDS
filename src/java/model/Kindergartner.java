@@ -31,7 +31,7 @@ public class Kindergartner {
         this.parentPhone = parentPhone ;
         
     }
-    
+
     
 
     public int getKinder_id() {
@@ -65,7 +65,7 @@ public class Kindergartner {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
-    
+
     public String getFullName() {
         return first_name + " " + last_name;
     }
@@ -114,7 +114,7 @@ public class Kindergartner {
     public String toString() {
         return "Kindergartner{" + "kinder_id=" + kinder_id + ", parentAccount=" + parentAccount + ", first_name=" + first_name + ", last_name=" + last_name + ", dob=" + dob + ", gender=" + gender + ", img=" + img + ", address=" + address + ", parentPhone=" + parentPhone + '}';
     }
-    
+
 
    
 
