@@ -280,7 +280,6 @@
         <servlet-name>updateMenuServlet</servlet-name>
         <servlet-class>controller.mnage_nutrition.updateMenuServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>MarkNotificationReadServlet</servlet-name>
         <servlet-class>controller.parent.MarkNotificationReadServlet</servlet-class>
@@ -301,7 +300,7 @@
         <servlet-name>AdminNotificationServlet</servlet-name>
         <servlet-class>controller.admin.notifications.AdminNotificationServlet</servlet-class>
     </servlet>
-
+    
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -595,12 +594,10 @@
         <url-pattern>/deleteMenu</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>editMenuServlet</servlet-name>
         <url-pattern>/editmenu</url-pattern>
     </servlet-mapping>
@@ -608,7 +605,6 @@
         <servlet-name>updateMenuServlet</servlet-name>
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>MarkNotificationReadServlet</servlet-name>
         <url-pattern>/markRead</url-pattern>
@@ -629,7 +625,7 @@
         <servlet-name>AdminNotificationServlet</servlet-name>
         <url-pattern>/adminNotifyTeachers</url-pattern>
     </servlet-mapping>
-
+    
     <session-config>
         <session-timeout>
             30

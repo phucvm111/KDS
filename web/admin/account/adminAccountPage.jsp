@@ -36,16 +36,23 @@
 
                 <div class="menu-items">
                     <ul class="nav-links">
-                        <li><a href="dashboard"><i class="uil uil-estate"></i>Dashboard</a></li>
+                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
                         <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
                         <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
                         <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
                         <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Change Password</span></a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
+                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
+                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
+                        <li>
+                            <a href="day_class">
+                                <i class="uil uil-utensils-alt"></i>
+                                <span class="link-name">Nutrition</span>
+                            </a>
+                        </li>
+
                     </ul>
                     <ul class="logout-mode">
-                        <li><a href="logout"><i class="uil uil-signout"></i>Logout</a></li>
+                        <li><a href="login"><i class="uil uil-signout"></i>Logout</a></li>
                     </ul>
                 </div>
             </nav>
