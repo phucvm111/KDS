@@ -6,9 +6,14 @@
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/model/Slot.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/admin/schedule/admin_schedule.jsp</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/management_nutrition/menu.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/parent/parentprofile.jsp</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/SlotDAO.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/LoginServlet.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/schedule/ListScheduleServlet.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/schedule/AddScheduleServlet.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/index.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/admin/event/ViewEventDetailsServlet.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>
