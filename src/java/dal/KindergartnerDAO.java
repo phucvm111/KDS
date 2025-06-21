@@ -128,9 +128,8 @@ public class KindergartnerDAO extends DBContext {
             ps.setString(8, kindergartner.getAddress());
             ps.setInt(9, kindergartner.getKinder_id());
             ps.executeUpdate();
-            System.out.println("Update successfully");
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -151,26 +150,28 @@ public class KindergartnerDAO extends DBContext {
 
     public List<Kindergartner> getAllStudent() {
         List<Kindergartner> list = new ArrayList<>();
-        String sql = "select * from Kindergartner";
+        String sql = "SELECT * FROM Kindergartner";
         try {
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                // Lấy parent từ AccountDAO
+                Account parent = accdao.getAccountByID(rs.getInt("parent_id"));
+
                 Kindergartner k = new Kindergartner(
-                        rs.getInt(1),
-                        accdao.getAccountByID(rs.getInt(2)),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getBoolean(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getString(9)
+                        rs.getInt("kinder_id"),
+                        parent,
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("dob"),
+                        rs.getBoolean("gender"),
+                        rs.getString("img"),
+                        parent.getAddress(),
+                        parent.getPhoneNumber()
                 );
                 list.add(k);
             }
-            return list;
         } catch (Exception ex) {
             Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -201,28 +202,25 @@ public class KindergartnerDAO extends DBContext {
 
     public Kindergartner getKinderById(int id) {
         try {
-            String sql = "SELECT [kinder_id], [parent_id], [first_name], [last_name], [dob], [gender], [img], [parentPhone], [address] "
-                    + "FROM [Kindergartner] WHERE kinder_id = ?";
+            String sql = "SELECT * FROM Kindergartner WHERE kinder_id = ?";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                Kindergartner k = new Kindergartner(
+            if (rs.next()) {
+                Account parent = accdao.getAccountByID(rs.getInt("parent_id"));
+                return new Kindergartner(
                         rs.getInt("kinder_id"),
-                        accdao.getAccountByID(rs.getInt("parent_id")),
+                        parent,
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("dob"),
                         rs.getBoolean("gender"),
                         rs.getString("img"),
-                        rs.getString("address"),
-                        rs.getString("parentPhone")
+                        parent.getAddress(), // từ Account
+                        parent.getPhoneNumber() // từ Account
                 );
-                return k;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -303,6 +301,22 @@ public class KindergartnerDAO extends DBContext {
             }
         }
         return kidparentlist;
+    }
+
+    public void updateKinderBasicInfo(Kindergartner kindergartner) {
+        String sql = "UPDATE Kindergartner SET first_name = ?, last_name = ?, dob = ?, gender = ? WHERE kinder_id = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, kindergartner.getFirst_name());
+            ps.setString(2, kindergartner.getLast_name());
+            ps.setString(3, kindergartner.getDob());
+            ps.setBoolean(4, kindergartner.isGender());
+            ps.setInt(5, kindergartner.getKinder_id());
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
