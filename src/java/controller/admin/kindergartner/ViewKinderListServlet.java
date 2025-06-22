@@ -65,35 +65,62 @@ public class ViewKinderListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("").trim().toLowerCase();
         int classId = -1;
         try {
             classId = Integer.parseInt(request.getParameter("classId"));
         } catch (Exception e) {
-            // giữ nguyên -1 nếu lỗi
+            // Giữ nguyên -1 nếu không truyền classId
+        }
+
+        // Phân trang
+        int page = 1;
+        int size = 5;
+        try {
+            String pageParam = request.getParameter("page");
+            if (pageParam != null && !pageParam.isEmpty()) {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) {
+                    page = 1;
+                }
+            }
+        } catch (NumberFormatException e) {
+            page = 1;
         }
 
         ClassDAO classDAO = new ClassDAO();
-        KindergartnerDAO kinderDAO = new KindergartnerDAO();
         StudyRecordDAO studyDAO = new StudyRecordDAO();
 
         List<Class> classList = classDAO.getAllClass();
-        List<StudyRecord> allRecords = studyDAO.getAllStudyRecord(); // Dùng cái này lọc thủ công
+        List<StudyRecord> allRecords = studyDAO.getAllStudyRecord();
         List<StudyRecord> filtered = new ArrayList<>();
 
         for (StudyRecord sr : allRecords) {
             boolean matchClass = classId == -1 || sr.getClassID().getClass_id() == classId;
-            boolean matchName = keyword.isEmpty() || (sr.getKinder().getFullName().toLowerCase().contains(keyword));
+            boolean matchName = keyword.isEmpty() || sr.getKinder().getFullName().toLowerCase().contains(keyword);
 
             if (matchClass && matchName) {
                 filtered.add(sr);
             }
         }
 
-        request.setAttribute("classList", classList);
-        request.setAttribute("studentList", filtered);
-        request.getRequestDispatcher("/admin/kinder/kinder_view.jsp").forward(request, response);
+        // Tính phân trang
+        int total = filtered.size();
+        int totalPages = (int) Math.ceil((double) total / size);
+        int start = (page - 1) * size;
+        int end = Math.min(start + size, total);
+        List<StudyRecord> pagedList = filtered.subList(start, end);
 
+        // Truyền dữ liệu cho JSP
+        request.setAttribute("classList", classList);
+        request.setAttribute("studentList", pagedList);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("classId", classId);
+        request.setAttribute("keyword", keyword);
+
+        request.getRequestDispatcher("/admin/kinder/kinder_view.jsp").forward(request, response);
     }
 
     /**

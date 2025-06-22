@@ -11,6 +11,7 @@
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/web/admin/kinder/kinderAdminPage.jsp</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/web/admin/account/adminAccountPage.jsp</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/web/admin/class/adminClassPage.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/model/Attendance.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/controller/parent/ChildRegisterServlet.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/CriteriaDAO.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/model/Class.java</file>
@@ -23,6 +24,7 @@
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/model/Kindergartner.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/AttendanceDAO.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/model/Account.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/controller/admin/kindergartner/DropoutServlet.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/model/StudyRecord.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/web/admin/kinder/kinder_view.jsp</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/web/admin/dashboard/adminDashboard.jsp</file>
