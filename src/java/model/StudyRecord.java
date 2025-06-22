@@ -1,36 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Admin
- */
 public class StudyRecord {
 
-    private int studyRecordID;
+    private int record_id;
     private Class classID;
     private Kindergartner kinder;
     private int studyYear;
+    private boolean isGraduated; 
 
     public StudyRecord() {
     }
 
-    public StudyRecord(int studyRecordID, Class classID, Kindergartner kinder, int studyYear) {
-        this.studyRecordID = studyRecordID;
+    
+    public StudyRecord(int record_id, Class classID, Kindergartner kinder, int studyYear, boolean isGraduated) {
+        this.record_id = record_id;
         this.classID = classID;
         this.kinder = kinder;
         this.studyYear = studyYear;
+        this.isGraduated = isGraduated;
     }
 
-    public int getStudyRecordID() {
-        return studyRecordID;
+   
+    public StudyRecord(int record_id, Class classID, Kindergartner kinder, int studyYear) {
+        this.record_id = record_id;
+        this.classID = classID;
+        this.kinder = kinder;
+        this.studyYear = studyYear;
+        this.isGraduated = false; // mặc định chưa tốt nghiệp
     }
 
-    public void setStudyRecordID(int studyRecordID) {
-        this.studyRecordID = studyRecordID;
+    
+    public int getRecord_id() {
+        return record_id;
+    }
+
+    public void setRecord_id(int record_id) {
+        this.record_id = record_id;
     }
 
     public Class getClassID() {
@@ -57,4 +62,11 @@ public class StudyRecord {
         this.studyYear = studyYear;
     }
 
+    public boolean isGraduated() {
+        return isGraduated;
+    }
+
+    public void setGraduated(boolean isGraduated) {
+        this.isGraduated = isGraduated;
+    }
 }

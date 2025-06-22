@@ -25,23 +25,21 @@
                     <div class="vertical-menu">
                         <div class="user-welcome">
                             <img class="user-img" src="teacher/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
-                            <p>Harry Porter</p>
+                            <p>Peter John</p>
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
                                 <li class="menu-item">
                                     <a href="attendance">Home</a>
                                 </li>
-<!--                                <li class="menu-item">
-                                    <a href="#">View schedule</a>
-                                </li>-->
+                               
                                 <li class="menu-item current1">
                                     <a href="#" style="color: #fff;">View student</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="log-out">
-                            <a href="logout">Log out</a>
+                            <a href="attendance">Log out</a>
                         </div>
                     </div>
                 </div>
@@ -52,12 +50,12 @@
                             <div class="kid-profile_header">
                                 <c:set var="kid" value="${requestScope.kid_info}" />
                                 <div class="img-section">
-                                    <img src="teacher/img/userImg/dummy-user-img.png" alt="">
+                                    <img src="teacher/img/userImg/download.png" alt="">
                                 </div>
 
                                 <div class="personel-section">
                                     <h1>${kid.first_name} ${kid.last_name}</h1>
-                                    <p>${kid.dob}</p>
+
                                 </div>
                             </div>
 
@@ -82,22 +80,41 @@
                                 </div>
                                 <div class="content-item phone">
                                     <div class="item-title">
-                                        <strong>Parent's phone</strong>
+                                        <strong>Address</strong>
                                     </div>
-                                    <c:set var="parent" value="${requestScope.parent}"/>
-                                    <p>${parent.phoneNumber}</p>
+                                    <c:set var="kid" value="${requestScope.kid_info}"/>
+                                    <p>${kid.parentPhone}</p>
                                 </div>
                                 <div class="content-item address">
                                     <div class="item-title">
-                                        <strong>Address</strong>
+                                        <strong>Parent number</strong>
                                     </div>
-                                    <p>${parent.address}</p>
+                                    <p>${kid.address}</p>
+                                </div>
+                                <!--dathem-->
+                                <div class="content-item gender">
+                                    <div class="item-title">
+                                        <strong>Sex</strong>
+                                    </div>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${kid.gender == true}">Male</c:when>
+                                            <c:when test="${kid.gender == false}">Female</c:when>
+                                            <c:otherwise>Other</c:otherwise>
+                                        </c:choose>
+                                    </p>
+                                </div>
+                                <div class="content-item dob">
+                                    <div class="item-title">
+                                        <strong>DOB</strong>
+                                    </div>
+                                    <p>${kid.dob}</p>
                                 </div>
                                 <div class="content-item description">
                                     <div class="item-title">
-                                        <strong>Description</strong>
+                                        <strong> Description </strong>
                                     </div>
-                                    <p>Tiny scopulate hairs on his hands and feet that allow him to adhere to walls and most surfaces.</p>
+                                    <p>Shrimp allergy</p>
                                 </div>
                             </div>
                         </div>

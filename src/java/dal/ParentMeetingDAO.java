@@ -17,7 +17,9 @@ public class ParentMeetingDAO extends DBContext {
             ORDER BY pm.meeting_date DESC
         """;
 
-        try (Connection conn = connection;
+        try (
+               
+                Connection conn =  DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -56,7 +58,7 @@ public class ParentMeetingDAO extends DBContext {
             ORDER BY pm.meeting_date DESC
         """;
 
-        try (Connection conn = connection;
+        try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, parentId);
@@ -97,7 +99,7 @@ public class ParentMeetingDAO extends DBContext {
             ORDER BY pm.meeting_date DESC
         """;
 
-        try (Connection conn = connection;
+        try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, parentId);

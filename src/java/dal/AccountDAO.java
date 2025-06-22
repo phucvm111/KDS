@@ -339,7 +339,7 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public Account getTeacherById(int id) {
+    public Account getTeacherById(int id) throws Exception {
         String sql = "SELECT * FROM Account WHERE account_id = ? AND role_id = 2";
         RoleDAO rd = new RoleDAO();
         try {
@@ -569,14 +569,16 @@ public class AccountDAO extends DBContext {
         }
     }
 }
-    public static void main(String[] args) {
-        AccountDAO d = new AccountDAO();
-        System.out.println(d.getTeacherById(2));
+//    public static void main(String[] args) {
+//        AccountDAO d = new AccountDAO();
+//        System.out.println(d.getTeacherById(2));
 //        List<String> emails = d.getAllEmail();
 //        for (String em : emails) {
 //            System.out.println(em);
 //        }
-    }
+//    }
+
+
 
 //        AccountDAO d = new AccountDAO();
 //            Account a = new Account();

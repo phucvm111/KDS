@@ -1,140 +1,46 @@
+/* ===== CÁC THIẾT LẬP CHUNG & BIẾN MÀU ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-:root{
-    /* ===== Colors ===== */
-    --primary-color: #0E4BF1;
-    --panel-color: #FFF;
-    --text-color: #000;
-    --black-light-color: #707070;
-    --border-color: #e6e5e5;
-    --toggle-color: #DDD;
-    --box1-color: #4DA3FF;
-    --box2-color: #FFE6AC;
-    --box3-color: #E7D1FC;
-    --title-icon-color: #fff;
-
-    /* ====== Transition ====== */
-    --tran-05: all 0.5s ease;
-    --tran-03: all 0.3s ease;
-    --tran-03: all 0.2s ease;
+:root {
+    /* Hợp nhất các biến màu, bạn có thể tùy chỉnh lại */
+    --primary-color: #007bff;
+    --panel-color: #f4f6f9; /* Màu nền chính cho khu vực nội dung */
+    --text-color: #333;
+    --border-color: #dee2e6;
 }
 
-body{
+body {
     min-height: 100vh;
-    background-color: var(--primary-color);
+    /* Không cần set background-color ở body nữa vì .dashboard sẽ che hết */
 }
 
-/* ===== Sidebar (Navigation) Styles ===== */
-nav{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    padding: 10px 14px;
-    background-color: var(--panel-color);
-    border-right: 1px solid var(--border-color);
-    transition: var(--tran-05);
-}
+/* ===== PHẦN ĐỊNH DẠNG CHO NỘI DUNG CHÍNH (SAU KHI XÓA SIDEBAR) ===== */
 
-nav .logo-name{
-    display: flex;
-    align-items: center;
-}
-nav .logo-image{
-    display: flex;
-    justify-content: center;
-    min-width: 45px;
-}
-nav .logo-image img{
-    width: 40px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-nav .logo-name .logo_name{
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-left: 14px;
-    transition: var(--tran-05);
-}
-
-nav .menu-items{
-    margin-top: 40px;
-    height: calc(100% - 90px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.menu-items li{
-    list-style: none;
-}
-.menu-items li a{
-    display: flex;
-    align-items: center;
-    height: 50px;
-    text-decoration: none;
+/* Định vị cho toàn bộ khu vực nội dung chính */
+.dashboard {
     position: relative;
-}
-.nav-links li a:hover:before{
-    content: "";
-    position: absolute;
-    left: -7px;
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-}
-
-.menu-items li a i{
-    font-size: 24px;
-    min-width: 45px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--black-light-color);
-}
-.menu-items li a .link-name{
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--black-light-color);
-    transition: var(--tran-05);
-}
-
-.nav-links li a:hover i,
-.nav-links li a:hover .link-name{
-    color: var(--primary-color);
-}
-
-.menu-items .logout-mode{
-    padding-top: 10px;
-    border-top: 1px solid var(--border-color);
-}
-
-/* ===== Dashboard (Main Content Area) Positioning ===== */
-.dashboard{
-    position: relative;
-    left: 250px;
-    background-color: var(--panel-color);
+    /* Quan trọng: Đẩy nội dung sang phải để không bị sidebar che */
+    margin-left: 250px; 
     width: calc(100% - 250px);
-    transition: var(--tran-05);
+    background-color: var(--panel-color);
+    padding: 0; /* Xóa padding mặc định để kiểm soát tốt hơn */
+    transition: all 0.5s ease;
 }
 
-/* Top bar within the dashboard (already identified as dash-lefttop) */
+/* Thanh top-bar chứa thông tin người dùng */
 .dash-lefttop {
     background-color: white;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 30px;
+    padding: 0 30px; /* Thống nhất padding */
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
     height: 70px;
 }
@@ -142,6 +48,7 @@ nav .menu-items{
 .dash-lefttop a {
     color: black;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .dash-lefttop img {
@@ -152,26 +59,10 @@ nav .menu-items{
     object-fit: cover;
 }
 
-.sl-id{
-    display: none;
-}
-
-
-/* ===== slide bar ===== */
-
-
-:root {
-    --panel-color: #f0f2f5;
-    --border-color: #dee2e6;
-    --text-color: #333;
-    --primary-color: #007bff;
-}
-
+/* Phần nội dung chính của trang (bảng, nút, v.v...) */
 .dashboard-content {
-    padding: 20px;
-    background-color: var(--panel-color);
-    min-height: calc(100vh - 70px);
-    box-sizing: border-box;
+    padding: 20px 30px; /* Thêm padding để nội dung không bị dính sát lề */
+    min-height: calc(100vh - 70px); /* Chiều cao tối thiểu = chiều cao màn hình - chiều cao top-bar */
 }
 
 .header-section {
@@ -210,7 +101,7 @@ nav .menu-items{
 
 .add-new-event-button {
     background-color: #5cb85c;
-    color: white;
+    color: white !important; /* Đảm bảo màu chữ luôn là trắng */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -225,11 +116,14 @@ nav .menu-items{
     background-color: #4cae4c;
 }
 
+/* Bảng sự kiện */
 .table-container {
     margin-top: 20px;
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 8px; /* Bo góc đẹp hơn */
     overflow: hidden;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .event-table {
@@ -239,57 +133,34 @@ nav .menu-items{
 }
 
 .event-table th, .event-table td {
-    padding: 15px 15px;
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
-    vertical-align: top;
 }
 
 .event-table thead th {
-    background-color: #e9ecef;
+    background-color: #f8f9fa;
     color: var(--text-color);
     font-weight: 600;
 }
 
-.event-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
 .event-table tbody tr:hover {
-    background-color: #e2e6ea;
+    background-color: #e9ecef;
 }
 
-/* --- Fix for long text in table cells --- */
-.event-table td.long-text {
-    /* Đảm bảo các ô này vẫn hoạt động nếu được sử dụng, nhưng không cần cho Description nữa */
-    max-width: 250px; /* Điều chỉnh lại max-width cho các cột còn lại nếu cần */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: normal;
-    overflow-wrap: normal;
-}
-
-/* Specific widths for columns - ĐÃ CHỈNH SỬA VỊ TRÍ VÀ CHIỀU RỘNG */
-.event-table th:nth-child(1), .event-table td:nth-child(1) { width: 8%; } /* STT */
-.event-table th:nth-child(2), .event-table td:nth-child(2) { width: 35%; } /* Title (formerly 2nd) */
-/* Cột Description đã bị loại bỏ */
-.event-table th:nth-child(3), .event-table td:nth-child(3) { width: 20%; } /* Date (now 3rd) */
-.event-table th:nth-child(4), .event-table td:nth-child(4) { width: 22%; } /* Location (now 4th) */
-.event-table th:nth-child(5), .event-table td:nth-child(5) { width: 7.5%; } /* Action (Edit) (now 5th) */
-.event-table th:nth-child(6), .event-table td:nth-child(6) { width: 7.5%; } /* Action (Delete) (now 6th) */
-
-/* Cho phép title tự động xuống dòng nếu quá dài, tận dụng không gian mới */
 .event-table td.event-title-cell {
-    white-space: normal; /* Cho phép text xuống dòng */
-    word-wrap: break-word; /* Ngắt từ nếu cần để tránh tràn */
-    overflow-wrap: break-word; 
-    max-width: none; /* Bỏ giới hạn max-width để nó chiếm hết không gian được phân bổ */
+    white-space: normal;
+    word-wrap: break-word;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-/* Removed .description-cell rules */
+.event-table td.event-title-cell:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
 
-
+/* Nút Edit/Delete */
 .action-button {
     padding: 6px 12px;
     border: none;
@@ -314,6 +185,7 @@ nav .menu-items{
     opacity: 0.9;
 }
 
+/* Phân trang */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -322,16 +194,16 @@ nav .menu-items{
 }
 
 .pagination-item {
-    display: inline-block;
     margin: 0 5px;
 }
 
 .pagination-item a {
     text-decoration: none;
     color: var(--primary-color);
-    padding: 8px 12px;
+    padding: 8px 16px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
+    transition: all 0.2s ease-in-out;
 }
 
 .pagination-item.active a {
@@ -340,92 +212,49 @@ nav .menu-items{
     border-color: var(--primary-color);
 }
 
-.pagination-item a:hover:not(.active) {
+.pagination-item a:hover {
     background-color: #e9ecef;
 }
 
-/* Override specific dash-bottomtable styles if they conflict */
-.dashboard .dash-bottomtable {
-    height: auto;
-    overflow: visible;
-    display: block;
-    padding: 0 20px;
+.pagination-item.active a:hover {
+    background-color: var(--primary-color);
 }
 
-/* Adjustments for the main content area to align with the image */
-.dashboard {
-    background-color: #f4f6f9;
-    padding: 0;
-}
 
-.dash-lefttop {
-    background-color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.08);
-    height: 70px;
-}
-
-.dash-lefttop a {
-    color: black;
-    font-weight: 500;
-}
-
-.dash-lefttop img {
-    margin-right: 10px;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.sl-id {
-    display: none;
-}
-
-/* Responsive adjustments for smaller screens */
+/* Responsive */
 @media (max-width: 768px) {
+    .dashboard {
+        margin-left: 0; /* Sidebar có thể sẽ ẩn đi trên di động */
+        width: 100%;
+    }
     .dashboard-content {
         padding: 10px;
     }
     .header-section {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
     }
     .search-add-section {
         width: 100%;
         margin-bottom: 15px;
     }
     .search-input {
-        width: calc(100% - 70px);
+        width: 100%;
     }
     .add-new-event-button {
         width: 100%;
         text-align: center;
     }
-    .event-table th, .event-table td {
-        padding: 10px;
-    }
-    .event-table td.long-text {
-        max-width: 150px;
-    }
-    .event-table th:nth-child(1), .event-table td:nth-child(1) { width: 10%; } /* STT */
-    .event-table th:nth-child(2), .event-table td:nth-child(2) { width: 40%; } /* Title */
-    .event-table th:nth-child(3), .event-table td:nth-child(3) { width: 20%; } /* Date */
-    .event-table th:nth-child(4), .event-table td:nth-child(4) { width: 20%; } /* Location */
-    .event-table th:nth-child(5), .event-table td:nth-child(5) { width: 5%; } /* Edit */
-    .event-table th:nth-child(6), .event-table td:nth-child(6) { width: 5%; } /* Delete */
 }
 
-/* Styles for event title cell interaction */
-.event-table tbody .event-title-cell {
-    cursor: pointer;
-    text-decoration: none;
+.event-table tbody td:nth-last-child(2) {
+    width: 90px; /* Đặt chiều rộng vừa đủ cho nút Edit */
+    padding-right: 5px; /* Giảm khoảng cách đệm bên phải */
+    text-align: right; /* Căn nút Edit sang phải */
 }
 
-.event-table tbody .event-title-cell:hover {
-    text-decoration: underline;
-    color: #6f42c1; /* Màu tím khi di chuột qua */
+.event-table tbody td:nth-last-child(1) {
+    width: 90px; /* Đặt chiều rộng vừa đủ cho nút Delete */
+    padding-left: 5px; /* Giảm khoảng cách đệm bên trái */
+    text-align: left; /* Căn nút Delete sang trái */
 }

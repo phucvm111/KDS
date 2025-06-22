@@ -9,7 +9,10 @@ import dal.RoleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
+
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import model.Role;
 
 /**
  *
+<<<<<<< HEAD
  * @author Vu Tuan Hai <HE176383>
  */
 @WebServlet(name = "AddAccountServlet", urlPatterns = {"/AddAccountServlet"})
@@ -60,11 +64,18 @@ public class AddAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     AccountDAO ad = new AccountDAO();
+
+
+
     RoleDAO rd = new RoleDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
+
+
         List<Account> acts = ad.getAllAccounts();
         List<Role> roles = rd.getAllRoles();
         request.setAttribute("acts", acts);
@@ -83,8 +94,11 @@ public class AddAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         Account ac = new Account();
         ac.setAccountID(0);
+
+
         ac.setFirstName(request.getParameter("txtFirstName"));
         ac.setLastName(request.getParameter("txtLastName"));
         ac.setGender(request.getParameter("flexRadioDefault").equals("male"));
@@ -102,6 +116,10 @@ public class AddAccountServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(ac.toString());
         response.sendRedirect("listaccount");
+
+
+
+
     }
 
     /**
@@ -114,4 +132,6 @@ public class AddAccountServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+
 }
+

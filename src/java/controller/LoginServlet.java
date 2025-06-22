@@ -49,15 +49,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -99,14 +91,17 @@ public class LoginServlet extends HttpServlet {
                     Class kc = classDao.getTeacherClass(acc.getAccountID());
                     session.setAttribute("kinder_class", kc);
                     session.setAttribute("account", acc);
-                    response.sendRedirect("teacherprofile?id="+acc.getAccountID());
+                    session.setAttribute("userid", acc.getRole().getRoleID()); 
+                    response.sendRedirect("attendance");
                     break;
                 case 1:
                     session.setAttribute("account", acc);
+                    session.setAttribute("userid", acc.getRole().getRoleID());
                     response.sendRedirect("dashboard");
                     break;
                 case 3:
                     session.setAttribute("account", acc);
+                    session.setAttribute("userid", acc.getRole().getRoleID());
                     response.sendRedirect("events");
                     break;
                 default:

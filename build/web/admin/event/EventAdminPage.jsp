@@ -3,154 +3,135 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin - Event Management</title>
-    
-    <link rel="stylesheet" href="admin/event/boot/bootstrap.min.css">
-    <link rel="stylesheet" href="admin/event/boot/bootstrap.css">
-    
-    <link rel="stylesheet" href="admin/event/css/style.css"> 
-    
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="icon" href="./assets/image/logo2-removebg-preview.png">
-</head>
-<body>
-    <form action="event" method="POST">
-        <nav>
-            <div class="logo-name">
-                <div class="logo-image">
-                    <img src="images/logo.jpg" alt="">
-                </div>
-                <span class="logo_name"><a href="listaccount" style="text-decoration: none;color: black">Admin Page</a></span>
-            </div>
-            <div class="menu-items">
-                <ul class="nav-links">
-                    <li><a href="listaccount"><i class="uil uil-estate"></i><span class="link-name">Account</span></a></li>
-                    <li><a href="listkinder"><i class="uil uil-chart"></i><span class="link-name">Kindergartner</span></a></li>
-                    <li><a href="listclass"><i class="uil uil-thumbs-up"></i><span class="link-name">Class</span></a></li>
-                    <li><a href="listschedule"><i class="uil uil-comments"></i><span class="link-name">Schedule</span></a></li>
-                    <li><a href="event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
-                </ul>
-                <ul class="logout-mode">
-                    <li><a href="logout"><i class="uil uil-signout"></i><span class="link-name">Logout</span></a></li>
-                </ul>
-            </div>
-        </nav>
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin - Event Management</title>
 
-        <div class="dashboard">
-            <div class="dash-lefttop">
-                <img src="https://i.pinimg.com/originals/72/45/fb/7245fb0ca786bb4a98fb8465e437c5bb.jpg" alt="">
-                <a href="#" style="text-decoration: none">${sessionScope.account.firstName}</a>
-            </div>
-            
-            <div class="dashboard-content">
-                <h2>Event List</h2>
+        <%-- Các file CSS cho trang Event --%>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/boot/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/css/style.css"> 
+        
+        <%-- File CSS cho sidebar mới và thư viện icon --%>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/adminSidebar.css">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
+    </head>
+    <body>
+        <%-- Cấu trúc form bao bọc toàn bộ trang được giữ nguyên theo ý bạn --%>
+        <form action="event" method="POST">
 
-                <c:if test="${not empty sessionScope.successMessage}">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
-                        ${sessionScope.successMessage}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <%-- BƯỚC 1: Xóa sidebar cũ và THÊM sidebar mới bằng Jsp Include --%>
+            <%-- Vui lòng kiểm tra lại đường dẫn "page" để chắc chắn nó trỏ đúng tới file adminSidebar.jsp của bạn --%>
+            <jsp:include page="/view/adminSidebar.jsp" /> 
+
+            <%-- Phần nội dung chính của trang được giữ nguyên cấu trúc --%>
+            <div class="dashboard">
+               
+
+                <div class="dashboard-content">
+                    <h2>Event List</h2>
+
+                    <c:if test="${not empty sessionScope.successMessage}">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
+                            ${sessionScope.successMessage}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <c:remove var="successMessage" scope="session"/>
+                    </c:if>
+
+                    <c:if test="${not empty requestScope.message}">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
+                            ${requestScope.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </c:if>
+
+                    <div class="header-section">
+                        <div class="search-add-section">
+                            <input type="text" name="searchName" placeholder="Enter Event Name" class="search-input" value="${param.searchName != null ? param.searchName : ''}">
+                            <button type="submit" class="search-button">Search</button>
+                        </div>
+                        <a href="addevent" class="add-new-event-button">Add New Event</a>
                     </div>
-                    <c:remove var="successMessage" scope="session"/>
-                </c:if>
 
-                <c:if test="${not empty requestScope.message}">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
-                        ${requestScope.message}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </c:if>
-
-                <div class="header-section">
-                    <div class="search-add-section">
-                        <input type="text" name="searchName" placeholder="Enter Event Name" class="search-input" value="${param.searchName != null ? param.searchName : ''}">
-                        <button type="submit" class="search-button">Search</button>
-                    </div>
-                    <a href="addevent" class="add-new-event-button">Add New Event</a>
-                </div>
-
-                <div class="table-container">
-                    <table class="event-table">
-                        <thead>
-                            <tr>
-                                <th>STT</th> 
-                                <th>Title</th>
-                                <%-- XÓA CỘT DESCRIPTION --%>
-                                <%-- <th>Description</th> --%> 
-                                <th>Date</th>
-                                <th>Location</th>
-                                <th colspan="2" style="text-align: center;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="eventTableBody">
-                            <c:forEach items="${requestScope.eventList}" var="event" varStatus="loop">
-                                <tr data-event-id="${event.eventId}">
-                                    <td>${(requestScope.offset + loop.index) + 1}</td> 
-                                    <td class="long-text event-title-cell">${event.eventName}</td>
-                                    <%-- XÓA DỮ LIỆU DESCRIPTION --%>
-                                    <%-- <td class="long-text description-cell">${event.eventDescription}</td> --%>
-                                    <td><fmt:formatDate value="${event.eventDate}" pattern="yyyy-MM-dd" /></td>
-                                    <td class="long-text">${event.location}</td>
-                                    <td><a href="updateevent?id=${event.eventId}" class="action-button edit-button">Edit</a></td>
-                                    <td><a href="deleteevent?id=${event.eventId}" class="action-button delete-button" onclick="return confirm('Are you sure you want to delete this event?');">Delete</a></td>
-                                </tr>
-                            </c:forEach>
-                            <c:if test="${empty requestScope.eventList}">
+                    <div class="table-container">
+                        <table class="event-table">
+                            <thead>
                                 <tr>
-                                    <%-- Điều chỉnh colspan từ 7 thành 6 vì đã xóa 1 cột --%>
-                                    <td colspan="6" style="text-align: center;">No events found.</td> 
+                                    <th>STT</th> 
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Location</th>
+                                    <th colspan="2" style="text-align: center;">Action</th>
                                 </tr>
-                            </c:if>
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody id="eventTableBody">
+                                <c:forEach items="${requestScope.eventList}" var="event" varStatus="loop">
+                                    <tr data-event-id="${event.eventId}">
+                                        <td>${(requestScope.offset + loop.index) + 1}</td> 
+                                        <td class="long-text event-title-cell">${event.eventName}</td>
+                                        <td><fmt:formatDate value="${event.eventDate}" pattern="yyyy-MM-dd" /></td>
+                                        <td class="long-text">${event.location}</td>
+                                        <td><a href="updateevent?id=${event.eventId}" class="action-button edit-button">Edit</a></td>
+                                        <td><a href="deleteevent?id=${event.eventId}" class="action-button delete-button" onclick="return confirm('Are you sure you want to delete this event?');">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
+                                <c:if test="${empty requestScope.eventList}">
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">No events found.</td> 
+                                    </tr>
+                                </c:if>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="pagination-container">
-                    <c:set var="currentPage" value="${requestScope.currentPage != null ? requestScope.currentPage : 1}" />
-                    <c:set var="totalPages" value="${requestScope.totalPages != null ? requestScope.totalPages : 1}" />
+                    <div class="pagination-container">
+                        <c:set var="currentPage" value="${requestScope.currentPage != null ? requestScope.currentPage : 1}" />
+                        <c:set var="totalPages" value="${requestScope.totalPages != null ? requestScope.totalPages : 1}" />
 
-                    <c:if test="${currentPage > 1}">
-                        <div class="pagination-item">
-                            <a href="event?page=${currentPage - 1}&searchName=${param.searchName != null ? param.searchName : ''}">Previous</a>
-                        </div>
-                    </c:if>
+                        <c:if test="${currentPage > 1}">
+                            <div class="pagination-item">
+                                <a href="event?page=${currentPage - 1}&searchName=${param.searchName != null ? param.searchName : ''}">Previous</a>
+                            </div>
+                        </c:if>
 
-                    <c:forEach begin="1" end="${totalPages}" var="i">
-                        <div class="pagination-item ${currentPage == i ? 'active' : ''}">
-                            <a href="event?page=${i}&searchName=${param.searchName != null ? param.searchName : ''}">${i}</a>
-                        </div>
-                    </c:forEach>
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <div class="pagination-item ${currentPage == i ? 'active' : ''}">
+                                <a href="event?page=${i}&searchName=${param.searchName != null ? param.searchName : ''}">${i}</a>
+                            </div>
+                        </c:forEach>
 
-                    <c:if test="${currentPage < totalPages}">
-                        <div class="pagination-item">
-                            <a href="event?page=${currentPage + 1}&searchName=${param.searchName != null ? param.searchName : ''}">Next</a>
-                        </div>
-                    </c:if>
+                        <c:if test="${currentPage < totalPages}">
+                            <div class="pagination-item">
+                                <a href="event?page=${currentPage + 1}&searchName=${param.searchName != null ? param.searchName : ''}">Next</a>
+                            </div>
+                        </c:if>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const eventTableBody = document.getElementById('eventTableBody');
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const eventTableBody = document.getElementById('eventTableBody');
 
-            if (eventTableBody) {
-                eventTableBody.addEventListener('dblclick', function(event) {
-                    const clickedRow = event.target.closest('tr');
-                    
-                    if (clickedRow) {
-                        const eventId = clickedRow.dataset.eventId;
-                        const isTitleCell = event.target.classList.contains('event-title-cell') || event.target.closest('.event-title-cell');
+                if (eventTableBody) {
+                    eventTableBody.addEventListener('dblclick', function (event) {
+                        const clickedRow = event.target.closest('tr');
 
-                        if (eventId && isTitleCell) {
-                            window.location.href = 'vieweventdetails?id=' + eventId; 
+                        if (clickedRow) {
+                            const eventId = clickedRow.dataset.eventId;
+                            const isTitleCell = event.target.classList.contains('event-title-cell') || event.target.closest('.event-title-cell');
+
+                            if (eventId && isTitleCell) {
+                                window.location.href = 'vieweventdetails?id=' + eventId;
+                            }
                         }
-                    }
-                });
-            }
-        });
-    </script>
-</body>
+                    });
+                }
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

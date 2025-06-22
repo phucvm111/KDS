@@ -18,7 +18,6 @@
 <body>
     <div class="wrapper">
         <%-- Include the sidebar here --%>
-      
         <jsp:include page="/view/sidebarParent.jsp" /> 
 
         <div class="right-side">
