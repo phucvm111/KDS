@@ -99,9 +99,14 @@
                 <a href="${pageContext.request.contextPath}/students?status=graduated" class="btn btn-lg btn-success rounded-4 shadow-sm">
                     🎓 Học sinh đã tốt nghiệp
                 </a>
+                <a href="${pageContext.request.contextPath}/students?status=dropped" class="btn btn-lg btn-danger rounded-4 shadow-sm">
+                    ⛔ Học sinh đã thôi học
+                </a>
                 <a href="${pageContext.request.contextPath}/viewKinderList" class="btn btn-lg btn-warning rounded-4 shadow-sm">
                     ✏️ Chỉnh sửa thông tin học sinh
                 </a>
+
+
 
 
 
