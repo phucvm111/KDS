@@ -84,24 +84,31 @@ public class ChangePasswordServlet extends HttpServlet {
 
         if (!currentpassword.equals(pass)) {
             request.setAttribute("changepassfalse", "Current password incorrect!");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (!(newpassword.equals(confirmpassword))) {
             request.setAttribute("changepassfalse", "New password and confirm password must match.");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (newpassword.length() < 8) {
             request.setAttribute("changepassfalse", "Please input new password >=8 character!");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (!newpassword.matches(".*[A-Z].*")) {
             request.setAttribute("changepassfalse", "Password must contain at least one uppercase letter.");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (!newpassword.matches(".*[a-z].*")) {
             request.setAttribute("changepassfalse", "Password must contain at least one lowercase letter.");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (!newpassword.matches(".*[0-9].*")) {
             request.setAttribute("changepassfalse", "Password must contain at least one number letter.");
+             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else if (!newpassword.matches(".*[!@#$%^&*()_+=\\[\\]{}|;:'\",.<>?/`~\\\\-].*")) {
             request.setAttribute("changepassfalse", "Password must contain at least one special character.");
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else {
             d.changePassword(email, newpassword);
             request.setAttribute("changepasssucess", "Change password sucessful.");
         }
 
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("/parent/parentprofile.jsp").forward(request, response);
     }
 
     /**

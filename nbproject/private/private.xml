@@ -3,6 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/management_nutrition/menu.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/mnage_nutrition/editMenu.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/management_nutrition/edit_menu.jsp</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/mnage_nutrition/updateMenuServlet.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/model/Menu.java</file>
+            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/MenuDao.java</file>
+=======
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/controller/teacher/KidProfile.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/KindergartnerDAO.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/EventDAO.java</file>
@@ -42,6 +51,7 @@
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/DBContext.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/controller/parent/ChildDetailServlet.java</file>
             <file>file:/C:/Users/admin/OneDrive/Desktop/6625/KDS2106/KDS/src/java/dal/AccountDAO.java</file>
+>>>>>>> 5ec4f4601c586cf049aeee64ea5a0faee1b1d79e
         </group>
     </open-files>
 </project-private>

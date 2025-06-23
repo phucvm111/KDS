@@ -22,6 +22,11 @@ public class Menu {
         this.notes = notes;
         this.calssid = calssid;
     }
+
+    @Override
+    public String toString() {
+        return "Menu{" + "menu_id=" + menu_id + ", menudate=" + menudate + ", menutype=" + menutype + ", dish=" + dish + ", calories=" + calories + ", notes=" + notes + ", calssid=" + calssid + '}';
+    }
     
     public Menu(String menudate, String menutype, String dish, float calories, String notes, Class calssid) {
         this.menudate = menudate;

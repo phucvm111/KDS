@@ -81,11 +81,7 @@ public class deleteMenuServlet extends HttpServlet {
                 dao.deleteMenuById(menuId);
             }
 
-            // Gửi dữ liệu quay lại servlet ban đầu (POST với filter)
-            request.setAttribute("classId", classId);
-            request.setAttribute("menudate", menuDate);
-
-            // Forward thay vì redirect để giữ lại dữ liệu lọc
+         
             request.getRequestDispatcher("day_class").forward(request, response);
 
         } catch (Exception e) {
