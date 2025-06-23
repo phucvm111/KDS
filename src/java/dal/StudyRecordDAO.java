@@ -34,7 +34,8 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        rs.getBoolean("is_graduated")
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
                 );
                 list.add(sr);
             }
@@ -45,7 +46,7 @@ public class StudyRecordDAO {
     }
 
     public void addStudyRecord(StudyRecord sr) {
-        String sql = "INSERT INTO Study_Record(class_id, kinder_id, study_year, is_graduated) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Study_Record(class_id, kinder_id, study_year, is_graduated, is_dropped_out) VALUES (?, ?, ?, ?, ?)";
         try {
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
@@ -53,6 +54,7 @@ public class StudyRecordDAO {
             ps.setInt(2, sr.getKinder().getKinder_id());
             ps.setInt(3, sr.getStudyYear());
             ps.setBoolean(4, sr.isGraduated());
+            ps.setBoolean(5, sr.isDroppedOut()); // thêm nếu có cột này
             ps.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(StudyRecordDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,7 +101,7 @@ public class StudyRecordDAO {
 
     public List<StudyRecord> getStudentsStudying(int year) {
         List<StudyRecord> list = new ArrayList<>();
-        String sql = "SELECT * FROM Study_Record WHERE study_year = ? AND is_graduated = 0";
+        String sql = "SELECT * FROM Study_Record WHERE study_year = ? AND is_graduated = 0 AND is_dropped_out = 0";
         try {
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
@@ -111,7 +113,8 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        rs.getBoolean("is_graduated") // ✅ THÊM DÒNG NÀY
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
                 );
                 list.add(sr);
             }
@@ -134,7 +137,8 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        rs.getBoolean("is_graduated")
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
                 );
                 list.add(sr);
             }
@@ -159,7 +163,8 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        true
+                        true,
+                        false
                 );
                 list.add(sr);
             }
@@ -174,7 +179,7 @@ public class StudyRecordDAO {
         List<StudyRecord> list = new ArrayList<>();
         String sql = "SELECT * FROM Study_Record sr "
                 + "JOIN Kindergartner k ON sr.kinder_id = k.kinder_id "
-                + "WHERE sr.study_year = ? AND sr.is_graduated = 0 AND sr.class_id = ? AND (k.first_name + ' ' + k.last_name) LIKE ?";
+                + "WHERE sr.study_year = ? AND sr.is_graduated = 0 AND is_dropped_out = 0 AND sr.class_id = ? AND (k.first_name + ' ' + k.last_name) LIKE ?";
         try {
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
@@ -188,6 +193,7 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
+                        false,
                         false
                 );
                 list.add(sr);
@@ -216,7 +222,8 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        true
+                        true,
+                        false
                 );
                 list.add(sr);
             }
@@ -228,7 +235,7 @@ public class StudyRecordDAO {
 
     public List<StudyRecord> getStudentsStudyingByClassAndYear(int classId, int year) {
         List<StudyRecord> list = new ArrayList<>();
-        String sql = "SELECT * FROM Study_Record WHERE study_year = ? AND is_graduated = 0 AND class_id = ?";
+        String sql = "SELECT * FROM Study_Record WHERE study_year = ? AND is_graduated = 0 AND is_dropped_out = 0 AND class_id = ?";
         try {
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
@@ -241,6 +248,7 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
+                        false,
                         false
                 );
                 list.add(sr);
@@ -265,7 +273,107 @@ public class StudyRecordDAO {
                         cd.getClassByID(rs.getInt("class_id")),
                         kd.getKinderById(rs.getInt("kinder_id")),
                         rs.getInt("study_year"),
-                        true
+                        true,
+                        false
+                );
+                list.add(sr);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudyRecordDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public void markDroppedOut(int kinderId, int studyYear) {
+        String sql = "UPDATE Study_Record SET is_dropped_out = 1, is_graduated = 0 WHERE kinder_id = ? AND study_year = ?";
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, kinderId);
+            ps.setInt(2, studyYear);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<StudyRecord> getDroppedOutStudentsByYear(int year) {
+        List<StudyRecord> list = new ArrayList<>();
+        String sql = "SELECT * FROM Study_Record WHERE is_dropped_out = 1 AND study_year = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, year);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                StudyRecord sr = new StudyRecord(
+                        rs.getInt("study_record_id"),
+                        cd.getClassByID(rs.getInt("class_id")),
+                        kd.getKinderById(rs.getInt("kinder_id")),
+                        rs.getInt("study_year"),
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
+                );
+                list.add(sr);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudyRecordDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<StudyRecord> getDroppedOutStudentsByClassAndYear(int classId, int year) {
+        List<StudyRecord> list = new ArrayList<>();
+        String sql = "SELECT * FROM Study_Record WHERE is_dropped_out = 1 AND class_id = ? AND study_year = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, classId);
+            ps.setInt(2, year);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                StudyRecord sr = new StudyRecord(
+                        rs.getInt("study_record_id"),
+                        cd.getClassByID(rs.getInt("class_id")),
+                        kd.getKinderById(rs.getInt("kinder_id")),
+                        rs.getInt("study_year"),
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
+                );
+                list.add(sr);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudyRecordDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<StudyRecord> getDroppedOutStudentsByClassYearAndName(int classId, int year, String name) {
+        List<StudyRecord> list = new ArrayList<>();
+        String sql = "SELECT sr.* FROM Study_Record sr "
+                + "JOIN Kindergartner k ON sr.kinder_id = k.kinder_id "
+                + "WHERE sr.is_dropped_out = 1 AND sr.study_year = ? "
+                + (classId != -1 ? "AND sr.class_id = ? " : "")
+                + "AND (k.first_name + ' ' + k.last_name) LIKE ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, year);
+            int index = 2;
+            if (classId != -1) {
+                ps.setInt(index++, classId);
+            }
+            ps.setString(index, "%" + name + "%");
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                StudyRecord sr = new StudyRecord(
+                        rs.getInt("study_record_id"),
+                        cd.getClassByID(rs.getInt("class_id")),
+                        kd.getKinderById(rs.getInt("kinder_id")),
+                        rs.getInt("study_year"),
+                        rs.getBoolean("is_graduated"),
+                        rs.getBoolean("is_dropped_out")
                 );
                 list.add(sr);
             }
@@ -276,16 +384,17 @@ public class StudyRecordDAO {
     }
 
     public static void main(String[] args) {
-        StudyRecordDAO dao = new StudyRecordDAO();
-        List<StudyRecord> list = dao.getAllStudyRecord();
+        StudyRecordDAO srdao = new StudyRecordDAO();
+        int year = 2025;
 
-        if (list.isEmpty()) {
-            System.out.println("⚠️ Không lấy được học sinh nào từ DB!");
-        } else {
-            System.out.println("✅ Lấy được " + list.size() + " học sinh:");
-            for (StudyRecord sr : list) {
-                System.out.println("🔸 " + sr.getKinder().getFullName() + " - Lớp: " + sr.getClassID().getClass_name());
-            }
+        List<StudyRecord> studyingList = srdao.getStudentsStudying(year);
+        System.out.println("🔍 Tổng số học sinh đang học năm " + year + ": " + studyingList.size());
+
+        for (StudyRecord sr : studyingList) {
+            System.out.println("👦 " + sr.getKinder().getFullName()
+                    + " | Lớp: " + sr.getClassID().getClass_name()
+                    + " | Tốt nghiệp: " + sr.isGraduated()
+                    + " | Thôi học: " + sr.isDroppedOut());
         }
     }
 

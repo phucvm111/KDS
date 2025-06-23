@@ -118,6 +118,21 @@
             </c:if>
 
             <a href="${pageContext.request.contextPath}/listkinder" class="btn btn-outline-secondary mt-4">⬅️ Quay lại chọn danh mục</a>
+            <c:if test="${totalPages > 1}">
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link"
+                                   href="${pageContext.request.contextPath}/viewKinderList?page=${i}&classId=${classId}&keyword=${keyword}">
+                                    ${i}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </nav>
+            </c:if>
+
         </div>
     </body>
 </html>
