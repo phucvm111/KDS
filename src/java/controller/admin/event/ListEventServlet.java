@@ -18,7 +18,7 @@ public class ListEventServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(ListEventServlet.class.getName());
 
-    private static final int RECORDS_PER_PAGE = 5; // so ban ghi moi trang
+    private static final int RECORDS_PER_PAGE = 8; // so ban ghi moi trang
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

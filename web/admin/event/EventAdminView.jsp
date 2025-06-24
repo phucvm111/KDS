@@ -6,17 +6,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Admin - Event Details</title>
-        
-        <%-- Các file CSS cho trang --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/boot/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/css/style.css"> 
-
-        <%-- File CSS cho sidebar mới và thư viện icon --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/adminSidebar.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
-        
+       
         <style>
             /* Các CSS riêng cho trang này có thể giữ lại hoặc chuyển vào file style.css chung */
             .event-details-card {
@@ -66,11 +61,7 @@
     <body>
         
         <jsp:include page="/view/adminSidebar.jsp" />
-
-        <%-- Phần nội dung chính của trang --%>
         <div class="dashboard">
-            
-
             <div class="dashboard-content">
                 <c:if test="${not empty requestScope.event}">
                     <div class="event-details-card">

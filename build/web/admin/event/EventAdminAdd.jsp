@@ -8,12 +8,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <%-- Các file CSS cho trang --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/class/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/class/boot/bootstrap.min.css">
-        
-        <%-- File CSS cho sidebar mới và thư viện icon --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/adminSidebar.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <title>Add Event</title> 
@@ -22,16 +18,10 @@
     <body>
 
         <form action="addevent" method="POST">
-            
-            <%-- BƯỚC 1: XÓA SIDEBAR CŨ --%>
-            <%-- BƯỚC 2: THAY THẾ BẰNG DÒNG INCLUDE NÀY --%>
-            <%-- Hãy chắc chắn đường dẫn "page" là chính xác tới file adminSidebar.jsp của bạn --%>
             <jsp:include page="/view/adminSidebar.jsp" />
 
-            <%-- Phần nội dung chính của trang được giữ nguyên --%>
             <div class="dashboard">
-               
-
+     
                 <div class="form-title" style="text-align: center; font-size: 40px;">Add Event</div>
                 
                 <div class="form-content" style="width: 80%; margin-left: 10%; padding-top: 0;">

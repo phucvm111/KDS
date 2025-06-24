@@ -6,32 +6,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Admin - Event Management</title>
-
-        <%-- Các file CSS cho trang Event --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/boot/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/event/css/style.css"> 
-        
-        <%-- File CSS cho sidebar mới và thư viện icon --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/adminSidebar.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-        
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
     </head>
     <body>
-        <%-- Cấu trúc form bao bọc toàn bộ trang được giữ nguyên theo ý bạn --%>
         <form action="event" method="POST">
-
-            <%-- BƯỚC 1: Xóa sidebar cũ và THÊM sidebar mới bằng Jsp Include --%>
-            <%-- Vui lòng kiểm tra lại đường dẫn "page" để chắc chắn nó trỏ đúng tới file adminSidebar.jsp của bạn --%>
             <jsp:include page="/view/adminSidebar.jsp" /> 
-
-            <%-- Phần nội dung chính của trang được giữ nguyên cấu trúc --%>
             <div class="dashboard">
-               
-
                 <div class="dashboard-content">
                     <h2>Event List</h2>
-
                     <c:if test="${not empty sessionScope.successMessage}">
                         <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
                             ${sessionScope.successMessage}
