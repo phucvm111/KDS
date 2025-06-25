@@ -304,6 +304,10 @@
         <servlet-name>SendFormServlet</servlet-name>
         <servlet-class>controller.parent.SendFormServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateTeacherServlet</servlet-name>
+        <servlet-class>controller.teacher.UpdateTeacherServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -631,6 +635,10 @@
     <servlet-mapping>
         <servlet-name>SendFormServlet</servlet-name>
         <url-pattern>/sendform</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTeacherServlet</servlet-name>
+        <url-pattern>/updateteacher</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
