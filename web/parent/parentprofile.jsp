@@ -43,7 +43,10 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
                                 </li>
-                                
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
+                                </li>
+
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
@@ -57,7 +60,7 @@
                     <div class="page-content">
                         <div class="kid-profile">
                             <div class="kid-profile_header">
-                                
+
                                 <div class="img-section">
                                     <img src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="">
                                 </div>
@@ -68,37 +71,37 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="kid-profile_content">
                                 <div class="class content-item">
                                     <div class="item-title">
                                         <strong>First Name</strong>
-                                        
+
                                     </div>
                                     <c:set var="parent" value="${requestScope.account}"/>
                                     <p class="parent-infor">${account.firstName}</p>
-                                    
+
                                 </div>
                                 <div class="content-item phone">
                                     <div class="item-title">
                                         <strong>Last Name</strong>
-                                        
+
                                     </div>
                                     <c:set var="parent" value="${requestScope.account}"/>
                                     <p class="parent-infor">${account.lastName}</p>
-                                    
+
                                 </div>
                                 <div class="content-item phone">
-                                    
+
                                     <div class="item-title">
                                         <strong>Date of birth</strong>
-                                        
+
                                     </div>
                                     <p class="parent-infor">${account.dob}</p>
-                                    
-                                    
-                                  
+
+
+
                                 </div>   
                                 <div class="content-item address">
                                     <div class="item-title">
@@ -114,38 +117,38 @@
                                 <div class="content-item address">
                                     <div class="item-title">
                                         <strong>Phone</strong>
-                                         
+
                                     </div>
                                     <c:set var="parent" value="${requestScope.account}"/>
                                     <p class="parent-infor">${account.phoneNumber}</p>
-                                    
+
                                 </div>
                                 <div class="content-item description">
                                     <div class="item-title">
                                         <strong>Address</strong>
-                                        
+
                                     </div>
                                     <c:set var="parent" value="${requestScope.account}"/>
                                     <p class="parent-infor">${account.address}</p>
-                                    
+
                                 </div>
                                 <div class="content-item address">
                                     <div class="item-title">
                                         <strong>Email</strong>
-                                        
+
                                     </div>
                                     <c:set var="parent" value="${requestScope.account}"/>
                                     <p class="parent-infor">${account.email}</p>
-                                    
-                                    
+
+
                                 </div>
-<!--                                <div class="content-item address">
-                                    <div class="item-title">
-                                        <strong>Profile Picture</strong>
-                                    </div>
-                                    <p class="parent-infor">${account.img}</p>
-                                    
-                                </div>-->
+                                <!--                                <div class="content-item address">
+                                                                    <div class="item-title">
+                                                                        <strong>Profile Picture</strong>
+                                                                    </div>
+                                                                    <p class="parent-infor">${account.img}</p>
+                                                                    
+                                                                </div>-->
                                 <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 300px ">
                                     <a href="${pageContext.request.contextPath}/homepage/parent/parentupdateprofile.jsp">
                                         <input type="submit" class="button" value="Update profile"/>

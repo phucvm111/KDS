@@ -300,7 +300,19 @@
         <servlet-name>AdminNotificationServlet</servlet-name>
         <servlet-class>controller.admin.notifications.AdminNotificationServlet</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>SendFormServlet</servlet-name>
+        <servlet-class>controller.parent.SendFormServlet</servlet-class>
+    </servlet>
+    <servlet>
+
+        <servlet-name>HistoryFormServlet</servlet-name>
+        <servlet-class>controller.parent.HistoryFormServlet</servlet-class>
+
+        <servlet-name>UpdateTeacherServlet</servlet-name>
+        <servlet-class>controller.teacher.UpdateTeacherServlet</servlet-class>
+
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -625,7 +637,19 @@
         <servlet-name>AdminNotificationServlet</servlet-name>
         <url-pattern>/adminNotifyTeachers</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>SendFormServlet</servlet-name>
+        <url-pattern>/sendform</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+
+        <servlet-name>HistoryFormServlet</servlet-name>
+        <url-pattern>/historyform</url-pattern>
+
+        <servlet-name>UpdateTeacherServlet</servlet-name>
+        <url-pattern>/updateteacher</url-pattern>
+
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -49,23 +49,31 @@ public class MenuDao {
         }
         return list;
     }
-    public static Menu getMenuById(int menuId) {
-    String sql = "SELECT * FROM menu WHERE menu_id = ?";
+   public static Menu getMenuById(int menuId) {
+    String sql = "SELECT * FROM Menu WHERE MenuID = ?";
     try (
-        Connection connection = new DBContext().getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql)) {
+        Connection connection = DBContext.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)
+    ) {
         ps.setInt(1, menuId);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            Menu m = new Menu();
-            m.setMenu_id(rs.getInt("menu_id"));
-            m.setDish(rs.getString("dish"));
-            m.setCalories(rs.getFloat("calories"));
-            m.setNotes(rs.getString("notes"));
-            m.setMenutype(rs.getString("menutype"));
-            m.setMenudate(rs.getString("menudate"));
-            m.setCalssid(new ClassDAO().getClassByID(rs.getInt("class_id")));
-            return m;
+            Menu menu = new Menu();
+            menu.setMenu_id(rs.getInt("MenuID"));
+            menu.setMenudate(rs.getString("MenuDate"));
+            menu.setMenutype(rs.getString("MealType")); // tên chính xác từ DB
+            menu.setDish(rs.getString("Dish"));
+            menu.setCalories(rs.getFloat("Calories"));
+            menu.setNotes(rs.getString("Notes"));
+
+            int classId = rs.getInt("ClassID");
+            if (rs.wasNull()) {
+                menu.setCalssid(null);
+            } else {
+                menu.setCalssid(new ClassDAO().getClassByID(classId));
+            }
+
+            return menu;
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -73,21 +81,28 @@ public class MenuDao {
     return null;
 }
 
+
+
 public static void updateMenu(Menu m) {
-    String sql = "UPDATE menu SET menutype=?, dish=?, calories=?, notes=?, menudate=?, class_id=? WHERE menu_id=?";
-    try (Connection connection = new DBContext().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, m.getMenutype());
-        ps.setString(2, m.getDish());
-        ps.setFloat(3, m.getCalories());
-        ps.setString(4, m.getNotes());
-        ps.setString(5, m.getMenudate());
+    String sql = "UPDATE Menu SET MenuDate=?, MealType=?, Dish=?, Calories=?, Notes=?, ClassID=? WHERE MenuID=?";
+    try (Connection connection =  DBContext.getConnection(); 
+         PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ps.setString(1, m.getMenudate());
+        ps.setString(2, m.getMenutype());
+        ps.setString(3, m.getDish());
+        ps.setFloat(4, m.getCalories());
+        ps.setString(5, m.getNotes());
         ps.setInt(6, m.getCalssid().getClass_id());
         ps.setInt(7, m.getMenu_id());
-        ps.executeUpdate();
+
+        int rows = ps.executeUpdate();
+        System.out.println("Updated rows: " + rows);
     } catch (Exception e) {
         e.printStackTrace();
     }
 }
+
 
 
     public static List<Menu> getMenusByClassAndDate(int classId, String date) {
@@ -154,12 +169,21 @@ public void deleteMenuById(int menuId) {
         }
     }
 }
-    public static void main(String[] args) {
-        List<Menu> menu=MenuDao.getAllmenu();
-        for(Menu m:menu){
-            System.out.println(m.getMenu_id());
-        }
-    }
+  public static void main(String[] args) {
+    // Tạo một đối tượng Menu mẫu
+    Menu m = new Menu();
+    m.setMenu_id(35); // ← ID cần tồn tại trong DB
+    m.setMenutype("Breakfast");
+    m.setDish("toanoppatesting");
+    m.setCalories(9.9f);
+    m.setNotes("updated from main");
+
+    // Gọi update
+    MenuDao.updateMenu(m);
+
+    System.out.println("Update test done.");
+}
+
 
 
   

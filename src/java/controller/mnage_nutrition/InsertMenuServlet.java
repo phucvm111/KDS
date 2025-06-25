@@ -116,11 +116,7 @@ public class InsertMenuServlet extends HttpServlet {
             // Gọi DAO để insert
             MenuDao.insertMenu(m);
 
-            // Gửi lại các giá trị lọc về để giữ UI sau khi thêm
-            request.setAttribute("selectedDate", menudate);
-            request.setAttribute("selectedClassId", classId);
-
-            // Redirect về servlet lọc thực đơn
+         
             request.getRequestDispatcher("day_class").forward(request, response);
 
         } catch (NumberFormatException e) {
