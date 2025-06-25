@@ -34,6 +34,18 @@ public class Form {
         this.reply = reply;
     }
 
+    public Form(FormTyle formstyle, Account account, Kindergartner kindergartner, String title, String content, String date_submitted, String status, String reply) {
+        this.formstyle = formstyle;
+        this.account = account;
+        this.kindergartner = kindergartner;
+        this.title = title;
+        this.content = content;
+        this.date_submitted = date_submitted;
+        this.status = status;
+        this.reply = reply;
+    }
+    
+
     public int getForm_id() {
         return form_id;
     }

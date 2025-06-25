@@ -87,11 +87,11 @@
         </select>
 
        
-        <label for="kinderId">Chọn bé (nếu có):</label>
+        <label for="kinderId">Chọn bé:</label>
         <select name="kinderId" id="kinderId">
-            <option value="">-- Không chọn --</option>
+           
             <c:forEach var="kid" items="${kinderList}">
-                <option value="${kid.kinderId}">${kid.firstName} ${kid.lastName}</option>
+                <option value="${kid.kinder_id}">${kid.first_name} ${kid.last_name}</option>
             </c:forEach>
         </select>
 
@@ -105,10 +105,12 @@
 
      
         <div class="btn-group">
-            <a href="${pageContext.request.contextPath}/form-history" class="btn-secondary" style="text-decoration: none;">
+            <a href="${pageContext.request.contextPath}/historyform" class="btn-secondary" style="text-decoration: none;">
                 <button type="button" class="btn-secondary">Lịch sử gửi đơn</button>
             </a>
             <button type="submit">Gửi đơn</button>
+            <p style="color: green">${success}</p>
+            <p style="color: red">${error}</p>
         </div>
     </form>
 </div>
