@@ -52,11 +52,63 @@ public class SendformDAO {
         stmt.close();
         connection.close();
     } catch (Exception e) {
-        e.printStackTrace(); // hoặc log lỗi
+        e.printStackTrace(); 
     }
 
     return formList;
 }
+ public List<Form> getFormByParentId(int parentId) {
+    List<Form> formList = new ArrayList<>();
+
+    try {
+        Connection connection = DBContext.getConnection();
+        String sql = "SELECT * FROM Form WHERE sender_id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, parentId);
+        ResultSet rs = stmt.executeQuery();
+
+        FormTyleDAO fd = new FormTyleDAO();
+        AccountDAO acc = new AccountDAO();
+        KindergartnerDAO kdd = new KindergartnerDAO();
+
+        while (rs.next()) {
+            Form form = new Form();
+            form.setForm_id(rs.getInt("form_id"));
+
+            FormTyle formtyple = fd.getFormTypeById(rs.getInt("form_type_id"));
+            form.setFormstyle(formtyple);
+
+            Account ac = acc.getAccountByID(rs.getInt("sender_id"));
+            form.setAccount(ac);
+
+            // Kiểm tra NULL ở cột kinder_id (nếu được phép null)
+            int kinderId = rs.getInt("kinder_id");
+            if (!rs.wasNull()) {
+                Kindergartner kd = kdd.getKinderById(kinderId);
+                form.setKindergartner(kd);
+            } else {
+                form.setKindergartner(null);
+            }
+
+            form.setTitle(rs.getString("title"));
+            form.setContent(rs.getString("content"));
+            form.setDate_submitted(rs.getString("date_submitted"));
+            form.setStatus(rs.getString("status"));
+            form.setReply(rs.getString("reply"));
+
+            formList.add(form);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+    } catch (Exception e) {
+        e.printStackTrace(); 
+    }
+
+    return formList;
+}
+
  public Form getFormById(int id) {
     Form form = null;
     try {
@@ -149,7 +201,7 @@ public void deleteForm(int id) {
 
     public static void main(String[] args) {
         SendformDAO sd=new SendformDAO();
-        List<Form> forms=sd.getAllForm();
+        List<Form> forms=sd.getFormByParentId(3);
         for(Form f:forms){
             System.out.println(f);
         }

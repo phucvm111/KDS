@@ -303,6 +303,36 @@ public class KindergartnerDAO extends DBContext {
         return kidparentlist;
     }
 
+    public List<Kindergartner> getKindergartnersByParentId(int parentId) {
+        List<Kindergartner> list = new ArrayList<>();
+        String sql = "SELECT * FROM Kindergartner WHERE parent_id = ?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, parentId);
+            ResultSet rs = ps.executeQuery();
+             AccountDAO acc=new AccountDAO();
+            while (rs.next()) {
+                Kindergartner k = new Kindergartner();
+                k.setKinder_id(rs.getInt("kinder_id"));
+                Account ac=acc.getAccountByID(rs.getInt("parent_id"));
+                k.setParentAccount(ac);
+                k.setFirst_name(rs.getString("first_name"));
+                k.setLast_name(rs.getString("last_name"));
+                k.setDob(rs.getDate("dob").toString()); // nếu dob là java.sql.Date
+                k.setGender(rs.getBoolean("gender"));
+                k.setImg(rs.getString("img"));
+                list.add(k);
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public void updateKinderBasicInfo(Kindergartner kindergartner) {
         String sql = "UPDATE Kindergartner SET first_name = ?, last_name = ?, dob = ?, gender = ? WHERE kinder_id = ?";
         try {
@@ -321,8 +351,10 @@ public class KindergartnerDAO extends DBContext {
 
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-        System.out.println(dao.getKidInfoById(1));
-
+       List<Kindergartner> kiders=dao.getKindergartnersByParentId(3);
+       for(Kindergartner k:kiders){
+           System.out.println(k);
+       }
     }
 
 }
