@@ -33,6 +33,9 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/homepage/parent/childregister.jsp">Child Register</a>
                                 </li>
+                                <li class="menu-item current1">
+                                    <a href="${pageContext.request.contextPath}/parent/viewImages" style="color: #fff;">📷 Xem ảnh lớp</a>
+                                </li>
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>

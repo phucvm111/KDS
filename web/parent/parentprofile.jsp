@@ -46,8 +46,11 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
                                 </li>
-                                   <li class="menu-item">
+                                <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/parent/viewImages" >Xem ảnh hằng ngày </a>
                                 </li>
 
                             </ul>
