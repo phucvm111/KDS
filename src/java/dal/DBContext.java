@@ -2,7 +2,7 @@ package dal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
 public class DBContext {
 
     public static Connection getConnection() {
@@ -17,6 +17,18 @@ public class DBContext {
             e.printStackTrace(); // Đừng để trống, cần log để debug
         }
         return conn;
+    }
+    
+    public void closeConnection(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+                System.out.println("DBContext: Connection closed successfully.");
+            } catch (SQLException e) { // Chỉ bắt SQLException
+                System.err.println("DBContext: Lỗi khi đóng kết nối CSDL: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
     
     public static void main(String[] args) {

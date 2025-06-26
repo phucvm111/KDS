@@ -260,7 +260,7 @@
             </c:if>
 
             <div class="back-link">
-                <a href="$event">← Quay lại trang cá nhân</a>
+                <a href=${backLink}>← Quay lại trang cá nhân</a>
             </div>
 
         </div>

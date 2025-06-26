@@ -134,16 +134,17 @@
                             <th>Địa chỉ</th>
                             <th>Phụ huynh</th>
                             <th>SĐT</th>
-                                <c:if test="${!isGraduated}">
+                                <c:if test="${status == 'studying'}">
                                 <th>Thao tác</th>
                                 </c:if>
+
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="sr" items="${studentList}">
                             <tr>
                                 <td>${sr.kinder.fullName}</td>
-                                <td>${sr.kinder.dob}</td> <!-- giữ nguyên thẻ ngày sinh -->
+                                <td>${sr.kinder.dob}</td> 
 
                                 <td>
                                     <c:choose>
@@ -155,15 +156,31 @@
                                 <td>${sr.kinder.address}</td>
                                 <td>${sr.kinder.parentAccount.firstName} ${sr.kinder.parentAccount.lastName}</td>
                                 <td>${sr.kinder.parentAccount.phoneNumber}</td>
-                                <c:if test="${!isGraduated}">
-                                    <td>
-                                        <form method="post" action="${pageContext.request.contextPath}/graduate" class="m-0">
+                                <td>
+                                    <c:if test="${status == 'studying'}">
+                                        <!-- Nút Tốt nghiệp -->
+                                        <form method="post" action="${pageContext.request.contextPath}/graduate" class="d-inline">
                                             <input type="hidden" name="kinder_id" value="${sr.kinder.kinder_id}" />
                                             <input type="hidden" name="study_year" value="${sr.studyYear}" />
-                                            <button class="btn btn-success btn-sm">🎓 Tốt nghiệp</button>
+                                            <button class="btn btn-success"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn đánh dấu học sinh này là đã tốt nghiệp không?');">
+                                                🎓 Tốt nghiệp
+                                            </button>
+
                                         </form>
-                                    </td>
-                                </c:if>
+
+                                        <!-- Nút Thôi học -->
+                                        <form method="post" action="${pageContext.request.contextPath}/dropout" class="d-inline ms-1">
+                                            <input type="hidden" name="kinder_id" value="${sr.kinder.kinder_id}" />
+                                            <input type="hidden" name="study_year" value="${sr.studyYear}" />
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn cho học sinh thôi học?');">
+                                                ⛔ Thôi học
+                                            </button>
+                                        </form>
+                                    </c:if>
+                                </td>
+
+
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -176,6 +193,22 @@
                     Không tìm thấy học sinh với điều kiện lọc.
                 </div>
             </c:if>
+            <!-- Phân trang -->
+            <c:if test="${totalPages > 1}">
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link"
+                                   href="${pageContext.request.contextPath}/students?status=${param.status}&year=${year}&classId=${classId}&name=${name}&page=${i}">
+                                    ${i}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </nav>
+            </c:if>
+
         </div>
     </body>
 </html>
