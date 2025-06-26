@@ -35,6 +35,17 @@
             .notification-btn:hover {
                 background-color: #5a3de6;
             }
+            .menu-container {
+                display: flex;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+            .menu-container .menu-item {
+                flex: 1;
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -70,7 +81,17 @@
                                 <li class="menu-item current1">
                                     <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
                                 </li>
+                                <ul class="menu-container">
+                                    <li class="menu-item current1">
+                                        <a href="${pageContext.request.contextPath}/teacher/uploadImage.jsp" style="color: #fff;">📤 Tải ảnh </a>
+                                    </li>
+                                    <li class="menu-item current1">
+                                        <a href="${pageContext.request.contextPath}/teacher/viewImages" style="color: #fff;">📸 Xem ảnh</a>
+                                    </li>
+                                </ul>
+
                             </ul>
+
                         </div>
                         <div class="log-out">
                             <a href="logout">Log out</a>
