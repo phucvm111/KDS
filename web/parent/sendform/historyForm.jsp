@@ -42,7 +42,7 @@
         <h2>Lịch sử gửi đơn</h2>
 
         <!-- 🔍 FORM TÌM KIẾM -->
-        <form method="get" action="${pageContext.request.contextPath}/historyform" class="search-box">
+        <form method="get" action="historyform" class="search-box">
             <input type="text" name="search" placeholder="Tìm theo tiêu đề..." value="${param.search}" />
             <input type="submit" value="Tìm kiếm" />
         </form>

@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("kinder_class", kc);
                     session.setAttribute("account", acc);
                     session.setAttribute("userid", acc.getRole().getRoleID()); 
-                    response.sendRedirect("teacher/teacherprofile.jsp");
+                    response.sendRedirect("attendance");
                     break;
                 case 1:
                     session.setAttribute("account", acc);

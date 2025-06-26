@@ -10,6 +10,7 @@ import dal.SendformDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import model.Kindergartner;
  *
  * @author ACE
  */
+
 public class SendFormServlet extends HttpServlet {
 
     /**
@@ -65,7 +67,7 @@ public class SendFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("account");
 
         if (acc == null) {
@@ -81,8 +83,10 @@ public class SendFormServlet extends HttpServlet {
             List<FormTyle> forms = ft.getAllFormTypes();
             List<Kindergartner> kinder = kd.getKindergartnersByParentId(acc.getAccountID());
 
-            request.setAttribute("formTypes", forms);
-            request.setAttribute("kinderList", kinder);
+            if (kinder != null && forms != null) {
+                request.setAttribute("formTypes", forms);
+                request.setAttribute("kinderList", kinder);
+            }
 
             request.getRequestDispatcher("/parent/sendform/sendForm.jsp").forward(request, response);
         } catch (Exception e) {
@@ -116,11 +120,10 @@ public class SendFormServlet extends HttpServlet {
         int formtypeid = Integer.parseInt(formTypeString);
         FormTyle formstyle = ft.getFormTypeById(formtypeid);
         String kinderString = request.getParameter("kinderId");
-      
-        
-          int kinderid = Integer.parseInt(kinderString);
-         Kindergartner   kindergartner = kd.getKinderById(kinderid);
-       
+
+        int kinderid = Integer.parseInt(kinderString);
+        Kindergartner kindergartner = kd.getKinderById(kinderid);
+
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         Form form = new Form(formstyle, acc, kindergartner, title, content, dateofsubmit, "Pending", "");
