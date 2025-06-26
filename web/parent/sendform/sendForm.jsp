@@ -105,7 +105,7 @@
 
      
         <div class="btn-group">
-            <a href="${pageContext.request.contextPath}/historyform" class="btn-secondary" style="text-decoration: none;">
+            <a href="historyform" class="btn-secondary" style="text-decoration: none;">
                 <button type="button" class="btn-secondary">Lịch sử gửi đơn</button>
             </a>
             <button type="submit">Gửi đơn</button>

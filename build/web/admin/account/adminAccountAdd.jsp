@@ -1,151 +1,142 @@
-<%-- 
-    Document   : adminAccountAdd..jsp
-    Created on : Jun 10, 2025, 11:20:05 PM
-    Author     : Vu Tuan Hai <HE176383>
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        nav {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .logo_name a {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .form-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        .form-section {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .rdCheck {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: gray;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
 
-        <!----======== CSS ======== -->
-        <link rel="stylesheet" href="admin/account/css/style.css">
-        <link rel="stylesheet" href="admin/account/boot/bootstrap.min.css">
-        <link rel="stylesheet" href="admin/account/boot/bootstrap.css">
-        <!----===== Iconscout CSS ===== -->
-        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<nav class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+        <img src="images/logo.jpg" alt="Logo" width="50" height="50" class="me-3">
+        <span class="logo_name"><a href="listaccount" class="text-dark text-decoration-none">Admin Page</a></span>
+    </div>
+    <a href="#" class="btn btn-outline-danger"><i class="uil uil-signout"></i> Logout</a>
+</nav>
 
-        <!--<title>Admin Dashboard Panel</title>-->
-    </head>
+<div class="form-title">Add New Account</div>
 
-    <body>
-        <form action="addaccount" method="POST">
-            <nav>
-                <div class="logo-name">
-                    <div class="logo-image">
-                        <img src="images/logo.jpg" alt="">
-                    </div>
+<form action="addaccount" method="POST" class="form-section">
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" name="txtFirstName" required>
+    </div>
 
-                    <span class="logo_name"  ><a href="listaccount" style="text-decoration: none;color: black">Admin Page</a></span>
-                </div>
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" name="txtLastName" required>
+    </div>
 
-                <div class="menu-items">
-                    <ul class="nav-links">
-                        <li><a href="listaccount">
-                                <i class="uil uil-estate"></i>
-                                <span class="link-name">Account</span>
-                            </a></li>
-
-                        <li><a href="listkinder">
-                                <i class="uil uil-chart"></i>
-                                <span class="link-name">Kindergartner</span>
-                            </a></li>
-                        <li><a href="#">
-                                <i class="uil uil-thumbs-up"></i>
-                                <span class="link-name">Class</span>
-                            </a></li>
-                        <li><a href="#">
-                                <i class="uil uil-comments"></i>
-                                <span class="link-name">Schedule</span>
-                            </a></li>
-                        <!--                        <li><a href="#">
-                                                        <i class="uil uil-share"></i>
-                                                        <span class="link-name">Attendance</span>
-                                                    </a></li>-->
-                    </ul>
-
-                    <ul class="logout-mode">
-                        <li><a href="#">
-                                <i class="uil uil-signout"></i>
-                                <span class="link-name">Logout</span>
-                            </a></li>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="dashboard">
-
-                <div class="dash-lefttop">
-                    <img src="https://i.pinimg.com/originals/72/45/fb/7245fb0ca786bb4a98fb8465e437c5bb.jpg" alt="">
-                    <a href="#">User</a>
-                </div>
-
-                <div class="form-title" style="text-align: center;font-size: 50px;">Add Account</div>
-                <div class="form-content" style="width: 80%;height: auto; margin-left: 10%; padding-top: 0;padding-bottom: 0;">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="txtFirstName" required="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="txtLastName" required="">
-                    </div>
-                    <div class="rdCheck" style="display: flex">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" value="male" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Male
-                            </label>
-                        </div>
-                        <div class="form-check" style="padding-left: 40px">
-                            <input class="form-check-input" type="radio" value="female" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                FeMale
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" name="txtEmail" placeholder="name@example.com" required="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="txtPassword" id="exampleFormControlInput1" required="">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">DOB</label>
-                        <input type="date" name="dob" required=""/>(yyyy-MM-dd)<br/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Number Phone</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="txtPhone" required="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Address</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="ttAddress" rows="3" required=""></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Image</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="txtImg" >
-                    </div>
-                    <label for="exampleFormControlInput1" class="form-label">Role</label>
-                    <select class="form-select" name="slRole" aria-label="Default select example">
-                        <!--<option value="0" selected>All</option>-->
-                        <c:forEach items="${requestScope.roles}" var="role">
-                            <c:if test="${role.roleName != 'parent'}">
-                                <option selected="" value="${role.roleID}">${role.roleName}</option>
-                            </c:if>
-
-                        </c:forEach>
-                    </select>
-                    <div class="d-grid gap-2 d-md-block" style="margin-top: 30px; margin-bottom: 30px; ;">
-                        <input onclick="send()" type="submit" value="Save"/>  
-                    </div>
-                </div>
+    <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <div class="rdCheck">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="male" name="flexRadioDefault" id="genderMale">
+                <label class="form-check-label" for="genderMale">Male</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="female" name="flexRadioDefault" id="genderFemale" checked>
+                <label class="form-check-label" for="genderFemale">Female</label>
             </div>
         </div>
-    </form>
-    <!-- <script src="agu.js"></script> -->
-</body>
+    </div>
 
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" name="txtEmail" placeholder="name@example.com" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="txtPassword" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" name="dob" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="text" class="form-control" name="txtPhone" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        <textarea class="form-control" name="ttAddress" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input type="text" class="form-control" name="txtImg">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Role</label>
+        <select class="form-select" name="slRole" required>
+            <c:forEach items="${requestScope.roles}" var="role">
+                <c:if test="${role.roleName != 'parent'}">
+                    <option value="${role.roleID}">${role.roleName}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+    </div>
+
+    <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary">Save Account</button>
+    </div>
+</form>
+
+<footer>
+    &copy; 2025 Admin System - Created by Vu Tuan Hai
+</footer>
+
+</body>
 </html>

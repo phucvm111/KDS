@@ -35,38 +35,40 @@
             </form>
 
             <!-- ➕ Add new dish -->
-            <h5 class="mb-3">➕ Add New Dish</h5>
-            <c:if test="${not empty selectedClassId && not empty selectedDate}">
-            <form class="row g-3 mb-4" action="insert_menu" method="post">
+            <c:if test="${sessionScope.userid==1}">
+                <h5 class="mb-3">➕ Add New Dish</h5>
+                <c:if test="${not empty selectedClassId && not empty selectedDate}">
+                    <form class="row g-3 mb-4" action="insert_menu" method="post">
 
-                <input type="hidden" name="classId" value="${selectedClassId}" />
-                <input type="hidden" name="menudate" value="${selectedDate}" />
+                        <input type="hidden" name="classId" value="${selectedClassId}" />
+                        <input type="hidden" name="menudate" value="${selectedDate}" />
 
-                <div class="col-md-2">
-                    <select class="form-select" name="mealType">
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Lunch">Lunch</option>
-                        <option value="Dinner">Dinner</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
+                        <div class="col-md-2">
+                            <select class="form-select" name="mealType">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
 
-                    <input type="text" class="form-control" placeholder="Dish name" name="dish" required="">
+                            <input type="text" class="form-control" placeholder="Dish name" name="dish" required="">
 
-                   
 
-                </div>
-                <div class="col-md-2">
-                    <input type="number" class="form-control" placeholder="Calories" name="calories" step="any"required="">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Notes" name="notes">
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-success w-100">Add</button>
-                </div>
-                <p style="color: red">${error}</p>
-            </form>
+
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" placeholder="Calories" name="calories" step="any"required="">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Notes" name="notes">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success w-100">Add</button>
+                        </div>
+                        <p style="color: red">${error}</p>
+                    </form>
+                </c:if>
             </c:if>
             <!-- 📋 Menu list -->
             <h5 class="mb-3">📅 Menu for <strong>${selectedDate}</strong> - Class: <strong>${selectedClass.class_name}</strong></h5>
@@ -77,7 +79,9 @@
                         <th>Dish</th>
                         <th>Calories</th>
                         <th>Notes</th>
-                        <th>Actions</th>
+                            <c:if test="${sessionScope.userid==1}">
+                            <th>Actions</th>
+                            </c:if>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,26 +91,28 @@
                             <td>${menu.dish}</td>
                             <td>${menu.calories}</td>
                             <td>${menu.notes}</td>
-                            <td>
-                                <!-- Form Delete -->
-                                <form action="deleteMenu" method="post">
-                                    <input type="hidden" name="menuId" value="${menu.menu_id}">
-                                    <input type="hidden" name="classId" value="${selectedClassId}">
-                                    <input type="hidden" name="menudate" value="${selectedDate}">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+                            <c:if test="${sessionScope.userid==1}">
+                                <td>
+                                    <!-- Form Delete -->
+                                    <form action="deleteMenu" method="post">
+                                        <input type="hidden" name="menuId" value="${menu.menu_id}">
+                                        <input type="hidden" name="classId" value="${selectedClassId}">
+                                        <input type="hidden" name="menudate" value="${selectedDate}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
 
 
-                                <!-- Form Edit (redirect) -->
-                                <form action="editmenu" method="get" style="display:inline;">
-                                    <input type="hidden" name="menuId" value="${menu.menu_id}" />
+                                    <!-- Form Edit (redirect) -->
+                                    <form action="editmenu" method="get" style="display:inline;">
+                                        <input type="hidden" name="menuId" value="${menu.menu_id}" />
 
-                                    <!--<button type="submit" class="btn btn-warning btn-sm">Edit</button>-->
+                                        <!--<button type="submit" class="btn btn-warning btn-sm">Edit</button>-->
 
-                                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                                        <button type="submit" class="btn btn-warning btn-sm">Edit</button>
 
-                                </form>
-                            </td>
+                                    </form>
+                                </td>
+                            </c:if>
 
                         </tr>
                     </c:forEach>

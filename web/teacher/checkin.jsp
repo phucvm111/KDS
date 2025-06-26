@@ -60,8 +60,15 @@
                                 <li class="menu-item current1">
                                     <a href="notifications" style="color: #fff;">Notification</a>
                                 </li>                              
-                                  <li class="menu-item current1">
+                                <li class="menu-item current1">
                                     <a href="${pageContext.request.contextPath}/teacher/teacherprofile.jsp">Teacher Information</a>
+                                </li>
+                                </li>                              
+                                <li class="menu-item current1">
+                                    <a href="${pageContext.request.contextPath}/respondform">Respond Form</a>
+                                </li>
+                                <li class="menu-item current1">
+                                    <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
                                 </li>
                             </ul>
                         </div>
@@ -218,9 +225,9 @@
                         );
             });
             document.querySelector("#close").addEventListener("click", function () {
-                <%
+        <%
                     session.removeAttribute("message");
-                %>
+        %>
                 document.querySelector(".popup").style.display = "none";
                 document.querySelector(".overlay").style.visibility = "hidden";
                 document.querySelector(".overlay").style.opacity = "0";
