@@ -2,26 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.parent;
+package controller.teacher;
 
 import dal.SendformDAO;
-import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
 import model.Form;
 
 /**
  *
  * @author ACE
  */
-public class HistoryFormServlet extends HttpServlet {
+public class RespondFormServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class HistoryFormServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HistoryFormServlet</title>");
+            out.println("<title>Servlet RespondFormServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HistoryFormServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RespondFormServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,14 +58,13 @@ public class HistoryFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
-        int accid = acc.getAccountID();
+        //processRequest(request, response);
         SendformDAO sf = new SendformDAO();
-        List<Form> forms = sf.getFormByParentId(accid);
-        request.setAttribute("formList", forms);
-        request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
+        List<Form> formList = sf.getUnrepliedForms();
+        if (formList != null) {
+            request.setAttribute("formList", formList);
+            request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -82,7 +78,27 @@ public class HistoryFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            SendformDAO dao = new SendformDAO();
+            String formString = request.getParameter("form_id");
+            int formid = Integer.parseInt(formString);
+            Form getform = dao.getFormById(formid);
+            String fullname = getform.getAccount().getFirstName() + " " + getform.getAccount().getLastName();
+            Form f = new Form();
+            f.setForm_id(formid);
+            f.setStatus(request.getParameter("status"));
+            f.setReply(request.getParameter("reply"));
+
+            dao.updateReplyAndStatus(f);
+            List<Form> formList = dao.getUnrepliedForms();
+            request.setAttribute("formList", formList);
+            request.setAttribute("success", "Phản hồi tới " + fullname + " " + "thành công");
+            request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("erorr", "Phản hồi thất bại");
+            response.sendRedirect("respondform");
+        }
+
     }
 
     /**
