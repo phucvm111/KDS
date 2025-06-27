@@ -35,6 +35,16 @@
                     <i class="fa-solid fa-file-signature"></i> Họp phụ huynh
                 </a>
             </li>
+             <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/sendform">
+                    <i class="fa-solid fa-file-signature"></i> Viết đơn
+                </a>
+            </li>
+               <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/day_class">
+                    <i class="fa-solid fa-file-signature"></i> Thực đơn
+                </a>
+            </li>
             
         </ul>
     </div>
