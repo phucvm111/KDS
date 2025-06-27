@@ -1,5 +1,6 @@
 package dal;
 
+import static dal.DBContext.getConnection;
 import model.LeaveType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class LeaveTypeDAO extends DBContext {
 
     public List<LeaveType> getAllLeaveTypes() {
         List<LeaveType> leaveTypes = new ArrayList<>();
-        String sql = "SELECT leave_type_id, type_name, description, has_entitlement, is_accumulative, allow_half_day " +
-                     "FROM LeaveType"; // <<-- Cập nhật câu lệnh SELECT để lấy tất cả các cột
+        String sql = "SELECT leave_type_id, type_name, description, has_entitlement, is_accumulative, allow_half_day "
+                + "FROM LeaveType"; // <<-- Cập nhật câu lệnh SELECT để lấy tất cả các cột
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -40,9 +40,15 @@ public class LeaveTypeDAO extends DBContext {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (conn != null) closeConnection(conn); // Gọi phương thức closeConnection của DBContext
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    closeConnection(conn); // Gọi phương thức closeConnection của DBContext
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -53,8 +59,8 @@ public class LeaveTypeDAO extends DBContext {
     // Bạn có thể thêm các phương thức khác như getLeaveTypeById nếu cần
     public LeaveType getLeaveTypeById(int id) {
         LeaveType type = null;
-        String sql = "SELECT leave_type_id, type_name, description, has_entitlement, is_accumulative, allow_half_day " +
-                     "FROM LeaveType WHERE leave_type_id = ?";
+        String sql = "SELECT leave_type_id, type_name, description, has_entitlement, is_accumulative, allow_half_day "
+                + "FROM LeaveType WHERE leave_type_id = ?";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -80,9 +86,15 @@ public class LeaveTypeDAO extends DBContext {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (conn != null) closeConnection(conn);
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    closeConnection(conn);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -93,8 +105,8 @@ public class LeaveTypeDAO extends DBContext {
     // Các phương thức thêm, sửa, xóa LeaveType
     // Ví dụ thêm mới:
     public boolean addLeaveType(LeaveType type) {
-        String sql = "INSERT INTO LeaveType (type_name, description, has_entitlement, is_accumulative, allow_half_day) " +
-                     "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO LeaveType (type_name, description, has_entitlement, is_accumulative, allow_half_day) "
+                + "VALUES (?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement ps = null;
         boolean success = false;
@@ -107,17 +119,60 @@ public class LeaveTypeDAO extends DBContext {
             ps.setBoolean(4, type.isIsAccumulative());
             ps.setBoolean(5, type.isAllowHalfDay());
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) success = true;
+            if (rowsAffected > 0) {
+                success = true;
+            }
         } catch (SQLException e) {
             System.err.println("Lỗi khi thêm loại nghỉ phép: " + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
-                if (ps != null) ps.close();
-                if (conn != null) closeConnection(conn);
-            } catch (SQLException e) { e.printStackTrace(); }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    closeConnection(conn);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return success;
     }
+
+    public static void main(String[] args) {
+        LeaveTypeDAO dao = new LeaveTypeDAO();
+
+        System.out.println("===== Test getAllLeaveTypes =====");
+        List<LeaveType> all = dao.getAllLeaveTypes();
+        for (LeaveType lt : all) {
+            System.out.println("ID: " + lt.getLeaveTypeId()
+                    + " | Name: " + lt.getTypeName()
+                    + " | Desc: " + lt.getDescription()
+                    + " | HasEntitlement: " + lt.isHasEntitlement()
+                    + " | Accumulative: " + lt.isIsAccumulative()
+                    + " | HalfDay: " + lt.isAllowHalfDay());
+        }
+
+        System.out.println("===== Test addLeaveType =====");
+        LeaveType newType = new LeaveType();
+        newType.setTypeName("Test Leave");
+        newType.setDescription("Loại nghỉ test");
+        newType.setHasEntitlement(true);
+        newType.setIsAccumulative(false);
+        newType.setAllowHalfDay(true);
+
+        boolean added = dao.addLeaveType(newType);
+        System.out.println("Add result: " + added);
+
+        System.out.println("===== Test getLeaveTypeById =====");
+        LeaveType type = dao.getLeaveTypeById(1); // giả sử ID 1 tồn tại
+        if (type != null) {
+            System.out.println("ID 1: " + type.getTypeName() + " - " + type.getDescription());
+        } else {
+            System.out.println("Không tìm thấy leave type với ID 1");
+        }
+    }
+
 }
 //

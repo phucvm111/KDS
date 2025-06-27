@@ -208,75 +208,75 @@ public class LeaveRequestDAO extends DBContext {
 
     // --- Phương thức lấy một đơn xin nghỉ phép theo ID ---
     public LeaveRequest getLeaveRequestById(int requestId) {
-    LeaveRequest request = null;
-    // THAY ĐỔI CÂU SQL: Lấy first_name và last_name từ bảng Account
-    String sql = "SELECT lr.request_id, lr.requester_id, a.first_name, a.last_name, lr.leave_type_id, lt.type_name, "
-            + "lr.start_date, lr.end_date, lr.total_days, lr.reason, lr.status, lr.request_date "
-            + "FROM LeaveRequest lr "
-            + "JOIN Account a ON lr.requester_id = a.account_id "
-            + "JOIN LeaveType lt ON lr.leave_type_id = lt.leave_type_id "
-            + "WHERE lr.request_id = ?";
+        LeaveRequest request = null;
+        // THAY ĐỔI CÂU SQL: Lấy first_name và last_name từ bảng Account
+        String sql = "SELECT lr.request_id, lr.requester_id, a.first_name, a.last_name, lr.leave_type_id, lt.type_name, "
+                + "lr.start_date, lr.end_date, lr.total_days, lr.reason, lr.status, lr.request_date "
+                + "FROM LeaveRequest lr "
+                + "JOIN Account a ON lr.requester_id = a.account_id "
+                + "JOIN LeaveType lt ON lr.leave_type_id = lt.leave_type_id "
+                + "WHERE lr.request_id = ?";
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-    try {
-        conn = getConnection();
-        ps = conn.prepareStatement(sql);
-        ps.setInt(1, requestId);
-        rs = ps.executeQuery();
-
-        if (rs.next()) {
-            request = new LeaveRequest();
-            request.setRequestId(rs.getInt("request_id"));
-            request.setRequesterId(rs.getInt("requester_id"));
-
-            // Lấy first_name và last_name, sau đó ghép để setTeacherName
-            String teacherFirstName = rs.getString("first_name");
-            String teacherLastName = rs.getString("last_name");
-            request.setTeacherName(teacherFirstName + " " + teacherLastName);
-
-            LeaveType leaveType = new LeaveType();
-            leaveType.setLeaveTypeId(rs.getInt("leave_type_id"));
-            leaveType.setTypeName(rs.getString("type_name"));
-            request.setLeaveType(leaveType);
-            // Bạn có thể giữ hoặc xóa dòng này nếu LeaveRequest chỉ cần đối tượng LeaveType
-            request.setLeaveTypeId(leaveType.getLeaveTypeId()); 
-
-            // SỬA ĐOẠN NÀY: Xử lý request_date có thể null
-            if (rs.getTimestamp("request_date") != null) {
-                request.setRequestDate(rs.getTimestamp("request_date").toLocalDateTime().toLocalDate());
-            } else {
-                request.setRequestDate(null); // Hoặc giá trị mặc định phù hợp
-            }
-
-            request.setStartDate(rs.getDate("start_date").toLocalDate());
-            request.setEndDate(rs.getDate("end_date").toLocalDate());
-            request.setTotalDays(rs.getDouble("total_days"));
-            request.setReason(rs.getNString("reason"));
-            request.setStatus(rs.getString("status"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        System.err.println("Lỗi khi lấy đơn xin nghỉ phép theo Request ID: " + e.getMessage());
-    } finally {
         try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (conn != null) {
-                closeConnection(conn);
+            conn = getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, requestId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                request = new LeaveRequest();
+                request.setRequestId(rs.getInt("request_id"));
+                request.setRequesterId(rs.getInt("requester_id"));
+
+                // Lấy first_name và last_name, sau đó ghép để setTeacherName
+                String teacherFirstName = rs.getString("first_name");
+                String teacherLastName = rs.getString("last_name");
+                request.setTeacherName(teacherFirstName + " " + teacherLastName);
+
+                LeaveType leaveType = new LeaveType();
+                leaveType.setLeaveTypeId(rs.getInt("leave_type_id"));
+                leaveType.setTypeName(rs.getString("type_name"));
+                request.setLeaveType(leaveType);
+                // Bạn có thể giữ hoặc xóa dòng này nếu LeaveRequest chỉ cần đối tượng LeaveType
+                request.setLeaveTypeId(leaveType.getLeaveTypeId());
+
+                // SỬA ĐOẠN NÀY: Xử lý request_date có thể null
+                if (rs.getTimestamp("request_date") != null) {
+                    request.setRequestDate(rs.getTimestamp("request_date").toLocalDateTime().toLocalDate());
+                } else {
+                    request.setRequestDate(null); // Hoặc giá trị mặc định phù hợp
+                }
+
+                request.setStartDate(rs.getDate("start_date").toLocalDate());
+                request.setEndDate(rs.getDate("end_date").toLocalDate());
+                request.setTotalDays(rs.getDouble("total_days"));
+                request.setReason(rs.getNString("reason"));
+                request.setStatus(rs.getString("status"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.err.println("Lỗi khi lấy đơn xin nghỉ phép theo Request ID: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    closeConnection(conn);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return request;
     }
-    return request;
-}
 
     // --- Phương thức cập nhật trạng thái đơn xin nghỉ phép ---
     public boolean updateLeaveRequestStatus(int requestId, String newStatus) {
@@ -357,8 +357,8 @@ public class LeaveRequestDAO extends DBContext {
         }
         return success;
     }
+// --- Phương thức xóa đơn xin nghỉ phép (Cẩn thận khi dùng trong thực tế) ---
 
-    // --- Phương thức xóa đơn xin nghỉ phép (Cẩn thận khi dùng trong thực tế) ---
     public boolean deleteLeaveRequest(int requestId) {
         String sql = "DELETE FROM LeaveRequest WHERE request_id = ?";
         Connection conn = null;

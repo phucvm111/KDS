@@ -28,27 +28,32 @@
                     <i class="fa-solid fa-key"></i> Đổi mật khẩu
                 </a>
             </li>
-            
-            
+
+
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/viewmeetings">
                     <i class="fa-solid fa-file-signature"></i> Họp phụ huynh
                 </a>
             </li>
-             <li class="menu-item">
+            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/sendform">
                     <i class="fa-solid fa-file-signature"></i> Viết đơn
                 </a>
             </li>
-               <li class="menu-item">
+            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/day_class">
                     <i class="fa-solid fa-file-signature"></i> Thực đơn
                 </a>
             </li>
-            
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/parent/viewImages">
+                    <i class="fa-solid fa-image"></i> Xem ảnh hằng ngày
+                </a>
+            </li>
+
         </ul>
     </div>
     <div class="logout-container">
-        <input type="button" class="log-out_button" onclick="window.location.href='${pageContext.request.contextPath}/login'" value="Log Out"/>
+        <input type="button" class="log-out_button" onclick="window.location.href = '${pageContext.request.contextPath}/login'" value="Log Out"/>
     </div>
 </div>
