@@ -520,39 +520,96 @@ public class AccountDAO extends DBContext {
     }
 
     public void updateParent(Account parent) {
-        List<Account> list = new ArrayList<>();
-        try {
-            String sql = "UPDATE [Account]"
-                    + "   SET [first_name] = ?"
-                    + "      ,[last_name] = ?"
-                    + "      ,[gender] = ?"
-                    + "      ,[email] = ?"
-                    + "      ,[password] = ?"
-                    + "      ,[dob] = ?"
-                    + "      ,[phone_number] = ?"
-                    + "      ,[address] = ?"
-                    + "      ,[img] = ?"
-                    + "      ,[role_id] = ?"
-                    + " WHERE [account_id]=?";
-            connection = new DBContext().getConnection();
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, parent.getFirstName());
-            ps.setString(2, parent.getLastName());
-            ps.setBoolean(3, parent.isGender());
-            ps.setString(4, parent.getEmail());
-            ps.setString(5, parent.getPassword());
-            ps.setString(6, parent.getDob());
-            ps.setString(7, parent.getPhoneNumber());
-            ps.setString(8, parent.getAddress());
-            ps.setString(9, parent.getImg());
-            ps.setInt(10, parent.getRole().getRoleID());
-            ps.setInt(11, parent.getAccountID());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
+    // Câu lệnh SQL chỉ nên cập nhật những trường có trên form update
+    String sql = "UPDATE [Account] SET "
+            + " [first_name] = ?, "
+            + " [last_name] = ?, "
+            + " [gender] = ?, "
+            + " [email] = ?, "
+            + " [dob] = ?, "
+            + " [phone_number] = ?, "
+            + " [address] = ? "
+            + " WHERE [account_id] = ?";
 
+    // Không cần tạo 'List<Account> list' ở đây vì nó không được sử dụng
+
+    try {
+        connection = new DBContext().getConnection();
+        ps = connection.prepareStatement(sql);
+
+        // Set các tham số theo đúng thứ tự của các dấu '?'
+        ps.setString(1, parent.getFirstName());
+        ps.setString(2, parent.getLastName());
+        ps.setBoolean(3, parent.isGender());
+        ps.setString(4, parent.getEmail());
+        ps.setString(5, parent.getDob());
+        ps.setString(6, parent.getPhoneNumber());
+        ps.setString(7, parent.getAddress());
+        ps.setInt(8, parent.getAccountID()); // account_id cho mệnh đề WHERE là tham số cuối cùng
+
+        // Dùng executeUpdate() để thực thi và kiểm tra số dòng bị ảnh hưởng
+        int affectedRows = ps.executeUpdate();
+        
+        // (Tùy chọn) Thêm dòng này để kiểm tra xem có đúng 1 dòng được cập nhật không
+        System.out.println("DAO: Số dòng được cập nhật: " + affectedRows);
+
+    } catch (Exception e) {
+        // Ghi log lỗi chi tiết để dễ dàng sửa lỗi
+        Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "Lỗi khi cập nhật parent", e);
+    } finally {
+        // Đóng các kết nối để tránh rò rỉ tài nguyên
+        try {
+            if (ps != null) ps.close();
+            if (connection != null) connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "Lỗi khi đóng kết nối", ex);
+        }
     }
+}
+    public Account getParentByID(int id) {
+        // Giả sử role_id = 3 là cho Parents
+        int PARENT_ROLE_ID = 3; 
+        
+        try {
+            String sql = "SELECT * FROM Account WHERE account_id = ? AND role_id = ?";
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setInt(2, PARENT_ROLE_ID); // Lọc theo role_id của Parent
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Account a = new Account();
+                a.setAccountID(rs.getInt("account_id"));
+                a.setFirstName(rs.getString("first_name"));
+                a.setLastName(rs.getString("last_name"));
+                a.setGender(rs.getBoolean("gender"));
+                a.setEmail(rs.getString("email"));
+                a.setPassword(rs.getString("password"));
+                a.setDob(rs.getString("dob"));
+                a.setPhoneNumber(rs.getString("phone_number"));
+                a.setAddress(rs.getString("address"));
+                a.setImg(rs.getString("img"));
+                Role r = rd.getRoleByID(rs.getInt("role_id"));
+                a.setRole(r);
+                return a;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "SQL Exception in getParentByID for ID: " + id, e);
+        } catch (Exception e) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "General Exception in getParentByID for ID: " + id, e);
+        }
+        return null; // Trả về null nếu không tìm thấy hoặc không phải là parent
+    }
+    }
+//    public static void main(String[] args) {
+//        AccountDAO d = new AccountDAO();
+//        System.out.println(d.getTeacherById(2));
+//        List<String> emails = d.getAllEmail();
+//        for (String em : emails) {
+//            System.out.println(em);
+//        }
+//    }
 
 //        AccountDAO d = new AccountDAO();
 //            Account a = new Account();
@@ -587,4 +644,4 @@ public class AccountDAO extends DBContext {
 //        GoogleAccount a = new GoogleAccount(account, googleID)
 //        dao.addGoogleAccount(a);
 //        System.out.println(role);
-}
+

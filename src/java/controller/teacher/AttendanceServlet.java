@@ -69,7 +69,7 @@ public class AttendanceServlet extends HttpServlet {
         if (acc != null) {
             String checkindate = LocalDate.now().toString();
             List<KinderRecordStudy> listKinder = kinderDao.getKidsByClass(kinderClass.getClass_id());
-            if (listKinder.isEmpty()) {
+            if (listKinder != null && listKinder.isEmpty()) {
                 request.setAttribute("announcement", "Your schedule have not yet initiated.</br> Please contact Management Department for further information!");
                 request.getRequestDispatcher("teacher/checkin.jsp").forward(request, response);
             }

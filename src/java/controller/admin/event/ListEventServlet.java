@@ -18,7 +18,7 @@ public class ListEventServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(ListEventServlet.class.getName());
 
-    private static final int RECORDS_PER_PAGE = 5; // so ban ghi moi trang
+    private static final int RECORDS_PER_PAGE = 8; // so ban ghi moi trang
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -73,7 +73,7 @@ public class ListEventServlet extends HttpServlet {
         int noOfPages = 1;
 
         try {
-            events = dao.getAllEvents(searchName, currentPage, RECORDS_PER_PAGE);
+            events = dao.getEventsPaged(searchName, currentPage, RECORDS_PER_PAGE);
             logger.info("Retrieved " + events.size() + " events for searchName '" + searchName + "' on page " + currentPage);
 
             noOfRecords = dao.getNoOfRecords(searchName); // lay tổng so bản ghi cho phân trang

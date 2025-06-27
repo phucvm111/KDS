@@ -5,129 +5,73 @@
         <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadTeacherHome</servlet-name>
-        <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
-    <!--    <servlet>
-        <servlet-name>DeleteScheduleServlet</servlet-name>
-        <servlet-class>controller.admin.DeleteScheduleServlet1</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
-        <servlet-name>AddScheduleServlet</servlet-name>
-        <servlet-class>controller.admin.AddScheduleServlet1</servlet-class>
-    </servlet>-->
-    <!--    <servlet-mapping>
-        <servlet-name>ListAccountServlet</servlet-name>
-        <url-pattern>/listaccount</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ListAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
-    </servlet>-->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ViewEvent</servlet-name>
-        <servlet-class>controller.ViewEvent</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AttendanceServlet</servlet-name>
-        <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CheckAttendancePastServlet</servlet-name>
-        <servlet-class>controller.teacher.CheckAttendancePastServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FilterStudentServlet</servlet-name>
-        <servlet-class>controller.teacher.FilterStudentServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>KidProfile</servlet-name>
-        <servlet-class>controller.teacher.KidProfile</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>StudentInforPage</servlet-name>
-        <servlet-class>controller.teacher.StudentInforPage</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CheckOutServlet</servlet-name>
-        <servlet-class>controller.teacher.CheckOutServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FeedbackServlet</servlet-name>
-        <servlet-class>controller.teacher.FeedbackServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleServlet</servlet-name>
-        <servlet-class>controller.teacher.ScheduleServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Homepage</servlet-name>
         <servlet-class>controller.Homepage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>controller.TestServlet</servlet-class>
+        <servlet-name>ViewEvent</servlet-name>
+        <servlet-class>controller.ViewEvent</servlet-class>
     </servlet>
-    <!--  <servlet>
-        <servlet-name>ListScheduleServlet</servlet-name>
-        <servlet-class>controller.admin.ListScheduleServlet1</servlet-class>
-    </servlet>-->
     <servlet>
         <servlet-name>GoogleLoginServlet</servlet-name>
         <servlet-class>controller.GoogleLoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>controller.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <servlet-class>controller.GoogleRegisterServlet</servlet-class>
     </servlet>
-    <!--    <servlet>
-        <servlet-name>ListAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>controller.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendOtpServlet</servlet-name>
+        <servlet-class>controller.SendOtpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnterOTPServlet</servlet-name>
+        <servlet-class>controller.EnterOTPServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>controller.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <servlet-class>controller.get_otp_register_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
+        <servlet-class>controller.Enter_Otp_RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.AddAccountServlet</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.DeleteAccountServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateAccountServlet</servlet-name>
         <servlet-class>controller.admin.account.UpdateAccountServlet</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
-        <servlet-name>ListKinderServlet</servlet-name>
-        <servlet-class>controller.admin.kindergartner.ListKinderServlet</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
-        <servlet-name>AddKinderServlet</servlet-name>
-        <servlet-class>controller.admin.kindergartner.AddKinderServlet</servlet-class>
-    </servlet>-->
-    <!--    <servlet>
-        <servlet-name>DeleteKinderServlet</servlet-name>
-        <servlet-class>controller.admin.kindergartner.DeleteKinderServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateKinderServlet</servlet-name>
-        <servlet-class>controller.admin.kindergartner.UpdateKinderServlet</servlet-class>
-    </servlet>-->
+        <servlet-name>ListAccountServlet</servlet-name>
+        <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>ListScheduleServlet</servlet-name>
         <servlet-class>controller.admin.schedule.ListScheduleServlet</servlet-class>
@@ -143,22 +87,6 @@
     <servlet>
         <servlet-name>UpdateScheduleServlet</servlet-name>
         <servlet-class>controller.admin.schedule.UpdateScheduleServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.AddAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.DeleteAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.ListAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateAccountServlet</servlet-name>
-        <servlet-class>controller.admin.account.UpdateAccountServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListKindergartnerServlet</servlet-name>
@@ -193,6 +121,62 @@
         <servlet-class>controller.admin.classs.UpdateClassServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewEventDetailsServlet</servlet-name>
+        <servlet-class>controller.admin.event.ViewEventDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminNotificationServlet</servlet-name>
+        <servlet-class>controller.admin.notifications.AdminNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadTeacherHome</servlet-name>
+        <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendanceServlet</servlet-name>
+        <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckAttendancePastServlet</servlet-name>
+        <servlet-class>controller.teacher.CheckAttendancePastServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterStudentServlet</servlet-name>
+        <servlet-class>controller.teacher.FilterStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KidProfile</servlet-name>
+        <servlet-class>controller.teacher.KidProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentInforPage</servlet-name>
+        <servlet-class>controller.teacher.StudentInforPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>controller.teacher.CheckOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>controller.teacher.FeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <servlet-class>controller.teacher.ScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeacherProfileServlet</servlet-name>
+        <servlet-class>controller.teacher.TeacherProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeacherNotificationServlet</servlet-name>
+        <servlet-class>controller.teacher.TeacherNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
+        <servlet-class>controller.teacher.MarkTeacherNotificationReadServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChildDetailServlet</servlet-name>
         <servlet-class>controller.parent.ChildDetailServlet</servlet-class>
     </servlet>
@@ -213,52 +197,24 @@
         <servlet-class>controller.parent.ChildRegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ParentUpdateServlet</servlet-name>
-        <servlet-class>controller.parent.ParentUpdateServlet</servlet-class>
+        <servlet-name>ChildUpdateServlet</servlet-name>
+        <servlet-class>controller.parent.ChildUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ParentUpdateProfileServlet</servlet-name>
+        <servlet-class>controller.parent.ParentUpdateProfileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewMeetingsServlet</servlet-name>
         <servlet-class>controller.parent.ViewMeetingsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CalServlet</servlet-name>
-        <servlet-class>controller.CalServlet</servlet-class>
+        <servlet-name>ParentNotificationServlet</servlet-name>
+        <servlet-class>controller.parent.ParentNotificationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Cal2Servlet</servlet-name>
-        <servlet-class>controller.Cal2Servlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChildUpdateServlet</servlet-name>
-        <servlet-class>controller.parent.ChildUpdateServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <servlet-class>controller.ChangePasswordServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SendOtpServlet</servlet-name>
-        <servlet-class>controller.SendOtpServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EnterOTPServlet</servlet-name>
-        <servlet-class>controller.EnterOTPServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetPasswordServlet</servlet-name>
-        <servlet-class>controller.ResetPasswordServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>get_otp_register_Servlet</servlet-name>
-        <servlet-class>controller.get_otp_register_Servlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
-        <servlet-class>controller.Enter_Otp_RegisterServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Informations_ervlet</servlet-name>
-        <servlet-class>controller.Information.Informations_ervlet</servlet-class>
+        <servlet-name>MarkNotificationReadServlet</servlet-name>
+        <servlet-class>controller.parent.MarkNotificationReadServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>day_class_Servlet</servlet-name>
@@ -281,24 +237,16 @@
         <servlet-class>controller.mnage_nutrition.updateMenuServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarkNotificationReadServlet</servlet-name>
-        <servlet-class>controller.parent.MarkNotificationReadServlet</servlet-class>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <servlet-class>controller.Information.Informations_ervlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ParentNotificationServlet</servlet-name>
-        <servlet-class>controller.parent.ParentNotificationServlet</servlet-class>
+        <servlet-name>LeaveRequestServlet</servlet-name>
+        <servlet-class>controller.teacher.LeaveRequestServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
-        <servlet-class>controller.teacher.MarkTeacherNotificationReadServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TeacherNotificationServlet</servlet-name>
-        <servlet-class>controller.teacher.TeacherNotificationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminNotificationServlet</servlet-name>
-        <servlet-class>controller.admin.notifications.AdminNotificationServlet</servlet-class>
+        <servlet-name>LeaveHistoryServlet</servlet-name>
+        <servlet-class>controller.teacher.LeaveHistoryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendFormServlet</servlet-name>
@@ -325,153 +273,73 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoadTeacherHome</servlet-name>
-        <url-pattern>/loadteacherhome</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewEvent</servlet-name>
-        <url-pattern>/events</url-pattern>
-    </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>KidProfile</servlet-name>
-        <url-pattern>/kidprofile</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>StudentInforPage</servlet-name>
-        <url-pattern>/studentinfor</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>feedbackServlet</servlet-name>
-        <url-pattern>/feedback</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>attendanceServlet</servlet-name>
-        <url-pattern>/attendance</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>scheduleServlet</servlet-name>
-        <url-pattern>/schedule</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>checkOutServlet</servlet-name>
-        <url-pattern>/checkout</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>ListScheduleServlet</servlet-name>
-        <url-pattern>/ListScheduleServlet</url-pattern>
-    </servlet-mapping>-->
-    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DashboardServlet</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
-    </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>DeleteScheduleServlet</servlet-name>
-        <url-pattern>/DeleteScheduleServlet</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>AddScheduleServlet</servlet-name>
-        <url-pattern>/AddScheduleServlet</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/RegisterServlet</url-pattern>
-    </servlet-mapping>-->
-    <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AttendanceServlet</servlet-name>
-        <url-pattern>/attendance</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CheckAttendancePastServlet</servlet-name>
-        <url-pattern>/checkattendance</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FilterStudentServlet</servlet-name>
-        <url-pattern>/filter</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>KidProfile</servlet-name>
-        <url-pattern>/kidprofile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>StudentInforPage</servlet-name>
-        <url-pattern>/studentinfor</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CheckOutServlet</servlet-name>
-        <url-pattern>/checkout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FeedbackServlet</servlet-name>
-        <url-pattern>/feedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleServlet</servlet-name>
-        <url-pattern>/schedule</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Homepage</servlet-name>
         <url-pattern>/homepage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>ViewEvent</servlet-name>
+        <url-pattern>/events</url-pattern>
     </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>ListScheduleServlet</servlet-name>
-        <url-pattern>/listschedule</url-pattern>
-    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>GoogleLoginServlet</servlet-name>
         <url-pattern>/googlelogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/new</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GoogleRegisterServlet</servlet-name>
         <url-pattern>/googleregister</url-pattern>
     </servlet-mapping>
-    <!--   <servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendOtpServlet</servlet-name>
+        <url-pattern>/sendotp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnterOTPServlet</servlet-name>
+        <url-pattern>/enterotp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_otp_register_Servlet</servlet-name>
+        <url-pattern>/get_otp_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
+        <url-pattern>/enter_otp_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ListAccountServlet</servlet-name>
         <url-pattern>/listaccount</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddAccountServlet</servlet-name>
         <url-pattern>/addaccount</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/deleteaccount</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateAccountServlet</servlet-name>
         <url-pattern>/updateaccount</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet-mapping>
-        <servlet-name>ListKinderServlet</servlet-name>
-        <url-pattern>/listkinder</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddKinderServlet</servlet-name>
-        <url-pattern>/addkinder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteKinderServlet</servlet-name>
-        <url-pattern>/deletekinder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateKinderServlet</servlet-name>
-        <url-pattern>/updatekinder</url-pattern>
-    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>ListScheduleServlet</servlet-name>
         <url-pattern>/listschedule</url-pattern>
@@ -487,22 +355,6 @@
     <servlet-mapping>
         <servlet-name>UpdateScheduleServlet</servlet-name>
         <url-pattern>/updateschedule</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddAccountServlet</servlet-name>
-        <url-pattern>/addaccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteAccountServlet</servlet-name>
-        <url-pattern>/deleteaccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListAccountServlet</servlet-name>
-        <url-pattern>/listaccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateAccountServlet</servlet-name>
-        <url-pattern>/updateaccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListKindergartnerServlet</servlet-name>
@@ -537,6 +389,62 @@
         <url-pattern>/updateclass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewEventDetailsServlet</servlet-name>
+        <url-pattern>/vieweventdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminNotificationServlet</servlet-name>
+        <url-pattern>/adminNotifyTeachers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadTeacherHome</servlet-name>
+        <url-pattern>/loadteacherhome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendanceServlet</servlet-name>
+        <url-pattern>/attendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckAttendancePastServlet</servlet-name>
+        <url-pattern>/checkattendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterStudentServlet</servlet-name>
+        <url-pattern>/filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KidProfile</servlet-name>
+        <url-pattern>/kidprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentInforPage</servlet-name>
+        <url-pattern>/studentinfor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <url-pattern>/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeacherProfileServlet</servlet-name>
+        <url-pattern>/teacherprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeacherNotificationServlet</servlet-name>
+        <url-pattern>/notifications</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
+        <url-pattern>/markTeacherRead</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ChildDetailServlet</servlet-name>
         <url-pattern>/childdetailservlet</url-pattern>
     </servlet-mapping>
@@ -557,48 +465,24 @@
         <url-pattern>/childregister</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ParentUpdateServlet</servlet-name>
-        <url-pattern>/parentupdate</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CalServlet</servlet-name>
-        <url-pattern>/cal</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Cal2Servlet</servlet-name>
-        <url-pattern>/cal2</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ChildUpdateServlet</servlet-name>
         <url-pattern>/childupdateservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <url-pattern>/changepassword</url-pattern>
+        <servlet-name>ParentUpdateProfileServlet</servlet-name>
+        <url-pattern>/parentupdateprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendOtpServlet</servlet-name>
-        <url-pattern>/sendotp</url-pattern>
+        <servlet-name>ViewMeetingsServlet</servlet-name>
+        <url-pattern>/viewmeetings</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EnterOTPServlet</servlet-name>
-        <url-pattern>/enterotp</url-pattern>
+        <servlet-name>ParentNotificationServlet</servlet-name>
+        <url-pattern>/parentNotifications</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResetPasswordServlet</servlet-name>
-        <url-pattern>/resetpassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>get_otp_register_Servlet</servlet-name>
-        <url-pattern>/get_otp_register</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Enter_Otp_RegisterServlet</servlet-name>
-        <url-pattern>/enter_otp_register</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Informations_ervlet</servlet-name>
-        <url-pattern>/information</url-pattern>
+        <servlet-name>MarkNotificationReadServlet</servlet-name>
+        <url-pattern>/markRead</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>day_class_Servlet</servlet-name>
@@ -613,10 +497,6 @@
         <url-pattern>/deleteMenu</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewMeetingsServlet</servlet-name>
-        <url-pattern>/viewmeetings</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>editMenuServlet</servlet-name>
         <url-pattern>/editmenu</url-pattern>
     </servlet-mapping>
@@ -625,24 +505,16 @@
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarkNotificationReadServlet</servlet-name>
-        <url-pattern>/markRead</url-pattern>
+        <servlet-name>Informations_ervlet</servlet-name>
+        <url-pattern>/information</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ParentNotificationServlet</servlet-name>
-        <url-pattern>/parentNotifications</url-pattern>
+        <servlet-name>LeaveRequestServlet</servlet-name>
+        <url-pattern>/leaverequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarkTeacherNotificationReadServlet</servlet-name>
-        <url-pattern>/markTeacherRead</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TeacherNotificationServlet</servlet-name>
-        <url-pattern>/notifications</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminNotificationServlet</servlet-name>
-        <url-pattern>/adminNotifyTeachers</url-pattern>
+        <servlet-name>LeaveHistoryServlet</servlet-name>
+        <url-pattern>/leavehistory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendFormServlet</servlet-name>
@@ -651,6 +523,10 @@
     <servlet-mapping>
         <servlet-name>HistoryFormServlet</servlet-name>
         <url-pattern>/historyform</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTeacherServlet</servlet-name>
+        <url-pattern>/updateTeacher</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewFormServlet</servlet-name>

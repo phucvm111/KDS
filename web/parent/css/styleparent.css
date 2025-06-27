@@ -1,0 +1,42 @@
+/* kinder2852025/Web Pages/parent/css/styleparent.css */
+
+/* CSS Variables for Parent Module */
+:root {
+    --primary-color: #6a5af9;
+    --primary-light: #f0efff;
+    --secondary-color: #00bcd4; /* Có thể không dùng trong mọi trang, nhưng giữ chung nếu nó là màu phụ của theme */
+    --text-color: #333;
+    --text-secondary: #6c757d;
+    --background-color: #f8f9fa;
+    --white-color: #fff;
+    --border-color: #e0e0e0;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Main Wrapper for Parent Layout */
+.wrapper {
+    display: flex;
+    height: 100vh;
+}
