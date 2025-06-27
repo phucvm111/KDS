@@ -35,6 +35,36 @@
     box-sizing: border-box; /* Include padding in element's total width */
 }
 
+/* CSS cho thông báo lỗi/thành công */
+.form-group span.text-danger {
+    font-size: 0.875rem;
+    color: red;
+    display: block; /* Giúp thông báo lỗi luôn ở dưới ô input */
+    min-height: 1.2em; /* Giữ khoảng trống cố định dù có lỗi hay không */
+    margin-top: 5px; /* Thêm khoảng cách nhỏ giữa input và lỗi */
+}
+
+.message-box {
+    margin: 15px auto; /* Canh giữa và tạo khoảng cách */
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    text-align: center;
+    max-width: 600px; /* Giới hạn chiều rộng để dễ đọc */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Thêm đổ bóng nhẹ cho đẹp */
+}
+.success-message {
+    color: #4F8A10; /* Màu chữ xanh lá đậm */
+    background-color: #DFF2BF; /* Màu nền xanh lá nhạt */
+    border: 1px solid #4F8A10;
+}
+.error-message {
+    color: #D8000C; /* Màu chữ đỏ đậm */
+    background-color: #FFD2D2; /* Màu nền đỏ nhạt */
+    border: 1px solid #D8000C;
+}
+
+
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -54,24 +84,32 @@
     text-decoration: none; /* For the cancel link */
     display: inline-block; /* For the cancel link */
     text-align: center;
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển động */
 }
 
 .update-button {
     background-color: #4CAF50; /* Green */
     color: white;
 }
+.update-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
 
 .cancel-button {
     background-color: #f44336; /* Red */
     color: white;
 }
+.cancel-button:hover {
+    background-color: #da190b; /* Darker red on hover */
+}
 
 /* Overrides/Adjustments for the specific page layout */
 .profile-card {
-    box-shadow: none; /* Remove shadow if you want a flat look as in the image */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Thêm đổ bóng cho card chính */
     background-color: #fff; /* Ensure white background if shadow is removed */
     border-radius: 8px;
     overflow: hidden; /* Ensures content respects border-radius */
+    margin-bottom: 20px; /* Thêm khoảng cách dưới card */
 }
 
 .profile-header {
@@ -82,16 +120,27 @@
     padding: 0; /* Remove padding here as grid has its own padding */
 }
 
-/* Hide the update button from the view profile page if this CSS is also linked there */
-/* If parentprofile.css is already handling this, you might not need this here */
-/* .profile-actions {
-    display: none;
-} */
-
 .right-side h1 {
     padding: 20px;
     margin-bottom: 0;
     color: #333;
     background-color: #f0f2f5; /* Match the background of the parent container */
     border-bottom: 1px solid #eee;
+    text-align: center; /* Canh giữa tiêu đề */
+    border-radius: 8px 8px 0 0; /* Bo tròn góc trên của tiêu đề */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .update-form-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+    .form-actions {
+        flex-direction: column; /* Stack buttons on smaller screens */
+        align-items: center;
+    }
+    .update-button, .cancel-button {
+        width: 80%; /* Make buttons wider */
+        max-width: 300px;
+    }
 }
