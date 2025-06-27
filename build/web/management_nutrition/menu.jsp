@@ -119,6 +119,11 @@
                 </tbody>
             </table>
         </div>
+        <div class="container text-center mb-5">
+            <button onclick="history.back()" class="btn btn-secondary mt-3">
+                ⬅ Quay lại
+            </button>
+        </div>
 
     </body>
 </html>
