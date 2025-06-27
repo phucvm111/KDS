@@ -160,7 +160,7 @@ public class AccountDAO extends DBContext {
         RoleDAO rd = new RoleDAO();
         List<Account> list = new ArrayList<>();
         try {
-            String sql = "select * from Account where role_id = 2";
+            String sql = "select * from Account where role_id = 3";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -312,7 +312,7 @@ public class AccountDAO extends DBContext {
         List<Account> list = new ArrayList<>();
         RoleDAO rd = new RoleDAO();
         try {
-            String sql = "select * from Account where role_id = 3";
+            String sql = "select * from Account where role_id = 2";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();

@@ -39,8 +39,8 @@
                         <img src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="Ảnh đại diện">
                     </div>
                     <div class="personal-section">
-                        <h1>${sessionScope.account.firstName} ${sessionScope.account.lastName}</h1>
-                        <p>Ngày sinh: ${sessionScope.account.dob}</p>
+                        <h1>${requestScope.parentAccount.firstName} ${requestScope.parentAccount.lastName}</h1>
+                        <p>Ngày sinh: ${requestScope.parentAccount.dob}</p>
                     </div>
                 </div>
 
@@ -48,35 +48,35 @@
                     <div class="profile-grid">
                         <div class="content-item">
                             <div class="item-title">Tên</div>
-                            <p class="parent-info">${sessionScope.account.firstName}</p>
+                            <p class="parent-info">${requestScope.parentAccount.firstName}</p>
                         </div>
 
                         <div class="content-item">
                             <div class="item-title">Họ</div>
-                            <p class="parent-info">${sessionScope.account.lastName}</p>
+                            <p class="parent-info">${requestScope.parentAccount.lastName}</p>
                         </div>
                         
                         <div class="content-item">
                             <div class="item-title">Giới tính</div>
                             <p class="parent-info">
-                                <c:if test="${sessionScope.account.gender == true}">Nam</c:if>
-                                <c:if test="${sessionScope.account.gender == false}">Nữ</c:if>
+                                <c:if test="${requestScope.parentAccount.gender == true}">Nam</c:if>
+                                <c:if test="${requestScope.parentAccount.gender == false}">Nữ</c:if>
                             </p>
                         </div>
 
                         <div class="content-item">
                             <div class="item-title">Số điện thoại</div>
-                            <p class="parent-info">${sessionScope.account.phoneNumber}</p>
+                            <p class="parent-info">${requestScope.parentAccount.phoneNumber}</p>
                         </div>
                         
                         <div class="content-item full-width">
                             <div class="item-title">Email</div>
-                            <p class="parent-info">${sessionScope.account.email}</p>
+                            <p class="parent-info">${requestScope.parentAccount.email}</p>
                         </div>
 
                         <div class="content-item full-width">
                             <div class="item-title">Địa chỉ</div>
-                            <p class="parent-info">${sessionScope.account.address}</p>
+                            <p class="parent-info">${requestScope.parentAccount.address}</p>
                         </div>
                     </div>
                     
@@ -89,6 +89,5 @@
             </div>
         </div>
     </div>
-    
 </body>
 </html>
