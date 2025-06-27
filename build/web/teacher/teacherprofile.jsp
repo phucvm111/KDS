@@ -9,13 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="${pageContext.request.contextPath}//assets/image/logo2-removebg-preview.png">
         <title>KDS - Teacher Profile</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childregister.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/teacher/css/teacherInfor.css">
     </head>
 
     <body>
-        <div class="wrapper">
+        <div>
             <div class="home">
                 <div class="left-side-menu">
                     <div class="vertical-menu">
@@ -42,7 +40,7 @@
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
-                        <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
+                        <div>
                             <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/logout')" value="Log out"/>
                         </div>
                     </div>
@@ -142,10 +140,10 @@
                                                                     
                                                                 </div>-->
                                 <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 300px ">
-                                    <a href="${pageContext.request.contextPath}/homepage/parent/parentupdateprofile.jsp">
+                                    <a href="${pageContext.request.contextPath}/updateteacher">
                                         <input type="submit" class="button" value="Update profile"/>
                                     </a>
-                                </div>    
+                                </div>
                             </div>
                         </div>
                     </div>

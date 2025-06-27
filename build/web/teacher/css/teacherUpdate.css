@@ -1,0 +1,174 @@
+/* Base reset */
+/** {
+  box-sizing: border-box;
+}*/
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9fb;
+  min-height: 100vh;
+}
+
+.home {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- Menu trái --- */
+.left-side-menu {
+  width: 240px;
+  background: linear-gradient(to bottom right, #e0f7fa, #80deea);
+  padding: 20px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.vertical-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-welcome {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.user-welcome img {
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-welcome p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #00796b;
+  margin-top: 10px;
+}
+
+.menu-item-container {
+  width: 100%;
+}
+
+.item-lists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  margin: 10px 0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: #004d40;
+  padding: 10px 16px;
+  display: block;
+  border-radius: 8px;
+}
+
+.menu-item:hover,
+.menu-item.current1 {
+  background-color: #b2ebf2;
+  transform: translateX(5px);
+}
+
+/* Logout button */
+.log-out_button {
+  background-color: #ff6f61;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.log-out_button:hover {
+  box-shadow: 0 0 10px rgba(255, 111, 97, 0.6);
+}
+
+/* --- Nội dung form bên phải --- */
+.form-container {
+  flex: 1;
+  width: 100%;
+  max-width: auto;
+  margin: 50px 40px;
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f5faff;
+  transition: border 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #42a5f5;
+}
+
+.submit-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 30px;
+  background: linear-gradient(to right, #64b5f6, #42a5f5);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 0 12px rgba(66, 165, 245, 0.4);
+}
+
+/* --- Responsive layout --- */
+@media (max-width: 768px) {
+  .home {
+    flex-direction: column;
+  }
+
+  .left-side-menu {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .form-container {
+    margin: 20px;
+  }
+}

@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
-    <title>ATKD ChildCare - Parent Profile</title>
+    <title>ATKD ChildCare - Hồ sơ Phụ huynh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parentprofile.css">
@@ -17,43 +17,55 @@
 
 <body>
     <div class="wrapper">
-        <%-- Include the sidebar here --%>
         <jsp:include page="/view/sidebarParent.jsp" /> 
 
         <div class="right-side">
+            
+            <c:if test="${not empty requestScope.errorMessage}">
+                <div class="error-message">
+                    <p><strong>Lỗi:</strong> ${requestScope.errorMessage}</p>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty requestScope.successMessage}">
+                <div class="success-message">
+                    <p><strong>Thành công:</strong> ${requestScope.successMessage}</p>
+                </div>
+            </c:if>
+
             <div class="profile-card">
                 <div class="profile-header">
                     <div class="img-section">
-                        <img src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="Profile Picture">
+                        <img src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="Ảnh đại diện">
                     </div>
                     <div class="personal-section">
                         <h1>${sessionScope.account.firstName} ${sessionScope.account.lastName}</h1>
-                        <p>Date of birth: ${sessionScope.account.dob}</p>
+                        <p>Ngày sinh: ${sessionScope.account.dob}</p>
                     </div>
                 </div>
 
                 <div class="profile-content">
                     <div class="profile-grid">
                         <div class="content-item">
-                            <div class="item-title">First Name</div>
+                            <div class="item-title">Tên</div>
                             <p class="parent-info">${sessionScope.account.firstName}</p>
                         </div>
 
                         <div class="content-item">
-                            <div class="item-title">Last Name</div>
+                            <div class="item-title">Họ</div>
                             <p class="parent-info">${sessionScope.account.lastName}</p>
                         </div>
                         
                         <div class="content-item">
-                            <div class="item-title">Gender</div>
+                            <div class="item-title">Giới tính</div>
                             <p class="parent-info">
-                                <c:if test="${sessionScope.account.gender == true}">Male</c:if>
-                                <c:if test="${sessionScope.account.gender == false}">Female</c:if>
+                                <c:if test="${sessionScope.account.gender == true}">Nam</c:if>
+                                <c:if test="${sessionScope.account.gender == false}">Nữ</c:if>
                             </p>
                         </div>
 
                         <div class="content-item">
-                            <div class="item-title">Phone</div>
+                            <div class="item-title">Số điện thoại</div>
                             <p class="parent-info">${sessionScope.account.phoneNumber}</p>
                         </div>
                         
@@ -63,14 +75,14 @@
                         </div>
 
                         <div class="content-item full-width">
-                            <div class="item-title">Address</div>
+                            <div class="item-title">Địa chỉ</div>
                             <p class="parent-info">${sessionScope.account.address}</p>
                         </div>
                     </div>
                     
                     <div class="profile-actions">
-                        <a href="${pageContext.request.contextPath}/parent/parentupdateprofile.jsp">
-                            <input type="button" class="update-button" value="Update Profile"/>
+                        <a href="${pageContext.request.contextPath}/parentupdateprofile">
+                            <input type="button" class="update-button" value="Cập nhật hồ sơ"/>
                         </a>
                     </div>
                 </div>

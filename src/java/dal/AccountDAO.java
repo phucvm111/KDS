@@ -452,25 +452,22 @@ public class AccountDAO extends DBContext {
         }
     }
 
-    public void updateAccount(Account account) {
-        try {
-            String sql = " UPDATE [dbo].[Account]\n"
-                    + "   SET [first_name] = ? \n"
-                    + "      ,[last_name] = ? \n"
-                    + "      ,[gender] = ? \n"
-                    + "      ,[email] = ? \n"
-                    + "      ,[password] = ? \n"
-                    + "      ,[dob] = ? \n"
-                    + "      ,[phone_number] = ? \n"
-                    + "      ,[address] = ? \n"
-                    + "      ,[img] = ?    ,\n"
-                    + "	 [role_id] = ? \n"
-                    + " WHERE account_id = " + String.valueOf(account.getAccountID()) + " ";
-//            connection = new DBContext().getConnection();
-            connection = new DBContext().getConnection();
-            ps = connection.prepareStatement(sql);
-//            PreparedStatement pre = connection.prepareStatement(sql);
-//            st.setInt(11, account.getAccountID());
+    public boolean updateAccount(Account account) {
+        String sql = "UPDATE [dbo].[Account] SET "
+                + "first_name = ?, "
+                + "last_name = ?, "
+                + "gender = ?, "
+                + "email = ?, "
+                + "password = ?, "
+                + "dob = ?, "
+                + "phone_number = ?, "
+                + "address = ?, "
+                + "img = ?, "
+                + "role_id = ? "
+                + "WHERE account_id = ?";
+
+        try (Connection connection = new DBContext().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setString(1, account.getFirstName());
             ps.setString(2, account.getLastName());
             ps.setBoolean(3, account.isGender());
@@ -481,15 +478,15 @@ public class AccountDAO extends DBContext {
             ps.setString(8, account.getAddress());
             ps.setString(9, account.getImg());
             ps.setInt(10, account.getRole().getRoleID());
+            ps.setInt(11, account.getAccountID());
 
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
-        System.out.println(account.toString());
     }
 
     public Account getAccountByEmail(String email) {
@@ -569,6 +566,42 @@ public class AccountDAO extends DBContext {
         }
     }
 }
+    public Account getParentByID(int id) {
+        // Giả sử role_id = 3 là cho Parents
+        int PARENT_ROLE_ID = 3; 
+        
+        try {
+            String sql = "SELECT * FROM Account WHERE account_id = ? AND role_id = ?";
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setInt(2, PARENT_ROLE_ID); // Lọc theo role_id của Parent
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Account a = new Account();
+                a.setAccountID(rs.getInt("account_id"));
+                a.setFirstName(rs.getString("first_name"));
+                a.setLastName(rs.getString("last_name"));
+                a.setGender(rs.getBoolean("gender"));
+                a.setEmail(rs.getString("email"));
+                a.setPassword(rs.getString("password"));
+                a.setDob(rs.getString("dob"));
+                a.setPhoneNumber(rs.getString("phone_number"));
+                a.setAddress(rs.getString("address"));
+                a.setImg(rs.getString("img"));
+                Role r = rd.getRoleByID(rs.getInt("role_id"));
+                a.setRole(r);
+                return a;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "SQL Exception in getParentByID for ID: " + id, e);
+        } catch (Exception e) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, "General Exception in getParentByID for ID: " + id, e);
+        }
+        return null; // Trả về null nếu không tìm thấy hoặc không phải là parent
+    }
+    }
 //    public static void main(String[] args) {
 //        AccountDAO d = new AccountDAO();
 //        System.out.println(d.getTeacherById(2));
@@ -577,8 +610,6 @@ public class AccountDAO extends DBContext {
 //            System.out.println(em);
 //        }
 //    }
-
-
 
 //        AccountDAO d = new AccountDAO();
 //            Account a = new Account();
@@ -613,4 +644,4 @@ public class AccountDAO extends DBContext {
 //        GoogleAccount a = new GoogleAccount(account, googleID)
 //        dao.addGoogleAccount(a);
 //        System.out.println(role);
-}
+

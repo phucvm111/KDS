@@ -1,140 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Đơn Xin Nghỉ Phép</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-    .container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 500px;
-    }
-    h2 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 20px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
-        font-weight: bold;
-    }
-    input[type="text"],
-    input[type="date"],
-    textarea,
-    select {
-        width: calc(100% - 22px);
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
-    textarea {
-        resize: vertical;
-        min-height: 80px;
-    }
-    .btn-submit {
-        background-color: #007bff;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 18px;
-        width: 100%;
-        margin-top: 20px;
-    }
-    .btn-submit:hover {
-        background-color: #0056b3;
-    }
-    .message {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 4px;
-        text-align: center;
-    }
-    .message.success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    .message.error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
+    <title>ATKD ChildCare - Đơn Xin Nghỉ Phép</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarTeacher.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/teacher/css/leaverequestform.css">
+
 </head>
 <body>
-    <div class="container">
-        <h2>Đơn Xin Nghỉ Phép</h2>
+    <div class="wrapper">
+        <jsp:include page="/view/sidebarTeacher.jsp" />    
 
-        <%
-            // Lấy thông báo từ request attribute (nếu có)
-            String message = (String) request.getAttribute("message");
-            String messageType = (String) request.getAttribute("messageType");
-            if (message != null && !message.isEmpty()) {
-        %>
-            <div class="message <%= messageType %>">
-                <%= message %>
+        <div class="right-side">
+            <div class="container">
+                <h2>Đơn Xin Nghỉ Phép</h2>
+
+                <c:if test="${not empty message}">
+                    <div class="message ${messageType}">
+                        ${message}
+                    </div>
+                </c:if>
+
+                <form action="leaverequest" method="post">
+                    <div class="form-group">
+                        <label for="startDate">Ngày bắt đầu nghỉ: <span class="required">(*)</span></label>
+                        <input type="date" id="startDate" name="startDate" required value="${startDate}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endDate">Ngày kết thúc nghỉ: <span class="required">(*)</span></label>
+                        <input type="date" id="endDate" name="endDate" required value="${endDate}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reason">Lý do nghỉ phép: <span class="required">(*)</span></label>
+                        <textarea id="reason" name="reason" rows="5" required>${reason}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leaveTypeId">Loại nghỉ phép: <span class="required">(*)</span></label>
+                        <select id="leaveTypeId" name="leaveTypeId">
+                            <c:forEach var="type" items="${leaveTypes}">
+                                <option value="${type.leaveTypeId}" ${type.leaveTypeId == leaveTypeId ? 'selected' : ''}>
+                                    ${type.typeName}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="button-group" style="text-align: right; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Gửi Đơn</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='${pageContext.request.contextPath}/leavehistory';">Hủy</button>
+                    </div>
+                    
+                </form>
             </div>
-        <%
-            }
-        %>
-
-        <form action="LeaveRequestServlet" method="post">
-            <div class="form-group">
-                <label for="teacherName">Họ và tên giáo viên:</label>
-                <input type="text" id="teacherName" name="teacherName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">Ngày bắt đầu nghỉ:</label>
-                <input type="date" id="startDate" name="startDate" required>
-            </div>
-
-            <div class="form-group">
-                <label for="endDate">Ngày kết thúc nghỉ:</label>
-                <input type="date" id="endDate" name="endDate" required>
-            </div>
-
-            <div class="form-group">
-                <label for="leaveReason">Lý do nghỉ phép:</label>
-                <textarea id="leaveReason" name="leaveReason" rows="5" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="leaveType">Loại nghỉ phép:</label>
-                <select id="leaveType" name="leaveType">
-                    <option value="annual">Nghỉ phép năm</option>
-                    <option value="sick">Nghỉ ốm</option>
-                    <option value="personal">Nghỉ việc riêng</option>
-                    <option value="other">Khác</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn-submit">Gửi Đơn</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>

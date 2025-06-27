@@ -12,6 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
 import model.Menu;
 
 /**
@@ -70,15 +72,24 @@ public class updateMenuServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session =request.getSession();
+        Account acc=(Account) session.getAttribute("account");
+        if(acc==null){
+            response.sendRedirect("login");
+            return;
+        }
 
         try {
+            
             int menuId = Integer.parseInt(request.getParameter("menuId"));
             String menudate = request.getParameter("menudate");
             String mealType = request.getParameter("mealType"); // phải trùng với name trong <select>
             String dish = request.getParameter("dish");
-            float calories = Float.parseFloat(request.getParameter("calories"));
+            String caloString = request.getParameter("calories");
+            float calories = Float.parseFloat(caloString);
+
             String notes = request.getParameter("notes") != null ? request.getParameter("notes") : "";
             String classIdRaw = request.getParameter("classId");
 
@@ -88,8 +99,34 @@ public class updateMenuServlet extends HttpServlet {
                 return;
             }
 
+            if (menudate == null || menudate.isEmpty()
+                    || mealType == null || mealType.isEmpty()
+                    || dish == null || dish.trim().isEmpty()) {
+                request.setAttribute("error", "Information not empty!.");
+
+                Menu menu = MenuDao.getMenuById(menuId);
+                request.setAttribute("menu", menu);
+                request.getRequestDispatcher("/management_nutrition/edit_menu.jsp").forward(request, response);
+                return;
+            }
+
+            if (calories < 0) {
+                Menu menu = MenuDao.getMenuById(menuId);
+                request.setAttribute("menu", menu);
+                request.setAttribute("error", "calories must >0!.");
+                request.getRequestDispatcher("/management_nutrition/edit_menu.jsp").forward(request, response);
+                return;
+            }
+            if (dish.length() > 70 || notes.length() > 60 || caloString.length() > 10) {
+                Menu menu = MenuDao.getMenuById(menuId);
+                request.setAttribute("menu", menu);
+                request.setAttribute("error", "information fail!.");
+                request.getRequestDispatcher("/management_nutrition/edit_menu.jsp").forward(request, response);
+                return;
+            }
+
             int classId = Integer.parseInt(classIdRaw);
-            ClassDAO cls=new ClassDAO();
+            ClassDAO cls = new ClassDAO();
             model.Class clazz = cls.getClassByID(classId);
             if (clazz == null) {
                 request.setAttribute("error", "classId không tồn tại: " + classId);
@@ -111,7 +148,6 @@ public class updateMenuServlet extends HttpServlet {
             MenuDao.updateMenu(m);
 
             // Điều hướng về lại trang chính
-           
             request.getRequestDispatcher("day_class").forward(request, response);
 
         } catch (Exception e) {

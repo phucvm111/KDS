@@ -18,56 +18,81 @@
         <title>Admin Dashboard</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f6f9;
+                font-family: 'Segoe UI', sans-serif;
+                background: #f9f9fb;
                 margin: 0;
-                padding: 20px;
+                padding: 2rem;
+                color: #333;
             }
+
             .dashboard {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 20px;
-            }
-            .card {
-                flex: 1 1 200px;
-                padding: 20px;
-                border-radius: 12px;
-                color: black;
-                font-weight: bold;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
                 justify-content: center;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-                height: 150px;
-            }
-            .icon {
-                font-size: 36px;
-                margin-bottom: 10px;
-            }
-            .card1 {
-                background: linear-gradient(to right, #ff416c, #ff4b2b);
-            }
-            .card2 {
-                background: linear-gradient(to right, #11998e, #38ef7d);
-            }
-            .card3 {
-                background: linear-gradient(to right, #36d1dc, #5b86e5);
-            }
-            .card4 {
-                background: linear-gradient(to right, #fc4a1a, #f7b733);
-            }
-            .card5 {
-                background: linear-gradient(to right, #9cecfb, #65c7f7, #0052d4);
-            }
-            .count {
-                font-size: 32px;
-            }
-            .label {
-                margin-top: 10px;
-                color: black;
             }
 
+            .card {
+                flex: 1 1 240px;
+                background: linear-gradient(135deg, #ffffff, #f0f4ff);
+                border-radius: 16px;
+                padding: 24px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid #e0e6f0;
+            }
+
+            .card::before {
+                content: '';
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: rgba(100, 149, 237, 0.08);
+                border-radius: 50%;
+                top: -30px;
+                right: -30px;
+                z-index: 0;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+            }
+
+            .count {
+                font-size: 36px;
+                font-weight: 600;
+                color: #4a4a4a;
+                z-index: 1;
+                position: relative;
+            }
+
+            .label {
+                margin-top: 10px;
+                font-size: 16px;
+                color: #555;
+                z-index: 1;
+                position: relative;
+            }
+
+            .card a {
+                margin-top: 12px;
+                display: inline-block;
+                color: #3a86ff;
+                font-weight: 500;
+                text-decoration: none;
+                z-index: 1;
+                position: relative;
+                transition: color 0.2s ease;
+            }
+
+            .card a:hover {
+                color: #265df2;
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
@@ -229,6 +254,14 @@
                     },
                     tooltips: {
                         enabled: true
+                    },
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0
+                                }
+                            }]
                     }
                 }
             });

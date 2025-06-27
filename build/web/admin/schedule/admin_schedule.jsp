@@ -59,7 +59,7 @@
                                 <i class="uil uil-lock-alt"></i>
                                 <span class="link-name">Change Password</span>
                             </a></li>
-                        <li><a href="/kinder2852025/day_class">
+                        <li><a href="day_class">
                                 <i class="uil uil-user-square"></i>
                                 <span class="link-name">Nutrition</span>
                             </a></li>

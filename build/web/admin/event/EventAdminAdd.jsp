@@ -32,22 +32,22 @@
                     </c:if>
 
                     <div class="mb-3">
-                        <label for="event_name" class="form-label">Event Name</label>
+                        <label for="event_name" class="form-label">Event Name: <span class="required">(*)</span></label>
                         <input type="text" class="form-control" id="event_name" name="event_name" required value="${requestScope.oldEventName != null ? requestScope.oldEventName : ''}">
                     </div>
 
                     <div class="mb-3">
-                        <label for="event_description" class="form-label">Event Description</label>
+                        <label for="event_description" class="form-label">Event Description: <span class="required">(*)</span></label>
                         <textarea class="form-control" id="event_description" name="event_description" rows="3" required>${requestScope.oldEventDescription != null ? requestScope.oldEventDescription : ''}</textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="event_date" class="form-label">Event Date</label>
+                        <label for="event_date" class="form-label">Event Date: <span class="required">(*)</span></label>
                         <input type="date" class="form-control" id="event_date" name="event_date" required value="${requestScope.oldEventDate != null ? requestScope.oldEventDate : ''}">
                     </div>
 
                     <div class="mb-3">
-                        <label for="location" class="form-label">Event Location</label>
+                        <label for="location" class="form-label">Event Location: <span class="required">(*)</span></label>
                         <input type="text" class="form-control" id="location" name="location" required value="${requestScope.oldLocation != null ? requestScope.oldLocation : ''}">
                     </div>
 
