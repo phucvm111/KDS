@@ -430,7 +430,7 @@
                 <div class="avatar-container" onclick="toggleMenu()">
                     <img src="https://i.pravatar.cc/40" alt="Avatar" />
                     <div class="dropdown-menu" id="dropdown">
-                        <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">⚙ Information</a>
+                        <a href="${pageContext.request.contextPath}/parentprofile">⚙ Information</a>
                         <a href="${pageContext.request.contextPath}/index.html">🚪 Logout</a>
                     </div>
                 </div>
