@@ -134,7 +134,7 @@ public class SendFormServlet extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("error", "Gửi đơn thất bại! Vui lòng thử lại.");
         }
-        request.getRequestDispatcher("/parent/sendform/sendForm.jsp").forward(request, response);
+        request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
 
     }
 
