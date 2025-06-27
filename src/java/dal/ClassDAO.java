@@ -115,6 +115,32 @@ public void updateClass(Class cl) {
         return null;
     }
 
+    
+    public Class getClassByTeacherID(int teacherId) {
+    String sql = "SELECT * FROM class WHERE teacher_id = ?";
+    try {
+        AccountDAO ad = new AccountDAO();
+        connection = new DBContext().getConnection();
+        ps = connection.prepareStatement(sql);
+        ps.setInt(1, teacherId);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            Class c = new Class();
+            c.setClass_id(rs.getInt("class_id"));
+            c.setClass_name(rs.getString("class_name"));
+            c.setGrade(rs.getInt("grade"));
+            c.setClass_description(rs.getString("class_description"));
+            Account a = ad.getAccountByID(rs.getInt("teacher_id"));
+            c.setAcc(a);
+            return c;
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // In lỗi ra để debug dễ hơn
+    }
+    return null;
+}
+
     public Class getClassByID(int id) {
 
         String sql = "select * from class where class_id = ?";
@@ -143,10 +169,8 @@ public void updateClass(Class cl) {
 
     public static void main(String[] args) {
         ClassDAO cd = new ClassDAO();
-        List<Class> classs=cd.getAllClass();
+        Class classs=cd.getClassByTeacherID(2);
         
-        for(Class c :classs){
-            System.out.println(c.getClass_name());
-        }
+        System.out.println(classs);
     }
 }

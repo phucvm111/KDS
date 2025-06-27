@@ -1,0 +1,274 @@
+/* webapp/admin/css/manageleaverequests.css */
+
+/* ĐÂY LÀ PHẦN QUAN TRỌNG NHẤT ĐỂ ĐẨY NỘI DUNG SANG PHẢI */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin-left: 250px; /* PHẢI BẰNG VỚI WIDTH CỦA SIDEBAR */
+}
+
+.wrapper {
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.right-side {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1300px; /* Vẫn giữ max-width này, có thể thu nhỏ nếu bảng quá nhỏ */
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed; /* Vẫn giữ cố định layout bảng */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px 8px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Mặc định vẫn nowrap */
+}
+
+/* ĐỊNH NGHĨA CHIỀU RỘNG TỪNG CỘT CỤ THỂ (ĐÃ CẬP NHẬT LẠI NTH-CHILD VÀ CHIỀU RỘNG) */
+/* Cột 1: Tên Giáo Viên (trước đây là cột 1) */
+table th:nth-child(1),
+table td:nth-child(1) {
+    width: 18%; /* Tăng chiều rộng */
+    min-width: 150px;
+}
+/* Cột 2: Ngày Bắt Đầu (trước đây là cột 3) */
+table th:nth-child(2),
+table td:nth-child(2),
+/* Cột 3: Ngày Kết Thúc (trước đây là cột 4) */
+table th:nth-child(3),
+table td:nth-child(3),
+/* Cột 5: Ngày Gửi (trước đây là cột 7) */
+table th:nth-child(5),
+table td:nth-child(5) {
+    width: 15%; /* Chiều rộng cho các cột ngày */
+    min-width: 120px;
+}
+/* Cột 4: Lý Do (trước đây là cột 6) */
+table th:nth-child(4),
+table td:nth-child(4) {
+    width: 25%; /* Tăng đáng kể chiều rộng cho Lý Do */
+    white-space: normal; /* CHO PHÉP XUỐNG DÒNG */
+    word-break: break-word; /* Đảm bảo từ dài cũng xuống dòng */
+    min-width: 200px;
+}
+/* Cột 6: Hành Động (trước đây là cột 9) */
+table th:nth-child(6),
+table td:nth-child(6) {
+    width: 27%; /* Tăng đáng kể chiều rộng cho cột Hành Động để chứa 3 nút */
+    min-width: 200px; /* Đảm bảo đủ không gian */
+    text-align: center;
+}
+
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e2f0ff;
+}
+
+/* Style cho trạng thái (có thể xóa nếu bạn bỏ cột trạng thái hoàn toàn) */
+/* Tuy nhiên, tôi sẽ giữ lại nếu bạn có thể cần nó ở đâu đó khác (ví dụ: trang chi tiết) */
+.status-pending {
+    color: #fd7e14;
+    font-weight: bold;
+    background-color: #fff3cd;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.status-approved {
+    color: #28a745;
+    font-weight: bold;
+    background-color: #d4edda;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.status-rejected {
+    color: #dc3545;
+    font-weight: bold;
+    background-color: #f8d7da;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Style cho các nút hành động */
+.actions button,
+.actions .detail-btn {
+    padding: 6px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.actions .detail-btn {
+    background-color: #007bff;
+    color: white;
+}
+.actions .detail-btn:hover {
+    background-color: #0056b3;
+}
+
+.actions .approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+.actions .approve-btn:hover {
+    background-color: #218838;
+}
+.actions .reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+.actions .reject-btn:hover {
+    background-color: #c82333;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-style: italic;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1300px) {
+    .container {
+        max-width: 98%;
+    }
+}
+
+@media (max-width: 992px) { /* Cho màn hình tablet */
+    .container {
+        padding: 15px;
+        max-width: 98%;
+    }
+    th, td {
+        padding: 8px 6px;
+        font-size: 0.9em;
+    }
+    /* Điều chỉnh lại chiều rộng cột cho tablet */
+    table th:nth-child(1), table td:nth-child(1) { width: 17%; min-width: 120px; } /* Tên Giáo Viên */
+    table th:nth-child(2), table td:nth-child(2),
+    table th:nth-child(3), table td:nth-child(3),
+    table th:nth-child(5), table td:nth-child(5) { width: 14%; min-width: 100px; } /* Các cột ngày */
+    table th:nth-child(4), table td:nth-child(4) { width: 23%; min-width: 180px; } /* Lý Do */
+    table th:nth-child(6), table td:nth-child(6) { width: 25%; min-width: 180px; } /* Hành Động */
+}
+
+@media (max-width: 768px) { /* Cho màn hình di động */
+    body {
+        margin-left: 0;
+    }
+    .right-side {
+        padding: 10px;
+        justify-content: flex-start;
+    }
+    .container {
+        padding: 10px;
+        margin: 10px auto;
+        max-width: 100%;
+        overflow-x: auto; /* Vẫn giữ cuộn ngang trên mobile */
+    }
+    h2 {
+        font-size: 1.6em;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    th, td {
+        padding: 6px 4px;
+        font-size: 0.8em;
+        white-space: normal;
+    }
+    .actions button,
+    .actions .detail-btn {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+        padding: 5px 8px;
+        font-size: 0.8em;
+    }
+    /* Khi table cuộn ngang, không cần định nghĩa width/min-width cụ thể cho từng th, td nữa */
+    table th, table td {
+        min-width: 100px; /* Tăng min-width chung cho các cột trên mobile để dễ đọc */
+    }
+    table th:nth-child(4), table td:nth-child(4) { /* Cột Lý Do */
+        min-width: 180px;
+    }
+    table th:nth-child(6), table td:nth-child(6) { /* Cột Hành Động */
+        min-width: 120px; /* Đảm bảo đủ rộng cho 3 nút xếp chồng */
+    }
+}

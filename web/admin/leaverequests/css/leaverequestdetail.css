@@ -1,0 +1,265 @@
+/* webapp/admin/leaverequests/css/leaverequestdetail.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; /* Đảm bảo font nhất quán và dễ đọc */
+    background-color: #f0f2f5; /* Màu nền nhẹ nhàng cho toàn trang */
+    line-height: 1.6; /* Tăng khoảng cách dòng để dễ đọc hơn */
+    color: #333;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    align-items: flex-start; /* Căn trên theo chiều dọc */
+    min-height: 100vh; /* Đảm bảo wrapper chiếm toàn bộ chiều cao viewport */
+    padding: 20px; /* Thêm padding tổng thể xung quanh nội dung chính */
+    box-sizing: border-box; /* Quan trọng để padding không làm tràn */
+}
+
+.right-side {
+    /* Trong trường hợp này, right-side sẽ trở thành main-content-area */
+    flex-grow: 1; /* Cho phép nó chiếm hết không gian */
+    display: flex; /* Kích hoạt flexbox */
+    justify-content: center; /* Căn giữa detail-container bên trong nó */
+    align-items: flex-start; /* Căn trên */
+    /* Loại bỏ padding mặc định nếu nó gây dư thừa với padding của wrapper */
+    /* padding: 0; */
+}
+
+.detail-container {
+    background-color: #ffffff; /* Nền trắng cho khu vực chi tiết */
+    padding: 30px; /* Tăng padding bên trong container */
+    border-radius: 8px; /* Bo góc mềm mại hơn */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Đổ bóng nhẹ tạo chiều sâu */
+    max-width: 800px; /* Giữ nguyên chiều rộng tối đa */
+    width: 100%; /* Đảm bảo nó chiếm đủ không gian trên mobile */
+    box-sizing: border-box; /* Quan trọng để padding không làm tăng width */
+    margin-top: 0; /* Đặt lại margin-top vì đã có padding ở wrapper */
+}
+
+h2 { /* Sử dụng h2 vì bạn đã dùng thẻ này trong JSP cho tiêu đề */
+    font-size: 2em; /* Tiêu đề lớn hơn */
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px; /* Khoảng cách dưới tiêu đề */
+    border-bottom: 2px solid #007bff; /* Đường kẻ dưới tiêu đề */
+    padding-bottom: 10px; /* Khoảng cách giữa tiêu đề và đường kẻ */
+}
+
+.detail-grid {
+    display: grid;
+    /* Sử dụng auto-fit để linh hoạt hơn: 2 cột khi đủ rộng, 1 cột khi hẹp */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; /* Khoảng cách giữa các item */
+    margin-bottom: 30px;
+}
+
+.detail-item {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 90px; /* Đảm bảo các item có chiều cao tối thiểu để đồng đều */
+}
+
+.detail-item .label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+.detail-item .value {
+    color: #333;
+    font-size: 1.1em;
+    flex-grow: 1; /* Cho phép giá trị chiếm không gian còn lại, giúp các hộp đồng đều chiều cao */
+    display: flex; /* Dùng flex để căn giữa nếu nội dung ngắn */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc nếu chỉ có 1 dòng */
+}
+
+.detail-item.full-width {
+    grid-column: 1 / -1; /* Chiếm toàn bộ chiều rộng của grid */
+    min-height: 150px; /* Tăng chiều cao tối thiểu cho mục Lý Do */
+}
+
+.detail-item .reason-text {
+    white-space: pre-wrap; /* Giữ nguyên xuống dòng và khoảng trắng */
+    word-break: break-word; /* Đảm bảo từ dài cũng xuống dòng */
+    background-color: #eef;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccd;
+    min-height: 100px; /* Chiều cao tối thiểu cho khung lý do */
+    overflow-y: auto; /* Thêm scroll nếu nội dung quá dài */
+    flex-grow: 1; /* Cho phép text area co giãn */
+}
+
+.detail-actions {
+    text-align: center;
+    margin-top: 20px;
+    display: flex; /* Dùng flexbox để căn chỉnh các nút */
+    flex-wrap: wrap; /* Cho phép các nút xuống dòng trên màn hình nhỏ */
+    justify-content: center; /* Căn giữa các nút */
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.detail-actions .back-btn,
+.detail-actions .approve-btn,
+.detail-actions .reject-btn {
+    background-color: #6c757d; /* Màu xám cho nút quay lại */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    font-size: 1em;
+    /* margin đã được thay bằng gap trên .detail-actions */
+}
+
+.detail-actions .back-btn:hover {
+    background-color: #5a6268;
+}
+
+.detail-actions .approve-btn {
+    background-color: #28a745; /* Màu xanh lá cây */
+}
+
+.detail-actions .approve-btn:hover {
+    background-color: #218838;
+}
+
+.detail-actions .reject-btn {
+    background-color: #dc3545; /* Màu đỏ */
+}
+
+.detail-actions .reject-btn:hover {
+    background-color: #c82333;
+}
+
+.detail-actions .processed-message {
+    font-style: italic;
+    color: #777;
+    margin-left: 10px;
+    font-size: 0.9em;
+    align-self: center; /* Căn giữa theo chiều dọc trong flex container */
+}
+
+.status-pending {
+    background-color: #ffc107; /* Màu vàng cam */
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.status-approved {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.status-rejected {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.no-data-message {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    padding: 30px 0;
+    font-size: 1.1em;
+}
+
+/* Responsive cho trang chi tiết */
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 10px; /* Giảm padding tổng thể trên mobile */
+    }
+    .detail-container {
+        padding: 20px; /* Giảm padding bên trong container */
+    }
+    h2 {
+        font-size: 1.8em; /* Giảm kích thước tiêu đề trên mobile */
+        margin-bottom: 20px;
+    }
+    .detail-grid {
+        grid-template-columns: 1fr; /* Trên mobile, tất cả item sẽ xếp chồng lên nhau */
+        gap: 15px; /* Giảm khoảng cách */
+    }
+    .detail-item {
+        padding: 12px;
+        min-height: auto; /* Cho phép chiều cao tự động trên mobile */
+    }
+    .detail-item .label {
+        font-size: 0.9em;
+    }
+    .detail-item .value {
+        font-size: 1em;
+    }
+    .detail-actions {
+        flex-direction: column; /* Các nút xếp chồng lên nhau */
+        gap: 10px; /* Khoảng cách giữa các nút */
+    }
+    .detail-actions .back-btn,
+    .detail-actions .approve-btn,
+    .detail-actions .reject-btn {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        margin: 0; /* Reset margin vì đã dùng gap */
+    }
+    .detail-actions .processed-message {
+        margin-left: 0;
+        margin-top: 10px; /* Khoảng cách trên mobile */
+    }
+}
+
+/* Responsive cho màn hình cực nhỏ (ví dụ: mobile ngang) */
+@media (max-width: 480px) {
+    .detail-container {
+        padding: 15px;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .detail-item.full-width {
+        min-height: 120px;
+    }
+    .detail-item .reason-text {
+        min-height: 80px; /* Giảm chiều cao tối thiểu cho lý do */
+    }
+}

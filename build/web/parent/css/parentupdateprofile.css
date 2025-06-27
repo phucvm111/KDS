@@ -1,0 +1,97 @@
+/* Styles for the Update Profile Page */
+
+.update-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1; /* Spans across both columns */
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box; /* Include padding in element's total width */
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px;
+    grid-column: 1 / -1; /* Make buttons span full width of the grid */
+}
+
+.update-button,
+.cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none; /* For the cancel link */
+    display: inline-block; /* For the cancel link */
+    text-align: center;
+}
+
+.update-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+/* Overrides/Adjustments for the specific page layout */
+.profile-card {
+    box-shadow: none; /* Remove shadow if you want a flat look as in the image */
+    background-color: #fff; /* Ensure white background if shadow is removed */
+    border-radius: 8px;
+    overflow: hidden; /* Ensures content respects border-radius */
+}
+
+.profile-header {
+    display: none; /* Hide profile header section for update page if not needed */
+}
+
+.profile-content {
+    padding: 0; /* Remove padding here as grid has its own padding */
+}
+
+/* Hide the update button from the view profile page if this CSS is also linked there */
+/* If parentprofile.css is already handling this, you might not need this here */
+/* .profile-actions {
+    display: none;
+} */
+
+.right-side h1 {
+    padding: 20px;
+    margin-bottom: 0;
+    color: #333;
+    background-color: #f0f2f5; /* Match the background of the parent container */
+    border-bottom: 1px solid #eee;
+}

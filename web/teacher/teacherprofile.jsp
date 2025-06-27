@@ -31,6 +31,10 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
                                 </li>
+                                
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/leavehistory">Leavehistory</a>
+                                </li>
 
 
                             </ul>

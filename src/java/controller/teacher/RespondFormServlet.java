@@ -4,15 +4,21 @@
  */
 package controller.teacher;
 
+import dal.KindergartnerDAO;
 import dal.SendformDAO;
+import dal.StudyRecordDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import model.Form;
+import model.Kindergartner;
+import model.StudyRecord;
 
 /**
  *
@@ -58,13 +64,37 @@ public class RespondFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        HttpSession session=request.getSession();
         SendformDAO sf = new SendformDAO();
+        StudyRecordDAO sr = new StudyRecordDAO();
+
         List<Form> formList = sf.getUnrepliedForms();
-        if (formList != null) {
-            request.setAttribute("formList", formList);
-            request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
+        List<model.Class> classList = new ArrayList<>();
+
+        for (Form f : formList) {
+            model.Kindergartner kg = f.getKindergartner();
+
+            if (kg != null) {
+                int kinder_id = kg.getKinder_id();
+                StudyRecord study = sr.getStudyRecordByKinderId(kinder_id);
+
+                if (study != null) {
+                    classList.add(study.getClassID());
+                } else {
+                    model.Class unknown = new model.Class();
+                    unknown.setClass_name("Không rõ (chưa có study record)");
+                    classList.add(unknown);
+                }
+            } else {
+                model.Class unknown = new model.Class();
+                unknown.setClass_name("Không rõ (bé null)");
+                classList.add(unknown);
+            }
         }
+
+        request.setAttribute("formList", formList);
+        session.setAttribute("classList", classList);
+        request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
     }
 
     /**
@@ -79,6 +109,7 @@ public class RespondFormServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session=request.getSession();
             SendformDAO dao = new SendformDAO();
             String formString = request.getParameter("form_id");
             int formid = Integer.parseInt(formString);
@@ -89,10 +120,15 @@ public class RespondFormServlet extends HttpServlet {
             f.setStatus(request.getParameter("status"));
             f.setReply(request.getParameter("reply"));
 
+            
+            
             dao.updateReplyAndStatus(f);
             List<Form> formList = dao.getUnrepliedForms();
             request.setAttribute("formList", formList);
+            List<model.Class> classList=(List<model.Class>)session.getAttribute("classList");
+            session.setAttribute("classList", classList);
             request.setAttribute("success", "Phản hồi tới " + fullname + " " + "thành công");
+
             request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
         } catch (Exception e) {
             request.setAttribute("erorr", "Phản hồi thất bại");

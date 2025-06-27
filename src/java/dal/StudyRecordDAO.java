@@ -44,6 +44,30 @@ public class StudyRecordDAO {
         }
         return list;
     }
+    public StudyRecord getStudyRecordByKinderId(int kinderId) {
+    String sql = "SELECT * FROM Study_Record WHERE kinder_id = ?";
+    try {
+        connection = new DBContext().getConnection();
+        ps = connection.prepareStatement(sql);
+        ps.setInt(1, kinderId);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            StudyRecord sr = new StudyRecord(
+                rs.getInt("study_record_id"),
+                cd.getClassByID(rs.getInt("class_id")),
+                kd.getKinderById(rs.getInt("kinder_id")),
+                rs.getInt("study_year"),
+                rs.getBoolean("is_graduated"),
+                rs.getBoolean("is_dropped_out")
+            );
+            return sr;
+        }
+    } catch (Exception ex) {
+        Logger.getLogger(StudyRecordDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+}
+
 
     public void addStudyRecord(StudyRecord sr) {
         String sql = "INSERT INTO Study_Record(class_id, kinder_id, study_year, is_graduated, is_dropped_out) VALUES (?, ?, ?, ?, ?)";

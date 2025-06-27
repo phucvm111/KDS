@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Gửi đơn</title>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -76,7 +77,7 @@
 
 <div class="container">
     <h2>Gửi đơn</h2>
-
+<p style="color: red">Lưu ý: hãy cập nhật thông tin trẻ trước khi gửi đơn</p>
     <form action="${pageContext.request.contextPath}/sendform" method="post">
       
         <label for="formType">Loại đơn:</label>

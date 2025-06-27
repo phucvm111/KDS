@@ -8,8 +8,34 @@ import java.util.logging.Logger;
 
 public class EventDAO extends DBContext { 
 
-    // Lấy tất cả các sự kiện
-    public List<Event> getAllEvents(String searchTitle, int page, int recordsPerPage) {
+     public List<Event> getAllEvents() {
+        List<Event> list = new ArrayList<>();
+        String sql = "SELECT event_id, event_name, event_description, event_date, location FROM Event ORDER BY event_date DESC";
+        
+        try (Connection connection = new DBContext().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Event ev = new Event();
+                ev.setEventId(rs.getInt("event_id"));
+                ev.setEventName(rs.getString("event_name"));
+                ev.setEventDescription(rs.getString("event_description"));
+                ev.setEventDate(rs.getDate("event_date"));
+                ev.setLocation(rs.getString("location"));
+                list.add(ev);
+            }
+            Logger.getLogger(EventDAO.class.getName()).log(Level.INFO, "Retrieved {0} all events from DB.", list.size());
+        } catch (SQLException e) {
+            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "SQL Error when getting all events", e);
+        } catch (Exception e) {
+            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "Error when getting all events", e);
+        }
+        return list;
+    }
+    
+    // Lấy sự kiện có phân trang và tìm kiếm
+    public List<Event> getEventsPaged(String searchTitle, int page, int recordsPerPage) {
         List<Event> list = new ArrayList<>();
         Connection connection = null;
         PreparedStatement ps = null;
@@ -58,7 +84,7 @@ public class EventDAO extends DBContext {
                 if (ps != null) ps.close();
                 if (connection != null) connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "Error closing resources in getAllEvents (search/pagination)", ex);
+                Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, "Error closing resources in getEventsPaged (search/pagination)", ex);
             }
         }
         return list;
