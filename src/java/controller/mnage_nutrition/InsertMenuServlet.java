@@ -83,7 +83,7 @@ public class InsertMenuServlet extends HttpServlet {
             String caloriesStr = request.getParameter("calories");
             String notes = request.getParameter("notes");
 
-            if (classIdStr == null || classIdStr.trim().isEmpty() 
+            if (classIdStr == null || classIdStr.trim().isEmpty()
                     || menudate == null || menudate.trim().isEmpty()
                     || mealType == null || mealType.trim().isEmpty()
                     || dish == null || dish.trim().isEmpty()
@@ -97,6 +97,11 @@ public class InsertMenuServlet extends HttpServlet {
             }
             if (dish.length() > 40 || caloriesStr.length() > 8 || notes.length() > 100) {
                 request.setAttribute("error", "Information fail");
+                request.getRequestDispatcher("day_class").forward(request, response);
+                return;
+            }
+            if (Float.parseFloat(caloriesStr) < 0) {
+                request.setAttribute("error", "Calories not nagative !");
                 request.getRequestDispatcher("day_class").forward(request, response);
                 return;
             }
@@ -116,7 +121,6 @@ public class InsertMenuServlet extends HttpServlet {
             // Gọi DAO để insert
             MenuDao.insertMenu(m);
 
-         
             request.getRequestDispatcher("day_class").forward(request, response);
 
         } catch (NumberFormatException e) {

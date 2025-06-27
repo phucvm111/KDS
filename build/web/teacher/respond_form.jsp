@@ -37,8 +37,9 @@
     <body>
 
         <h2>Danh sách các đơn gửi đến giáo viên</h2>
-
-        <c:forEach var="form" items="${formList}">
+        <p style="color: greenyellow">${success}</p>
+        <p style="color: greenyellow">${error}</p>
+        <c:forEach var="form" items="${formList}" varStatus="loop">
             <div class="form-container">
                 <div class="form-group">
                     <label>Title:</label>
@@ -54,6 +55,16 @@
                     <label>Sender :</label>
                     <p>${form.getAccount().firstName} ${form.getAccount().lastName}</p>
                 </div>
+                <div class="form-group">
+                    <label>Children :</label>
+                    <p>${form.getKindergartner().first_name} ${form.getKindergartner().last_name} </p>
+                </div>
+
+                <div class="form-group">
+                    <label>Class name :</label>
+                    <p>${classList[loop.index].class_name}</p>
+
+                </div>
 
                 <div class="form-group">
                     <label>Date Submitted:</label>
@@ -63,6 +74,7 @@
                 <!-- Form phản hồi tương ứng -->
                 <form action="respondform" method="post">
                     <input type="hidden" name="form_id" value="${form.form_id}" />
+                    <input type="hidden" name="kinder_id" value="${form.getKindergartner().kinder_id}" />
 
                     <div class="form-group">
                         <label for="reply">Reply:</label>
@@ -84,8 +96,7 @@
 
             </div>
         </c:forEach>
-        <p style="color: greenyellow">${success}</p>
-        <p style="color: greenyellow">${error}</p>
+
 
     </body>
 </html>
