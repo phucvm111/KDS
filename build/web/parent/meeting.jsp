@@ -143,6 +143,15 @@
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
+                                </li>
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
