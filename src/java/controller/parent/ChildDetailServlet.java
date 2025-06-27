@@ -4,7 +4,6 @@
  */
 package controller.parent;
 
-
 import dal.AttendanceDAO;
 import dal.ClassDAO;
 import dal.KindergartnerDAO;
@@ -18,13 +17,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import java.util.List;
+import java.util.Map;
 import model.Account;
 import model.Attendance;
 import model.Class;
 import model.Kindergartner;
 import model.StudyRecord;
+
 /**
  *
  * @author NQ
@@ -43,12 +45,12 @@ public class ChildDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChildDetailServlet</title>");            
+            out.println("<title>Servlet ChildDetailServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ChildDetailServlet at " + request.getContextPath() + "</h1>");
@@ -69,64 +71,59 @@ public class ChildDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession(true);
-            Account acc = (Account) session.getAttribute("account");
-            String mainchildid = request.getParameter("mainchildid");
-            try ( PrintWriter out = response.getWriter()) {
-                if (acc != null) {
-                    KindergartnerDAO d = new KindergartnerDAO();
-                    StudyRecordDAO srdao = new StudyRecordDAO();
-                    ClassDAO cdao = new ClassDAO();
-                    AttendanceDAO adao = new AttendanceDAO();
-                    List<Kindergartner> list = d.getKidbyParent(acc);
-            if(list.isEmpty()){
-                session.setAttribute("kidlist",list);
-                request.getRequestDispatcher("parent/childdetails.jsp").forward(request, response);
+
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
+
+        if (acc == null) {
+            request.setAttribute("error", "Vui lòng đăng nhập trước");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        KindergartnerDAO kinderDAO = new KindergartnerDAO();
+        StudyRecordDAO srDAO = new StudyRecordDAO();
+        ClassDAO classDAO = new ClassDAO();
+        AttendanceDAO attDAO = new AttendanceDAO();
+
+        List<Kindergartner> kids = kinderDAO.getKidbyParent(acc);
+        List<StudyRecord> allRecords = srDAO.getAllStudyRecord();
+        List<Class> allClasses = classDAO.getAllClass();
+
+        // Map: mỗi trẻ kèm class hiện tại (nếu có)
+        Map<Integer, Class> classMap = new HashMap<>();
+        for (Kindergartner kid : kids) {
+            Class c = srDAO.getKidClass(kid.getKinder_id());
+            if (c != null) {
+                classMap.put(kid.getKinder_id(), c);
             }
-                    int mcid = 0;
-                    int count = 0;
-                    List<Class> availclass = new ArrayList();
-                    List<StudyRecord> srlist = srdao.getAllStudyRecord();
-                    List<Class> clist = cdao.getAllClass();
-                    if(mainchildid == null){
-                        Kindergartner firstchild = list.get(0);
-                        session.setAttribute("mainchild",firstchild);
-                        mcid = firstchild.getKinder_id();
-                    }else{
-                        for(Kindergartner kid : list){
-                            if(kid.getKinder_id()== Integer.parseInt(mainchildid)){
-                                session.setAttribute("mainchild",kid);
-                                mcid = Integer.parseInt(mainchildid);
-                                break;
-                            }
-                        }
-                    }
-                    Class kc = srdao.getKidClass(mcid);
-                    if(kc!=null){
-                        session.setAttribute("kinder_class",kc);
-                    }
-                    for(Class kcs : clist){
-                        for(StudyRecord sr : srlist){
-                            if(kcs.getClass_id() == sr.getClassID().getClass_id()){
-                                count++;
-                            }
-                        }
-                        if(count<30){
-                            availclass.add(kcs);
-                        }
-                        count = 0;
-                    }
-                    List<Attendance> alist = adao.getKidAttendance(mcid);
-                    Collections.reverse(alist);
-                    session.setAttribute("childalist",alist);
-                    session.setAttribute("kidlist",list);
-                    session.setAttribute("classlist",availclass);
-                    request.getRequestDispatcher("parent/childdetails.jsp").forward(request, response);
-                } else {
-                request.setAttribute("error", "Do you want to create an account?");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+
+        // Danh sách lớp còn chỗ trống (<30 trẻ)
+        List<Class> availableClasses = new ArrayList<>();
+        for (Class c : allClasses) {
+            long count = allRecords.stream()
+                    .filter(sr -> sr.getClassID().getClass_id() == c.getClass_id())
+                    .count();
+            if (count < 30) {
+                availableClasses.add(c);
             }
-            }
+        }
+
+        // Map: mỗi trẻ kèm danh sách điểm danh
+        Map<Integer, List<Attendance>> attendanceMap = new HashMap<>();
+        for (Kindergartner kid : kids) {
+            List<Attendance> alist = attDAO.getKidAttendance(kid.getKinder_id());
+            Collections.reverse(alist);
+            attendanceMap.put(kid.getKinder_id(), alist);
+        }
+
+        session.setAttribute("kidlist", kids);
+        session.setAttribute("classMap", classMap);
+        session.setAttribute("attendanceMap", attendanceMap);
+        session.setAttribute("classlist", availableClasses);
+
+        request.getRequestDispatcher("parent/childdetails.jsp").forward(request, response);
     }
 
     /**
@@ -152,5 +149,5 @@ public class ChildDetailServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-        
+
 }

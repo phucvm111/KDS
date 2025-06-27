@@ -26,10 +26,10 @@
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
-                                <li class="menu-item current1">
+                                <li class="menu-item ">
                                     <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
                                 </li>
-                                <li class="menu-item">
+                                <li class="menu-item current1">
                                     <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
                                 <li class="menu-item">
@@ -37,9 +37,25 @@
                                 </li>
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
-                                    
                                 </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/parent/viewImages" >Xem ảnh hằng ngày </a>
+                                </li>
+
                             </ul>
+
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
                         <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
@@ -47,92 +63,51 @@
                         </div>
                     </div>
                 </div>
-                <c:if test="${kidlist.isEmpty()}">
+                <c:if test="${empty kidlist}">
                     <div class="nochild">
-                        <h1>You haven't register any child yet !</h1>
-                        <br><!-- comment -->
-                        <h1><a href="${pageContext.request.contextPath}/childregister">Click here</a> to register your child</h1> 
+                        <h1>You haven't registered any child yet!</h1>
+                        <h2><a href="${pageContext.request.contextPath}/childregister">Click here</a> to register your child</h2>
                     </div>
                 </c:if>
-                <c:if test="${!kidlist.isEmpty()}">        
-                    <div class="right-side">
-                        <div class="page-content">
-                            <div class="kid-profile">
-                                <div class="kid-profile_header">
-                                    <div class="img-section">
-                                        <img src="${pageContext.request.contextPath}/parent/img/userImg/download.png" alt="">
-                                    </div>
 
-                                    <div class="personel-section">
-                                        <c:set var="mainchild" value="${sessionScope.mainchild}" />   
-                                        <div class="personel-section">
-                                            <h1>${mainchild.getFullName()}</h1>
-                                        </div>
-                                        <form action="${pageContext.request.contextPath}/childdetailservlet" method="GET" style="margin-top: 10px">
-
-                                            <select name="mainchildid" id="mainchildid" class="item-list">
-                                                <c:forEach items="${kidlist}" var="k">
-                                                    <option value="${k.getKinder_id()}">
-                                                    <h1>${k.getFullName()}</h1>
-                                                    </option>
-                                                </c:forEach>
-                                            </select>  
-                                            <input type="submit" value="Change Kid" class="button">
-                                        </form>    
-
-
-                                    </div>
+                <c:if test="${not empty kidlist}">
+                    <div style="margin: 20px;">
+                        <h2>Danh sách trẻ của bạn</h2>
+                        <div style="display:flex; flex-wrap:wrap; gap: 20px;">
+                            <c:forEach var="k" items="${kidlist}">
+                                <div class="card" style="width: 250px; border: 1px solid #ccc; border-radius: 10px; padding: 15px; text-align: center;">
+                                    <img src="${k.img}" alt="Avatar" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                                    <h3>${k.fullName}</h3>
+                                    <p>Ngày sinh: ${k.dob}</p>
+                                    <p>Giới tính: <c:choose>
+                                            <c:when test="${k.gender}">Nam</c:when>
+                                            <c:otherwise>Nữ</c:otherwise>
+                                        </c:choose></p>
+                                    <form method="get" action="${pageContext.request.contextPath}/childdetailservlet">
+                                        <input type="hidden" name="mainchildid" value="${k.kinder_id}">
+                                        <button class="btn" type="submit">Xem / Cập nhật</button>
+                                    </form>
                                 </div>
-                                <div class="list-option" id="options">
-                                    <div class="option-item current">
-                                        <a href="${pageContext.request.contextPath}/childdetailcontrol?action=attendance&mainchildid=${mainchild.getKinder_id()}">Attendence</a>
-                                    </div>
-                                    <div class="option-item">
-                                        <a href="${pageContext.request.contextPath}/childdetailcontrol?action=childprofile&mainchildid=${mainchild.getKinder_id()}">Profile</a>
-                                    </div>
-                                </div>
-
-                                <div class="attendence-section">
-                                    <div class="body-container">
-                                        <c:set var="childalist" value="${sessionScope.childalist}"/>
-                                        <div class="list-students-ver2">
-                                            <%
-                                            int count = 0;
-                                            %>
-                                            <c:forEach var="c" items="${childalist}">
-                                                <input type="hidden" name="action" value="check_in"/>
-                                                <div class="student-infor">
-                                                    <%
-                                                        count++;
-                                                    %>
-                                                    <p><%=count%></p>
-                                                    <div class="img-section">
-                                                        <img src="${pageContext.request.contextPath}/parent/img/userImg/download.png" alt="">
-                                                    </div>
-                                                    <p>Date: ${c.getCheck_date()}</p>
-                                                    <p style="padding-left: 200px">Attendance status: </p>
-                                                    <c:if test="${c.getStatus() == 0}">
-                                                        <p style="color:red">Absent</p>
-                                                    </c:if>
-                                                    <c:if test="${c.getStatus() == 1}">
-                                                        <p style="color:#ff9933">Checked in</p>
-                                                    </c:if>
-                                                    <c:if test="${c.getStatus() == 2}">
-                                                        <p style="color:green">Checked out</p>
-                                                    </c:if>    
-
-
-                                                </div>
-                                            </c:forEach>
-
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
+                    </div>
+                </c:if>
+
+                <c:if test="${not empty sessionScope.mainchild}">
+                    <div style="margin: 30px;">
+                        <h2>Thông tin chi tiết: ${mainchild.fullName}</h2>
+                        <form method="post" action="${pageContext.request.contextPath}/update-child">
+                            <input type="hidden" name="kidId" value="${mainchild.kinder_id}">
+                            Tên: <input type="text" name="firstName" value="${mainchild.first_name}"><br>
+                            Họ: <input type="text" name="lastName" value="${mainchild.last_name}"><br>
+                            Ngày sinh: <input type="date" name="dob" value="${mainchild.dob}"><br>
+                            Giới tính:
+                            <select name="gender">
+                                <option value="true" ${mainchild.gender ? 'selected' : ''}>Nam</option>
+                                <option value="false" ${!mainchild.gender ? 'selected' : ''}>Nữ</option>
+                            </select><br><br>
+                            <button class="btn" type="submit">Cập nhật</button>
+                        </form>
                     </div>
                 </c:if>
             </div>

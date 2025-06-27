@@ -10,8 +10,44 @@
         <title>Update Teacher Profile</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/teacher/css/teacherUpdate.css">
     </head>
-    <body>
+     <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            // Chặn ngày sinh > hôm nay
+            const today = new Date().toISOString().split("T")[0];
+            document.querySelector("input[name='dob']").setAttribute("max", today);
 
+            // Validate khi submit
+            document.querySelector("form").addEventListener("submit", function (e) {
+                const phone = document.querySelector("input[name='phone']").value.trim();
+                const email = document.querySelector("input[name='email']").value.trim();
+                const firstName = document.querySelector("input[name='firstName']").value;
+                const lastName = document.querySelector("input[name='lastName']").value;
+                const address = document.querySelector("input[name='address']").value;
+
+                const phoneRegex = /^[0-9]{9,12}$/;
+                const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+                const multiSpaceRegex = / {2,}/;
+
+                let errorMsg = "";
+
+                if (multiSpaceRegex.test(firstName) || multiSpaceRegex.test(lastName) || multiSpaceRegex.test(address)) {
+                    errorMsg += "Không được nhập hai khoảng trắng liên tiếp.\n";
+                }
+                if (!phoneRegex.test(phone)) {
+                    errorMsg += "Số điện thoại phải từ 9–12 chữ số.\n";
+                }
+                if (!emailRegex.test(email)) {
+                    errorMsg += "Email không hợp lệ.\n";
+                }
+
+                if (errorMsg) {
+                    alert(errorMsg);
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+    <body>
         <c:set var="teacher" value="${requestScope.account}" />
         <div>
             <div class="home">
@@ -55,7 +91,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Date of Birth</label>
+                            <label>Date of Birth (MM/DD/YYYY)</label>
                             <input type="date" name="dob" value="${teacher.dob}" required>
                         </div>
 
@@ -81,7 +117,9 @@
                             <label>Email</label>
                             <input type="email" name="email" value="${teacher.email}" required>
                         </div>
-
+                        <c:if test="${not empty error}">
+                            <p style="color:red; text-align: center;">${error}</p>
+                        </c:if>
                         <button type="submit" class="submit-btn">Save Changes</button>
                     </form>
                 </div>
@@ -89,4 +127,5 @@
         </div>
 
     </body>
+
 </html>

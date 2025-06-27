@@ -19,28 +19,44 @@
                 <div class="left-side-menu">
                     <div class="vertical-menu">
                         <div class="user-welcome">
-                            <img class="user-img" src="${pageContext.request.contextPath}/homepage/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
+                            <img class="user-img" src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
                             <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
-                                <li class="menu-item current1">
-                                    <a href="${pageContext.request.contextPath}/homepage/childdetailservlet">Child Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/homepage/parent/parentprofile.jsp">Parent Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/homepage/parent/childregister.jsp">Child Register</a>
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
                                 </li>
                                 <li class="menu-item current1">
-                                    <a href="${pageContext.request.contextPath}/parent/viewImages" style="color: #fff;">📷 Xem ảnh lớp</a>
+                                    <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/parent/viewImages" >Xem ảnh hằng ngày </a>
+                                </li>
+
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
                         <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/events')" value="Log out"/>
+                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/events')" value="Log out"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +65,7 @@
                     <div class="page-content">
                         <div class="kid-profile">
                             <div class="kid-profile_header">
-                                
+
                                 <div class="img-section">
                                     <img src="${pageContext.request.contextPath}/homepage/parent/img/userImg/download.png" alt="">
                                 </div>
@@ -60,7 +76,7 @@
                                         <h1>${mainchild.getFullName()}</h1>
                                     </div>
                                     <form action="childdetailservlet" method="GET" style="margin-top: 10px">
-                                       
+
                                         <select name="mainchildid" id="mainchildid" class="item-list">
                                             <c:forEach items="${kidlist}" var="k">
                                                 <option value="${k.getKinder_id()}">
@@ -71,7 +87,7 @@
                                         <input type="submit" value="Change Kid" class="button">
                                     </form>    
 
-                                    
+
                                 </div>
                             </div>
 
@@ -79,7 +95,7 @@
                                 <div class="attendence option-item">
                                     <a href="${pageContext.request.contextPath}/homepage/childdetailcontrol?action=attendance&mainchildid=${mainchild.getKinder_id()}">Attendance</a>
                                 </div>
-                              <div class="profile option-item current">
+                                <div class="profile option-item current">
                                     <a href="${pageContext.request.contextPath}/homepage/childdetailcontrol?action=childprofile&mainchildid=${mainchild.getKinder_id()}">Profile</a>
                                 </div>
                             </div>
@@ -128,11 +144,11 @@
                                     <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
                                 </div>
                             </div>
-                                <div class="mb-6">
-                                    <a href="${pageContext.request.contextPath}/homepage/parent/childupdateprofile.jsp">
-                                        <input type="submit" class="child-update" value="Update profile"/>
-                                    </a>
-                                </div>    
+                            <div class="mb-6">
+                                <a href="${pageContext.request.contextPath}/homepage/parent/childupdateprofile.jsp">
+                                    <input type="submit" class="child-update" value="Update profile"/>
+                                </a>
+                            </div>    
                         </div>
                     </div>
                 </div>

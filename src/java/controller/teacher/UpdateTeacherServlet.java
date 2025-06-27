@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Pattern;
 import model.Account;
 
 /**
@@ -83,44 +86,84 @@ public class UpdateTeacherServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
         HttpSession session = request.getSession();
-        Account currentAccount = (Account) session.getAttribute("account");
+        Account acc = (Account) session.getAttribute("account");
 
-        if (currentAccount == null) {
+        if (acc == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        // Lấy dữ liệu từ form
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String dob = request.getParameter("dob");
+        // Lấy và trim dữ liệu
+        String firstName = request.getParameter("firstName").trim();
+        String lastName = request.getParameter("lastName").trim();
+        String dob = request.getParameter("dob").trim();
         String genderStr = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String email = request.getParameter("email");
-
+        String phone = request.getParameter("phone").trim();
+        String address = request.getParameter("address").trim();
+        String email = request.getParameter("email").trim();
         boolean gender = Boolean.parseBoolean(genderStr);
 
-        // Cập nhật thông tin cho đối tượng hiện tại
-        currentAccount.setFirstName(firstName);
-        currentAccount.setLastName(lastName);
-        currentAccount.setDob(dob);
-        currentAccount.setGender(gender);
-        currentAccount.setPhoneNumber(phone);
-        currentAccount.setAddress(address);
-        currentAccount.setEmail(email);
+        // Regex kiểm tra khoảng trắng liên tiếp
+        Pattern multiSpace = Pattern.compile(" {2,}");
+        StringBuilder errorMsg = new StringBuilder();
 
-        // Cập nhật DB
-        boolean success = new AccountDAO().updateAccount(currentAccount);
+        // Kiểm tra khoảng trắng
+        if (multiSpace.matcher(firstName).find()
+                || multiSpace.matcher(lastName).find()
+                || multiSpace.matcher(address).find()) {
+            errorMsg.append("Không được nhập hai khoảng trắng liên tiếp. ");
+        }
 
+        // Kiểm tra số điện thoại
+        if (!phone.matches("\\d{9,12}")) {
+            errorMsg.append("Phone phải từ 9–12 chữ số. ");
+        }
+
+        // Kiểm tra email
+        if (!email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")) {
+            errorMsg.append("Email không hợp lệ. ");
+        }
+
+        // Kiểm tra ngày sinh không lớn hơn ngày hôm nay
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setLenient(false);
+            Date dobDate = sdf.parse(dob);
+            Date today = sdf.parse(sdf.format(new Date())); // reset giờ về 00:00:00
+
+            if (dobDate.after(today)) {
+                errorMsg.append("Ngày sinh không được lớn hơn ngày hôm nay. ");
+            }
+        } catch (Exception e) {
+            errorMsg.append("Định dạng ngày không hợp lệ. ");
+        }
+
+        // Nếu có lỗi, quay lại form và hiển thị lỗi
+        if (errorMsg.length() > 0) {
+            request.setAttribute("error", errorMsg.toString());
+            request.setAttribute("account", acc);
+            request.getRequestDispatcher("/teacher/teacherupdateprofile.jsp").forward(request, response);
+            return;
+        }
+
+        // Cập nhật dữ liệu
+        acc.setFirstName(firstName);
+        acc.setLastName(lastName);
+        acc.setDob(dob);
+        acc.setGender(gender);
+        acc.setPhoneNumber(phone);
+        acc.setAddress(address);
+        acc.setEmail(email);
+
+        boolean success = new AccountDAO().updateAccount(acc);
         if (success) {
-            session.setAttribute("account", currentAccount);
+            session.setAttribute("account", acc);
             response.sendRedirect("teacher/teacherprofile.jsp");
         } else {
-            request.setAttribute("error", "Update failed.");
-            request.getRequestDispatcher("teacher/teacherupdateprofile.jsp").forward(request, response);
+            request.setAttribute("error", "Cập nhật thất bại.");
+            request.setAttribute("account", acc);
+            request.getRequestDispatcher("/teacher/teacherupdateprofile.jsp").forward(request, response);
         }
     }
 

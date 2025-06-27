@@ -32,6 +32,15 @@ public class Kindergartner {
         
     }
 
+    public Kindergartner(Account parentAccount, String first_name, String last_name, String dob, boolean gender, String img) {
+        this.parentAccount = parentAccount;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.dob = dob;
+        this.gender = gender;
+        this.img = img;
+    }
+
     
 
     public int getKinder_id() {

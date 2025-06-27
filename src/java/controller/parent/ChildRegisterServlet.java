@@ -1,127 +1,90 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.parent;
 
 import dal.ClassDAO;
 import dal.KindergartnerDAO;
 import dal.StudyRecordDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
 import model.Account;
 import model.Class;
 import model.Kindergartner;
 import model.StudyRecord;
 
-/**
- *
- * @author NQ
- */
+@WebServlet(name = "ChildRegisterServlet", urlPatterns = {"/childregister"})
 public class ChildRegisterServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ChildRegister</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ChildRegister at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClassDAO cdao=new ClassDAO();
-        List<Class> calsss=cdao.getAllClass();
-        request.setAttribute("classlist", calsss);
+        ClassDAO cdao = new ClassDAO();
+        List<Class> classes = cdao.getAllClass();
+        request.setAttribute("classlist", classes);
         request.getRequestDispatcher("parent/childregister.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        Account acc = (Account) session.getAttribute("account");
-        String childfirstname = request.getParameter("ChildFirstName");
-        String childlastname = request.getParameter("ChildLastName");
-        String DOB = request.getParameter("DOB");
-        String gender = request.getParameter("flexRadioDefault");
-        String childimg = request.getParameter("ChildImg");
-        String childclass = request.getParameter("ChildClass");
-        boolean childgd = true;
-        int kinder_classid = Integer.parseInt(request.getParameter("register_classid"));
-        Date date = new Date();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int year = localDate.getYear();
-        if (gender.equals("male")) {
-            childgd = true;
-        } else if (gender.equals("female")) {
-            childgd = false;
+
+        // Lấy account từ session
+        HttpSession session = request.getSession();
+        Account parent = (Account) session.getAttribute("account");
+
+        if (parent == null) {
+            response.sendRedirect("login.jsp");
+            return;
         }
-        KindergartnerDAO d = new KindergartnerDAO();
-        StudyRecordDAO srdao = new StudyRecordDAO();
-        ClassDAO cdao = new ClassDAO();
-       Kindergartner k = new Kindergartner(kinder_classid, acc, childfirstname, childlastname, DOB, childgd, DOB, gender, gender);
-        d.insertKinder(k);
-        List<Kindergartner> kidlist = d.getAllStudent();
-        Kindergartner newaddedchild = kidlist.get(kidlist.size()-1); 
-        srdao.addStudyRecord(new StudyRecord(0,cdao.getClassByID(kinder_classid), newaddedchild,year));
-        
-        request.getRequestDispatcher("parent/childregister.jsp").forward(request, response);
+
+        // Lấy dữ liệu từ form
+        String firstName = request.getParameter("ChildFirstName");
+        String lastName = request.getParameter("ChildLastName");
+        String dob = request.getParameter("DOB");
+        boolean gender = "male".equals(request.getParameter("flexRadioDefault"));
+        String img = request.getParameter("img");
+        int classId = Integer.parseInt(request.getParameter("register_classid"));
+
+        // Tạo đối tượng Kindergartner
+        Kindergartner kinder = new Kindergartner();
+        kinder.setParentAccount(parent);
+        kinder.setFirst_name(firstName);
+        kinder.setLast_name(lastName);
+        kinder.setDob(dob);
+        kinder.setGender(gender);
+        kinder.setImg(img);
+        kinder.setAddress(parent.getAddress());
+        kinder.setParentPhone(parent.getPhoneNumber());
+
+        // Lưu vào DB
+        KindergartnerDAO kinderDAO = new KindergartnerDAO();
+        kinderDAO.insertKinder(kinder);
+
+        // Lấy ID mới thêm
+        int newKinderId = kinderDAO.getAllStudent().stream()
+                .filter(k -> k.getFirst_name().equals(firstName)
+                && k.getLast_name().equals(lastName)
+                && k.getDob().equals(dob)
+                && k.getParentAccount().getAccountID() == parent.getAccountID())
+                .map(Kindergartner::getKinder_id)
+                .reduce((first, second) -> second) // lấy ID lớn nhất
+                .orElse(-1);
+
+        // Gán vào StudyRecord
+        StudyRecordDAO studyDAO = new StudyRecordDAO();
+        studyDAO.addStudyRecord(new StudyRecord(0, new ClassDAO().getClassByID(classId), kinderDAO.getKinderById(newKinderId), 2025, false, false));
+
+        response.sendRedirect("childdetailservlet"); // chuyển hướng về danh sách
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Handles child registration for parents.";
+    }
 }

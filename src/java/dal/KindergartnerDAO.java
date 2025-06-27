@@ -70,8 +70,7 @@ public class KindergartnerDAO extends DBContext {
         }
         return null;
     }
-
-    public void insertKinder(Kindergartner kindergartner) {
+public void insertKinder(Kindergartner kindergartner) {
         try {
             String sql = "INSERT INTO [dbo].[Kindergartner]\n"
                     + "           ([parent_id]\n"
@@ -80,10 +79,8 @@ public class KindergartnerDAO extends DBContext {
                     + "           ,[dob]\n"
                     + "           ,[gender]\n"
                     + "           ,[img]\n"
-                    + "           ,[parentPhone]\n"
-                    + "           ,[address])\n"
                     + "     VALUES\n"
-                    + "           (?,?,?,?,?,?,?,?)";
+                    + "           (?,?,?,?,?,?)";
             connection = new DBContext().getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, kindergartner.getParentAccount().getAccountID());
@@ -92,8 +89,6 @@ public class KindergartnerDAO extends DBContext {
             ps.setString(4, kindergartner.getDob());
             ps.setBoolean(5, kindergartner.isGender());
             ps.setString(6, kindergartner.getImg());
-            ps.setString(7, kindergartner.getParentPhone());
-            ps.setString(8, kindergartner.getAddress());
 
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -103,6 +98,34 @@ public class KindergartnerDAO extends DBContext {
         }
 
     }
+//    public void insertKinder(Kindergartner kindergartner) {
+//        try {
+//            String sql = "INSERT INTO [dbo].[Kindergartner]\n"
+//                    + "           ([parent_id]\n"
+//                    + "           ,[first_name]\n"
+//                    + "           ,[last_name]\n"
+//                    + "           ,[dob]\n"
+//                    + "           ,[gender]\n"
+//                    + "           ,[img]\n"
+//                    + "     VALUES\n"
+//                    + "           (?,?,?,?,?,?)";
+//            connection = new DBContext().getConnection();
+//            ps = connection.prepareStatement(sql);
+//            ps.setInt(1, kindergartner.getParentAccount().getAccountID());
+//            ps.setString(2, kindergartner.getFirst_name());
+//            ps.setString(3, kindergartner.getLast_name());
+//            ps.setString(4, kindergartner.getDob());
+//            ps.setBoolean(5, kindergartner.isGender());
+//            ps.setString(6, kindergartner.getImg());
+//
+//            ps.executeUpdate();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
     public void updateKinder(Kindergartner kindergartner) {
         try {
@@ -311,11 +334,11 @@ public class KindergartnerDAO extends DBContext {
 
             ps.setInt(1, parentId);
             ResultSet rs = ps.executeQuery();
-             AccountDAO acc=new AccountDAO();
+            AccountDAO acc = new AccountDAO();
             while (rs.next()) {
                 Kindergartner k = new Kindergartner();
                 k.setKinder_id(rs.getInt("kinder_id"));
-                Account ac=acc.getAccountByID(rs.getInt("parent_id"));
+                Account ac = acc.getAccountByID(rs.getInt("parent_id"));
                 k.setParentAccount(ac);
                 k.setFirst_name(rs.getString("first_name"));
                 k.setLast_name(rs.getString("last_name"));
@@ -351,10 +374,34 @@ public class KindergartnerDAO extends DBContext {
 
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-       List<Kindergartner> kiders=dao.getKindergartnersByParentId(3);
-       for(Kindergartner k:kiders){
-           System.out.println(k);
-       }
+        Account parent = new Account();
+        parent.setAccountID(4); // ID cha đã tồn tại trong bảng Account
+
+        Kindergartner kid = new Kindergartner();
+        kid.setParentAccount(parent);
+        kid.setFirst_name("An");
+        kid.setLast_name("Nguyễn");
+        kid.setDob("2020-05-10");
+        kid.setGender(true);
+        kid.setImg("img/avatars/kid.png"); // Đường dẫn hình ảnh mẫu
+
+        kid.setAddress("Hà Nội");
+
+        dao.insertKinder(kid);
+
+//        int parentId = 4; // thay bằng ID phụ huynh có thật trong DB
+//
+//        List<Kindergartner> list = dao.getKindergartnersByParentId(parentId);
+//
+//        for (Kindergartner k : list) {
+//            System.out.println("ID: " + k.getKinder_id());
+//            System.out.println("Tên: " + k.getFirst_name() + " " + k.getLast_name());
+//            System.out.println("Ngày sinh: " + k.getDob());
+//            System.out.println("Giới tính: " + (k.isGender() ? "Nam" : "Nữ"));
+//            System.out.println("Ảnh: " + k.getImg());
+//            System.out.println("Phụ huynh: " + k.getParentAccount()); // giả sử Account có getUsername()
+//            System.out.println("---------------");
+        }
     }
 
-}
+

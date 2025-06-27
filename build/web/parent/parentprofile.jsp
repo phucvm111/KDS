@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <div class="wrapper">
+        <div >
             <div class="home">
                 <div class="left-side-menu">
                     <div class="vertical-menu">

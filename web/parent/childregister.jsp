@@ -23,7 +23,7 @@
     <body>
         <!-- Link to Add child to database -->
 
-        <div class="wrapper">
+        <div >
             <div class="home">
                 <div class="left-side-menu">
                     <div class="vertical-menu">
@@ -33,27 +33,39 @@
                         </div>
                         <div class="menu-item-container">
                             <ul class="item-lists">
-                                <li class="menu-item">
+                                <li class="menu-item ">
                                     <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
                                 </li>
-                                <li class="menu-item">
+                                <li class="menu-item current1">
                                     <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
-                                <li class="menu-item  current1">
-                                    <a href="${pageContext.request.contextPath}/parent/childregister.jsp">Child Register</a>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
                                 </li>
-                                <li class="menu-item  ">
+                                <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
                                 </li>
-                                <li class="menu-item  ">
+                                <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
                                 </li>
-                                
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/listschedule">Schedule</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/sendform">SendForm</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="${pageContext.request.contextPath}/day_class">View Nutribution</a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="${pageContext.request.contextPath}/parent/viewImages" >Xem ảnh hằng ngày </a>
+                                </li>
+
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
                         <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/events')" value="Log out"/>
+                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/events')" value="Log out"/>
                         </div>
                     </div>
                 </div>
@@ -139,6 +151,17 @@
                                                     </div>     
                                                 </div>
                                             </div>
+                                            <!-- Image URL -->
+                                            <div class="mb-3">
+                                                <div class="content-item">
+                                                    <div class="item-title">
+                                                        <strong>Image URL</strong>
+                                                    </div>
+                                                    <label for="imgInput" class="form-label"></label>
+                                                    <input type="text" class="class content-item" id="imgInput" name="img">
+                                                </div>
+                                            </div>
+
                                             <div class="mb-3">
                                                 <div class="content-item">
                                                     <div class="item-title">
@@ -154,7 +177,7 @@
                                                     </select>  
                                                 </div>
                                             </div>
-                                            <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 250px ">
+                                            <div class="mb-6" style="justify-content: center; margin-top: 30px; margin-bottom: 30px; padding-left: 250px ">
                                                 <input type="button" class="button" onclick="openPopup()" value="Confirm"/>
                                                 <div class="popup" id="popup">
                                                     <img src="${pageContext.request.contextPath}/parent/img/icon/tick.png">
@@ -183,45 +206,45 @@
                 }
             </script>
             <script>
-            var fname = document.getElementById("ChildFirstName");
-            var lname = document.getElementById("ChildLastName");
-            
-            fname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (fname.value.match(numbers)) {
-                    document.getElementById("fnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid1").style.display = "none";
-                }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (fname.value.match(specs)) {
-                    document.getElementById("fnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid2").style.display = "none";
-                }
-            }
+                var fname = document.getElementById("ChildFirstName");
+                var lname = document.getElementById("ChildLastName");
 
-            lname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (lname.value.match(numbers)) {
-                    document.getElementById("lnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid1").style.display = "none";
+                fname.onkeyup = function () {
+                    var numbers = /[0-9]/g;
+                    if (fname.value.match(numbers)) {
+                        document.getElementById("fnameinvalid1").style.display = "block";
+                    } else {
+                        document.getElementById("fnameinvalid1").style.display = "none";
+                    }
+                    var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                    if (fname.value.match(specs)) {
+                        document.getElementById("fnameinvalid2").style.display = "block";
+                    } else {
+                        document.getElementById("fnameinvalid2").style.display = "none";
+                    }
                 }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (lname.value.match(specs)) {
-                    document.getElementById("lnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid2").style.display = "none";
-                }
-            }
 
-            
-        </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+                lname.onkeyup = function () {
+                    var numbers = /[0-9]/g;
+                    if (lname.value.match(numbers)) {
+                        document.getElementById("lnameinvalid1").style.display = "block";
+                    } else {
+                        document.getElementById("lnameinvalid1").style.display = "none";
+                    }
+                    var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                    if (lname.value.match(specs)) {
+                        document.getElementById("lnameinvalid2").style.display = "block";
+                    } else {
+                        document.getElementById("lnameinvalid2").style.display = "none";
+                    }
+                }
+
+
+            </script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         </c:if>
     </body>
 
