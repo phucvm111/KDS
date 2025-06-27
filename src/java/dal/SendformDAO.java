@@ -58,6 +58,47 @@ public class SendformDAO {
         return formList;
     }
 
+    public List<Form> searchFormByContent(String keyword) {
+        List<Form> formList = new ArrayList<>();
+
+        try {
+            Connection connection = DBContext.getConnection();
+            String sql = "SELECT * FROM Form WHERE content LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, "%" + keyword + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            FormTyleDAO fd = new FormTyleDAO();
+            AccountDAO acc = new AccountDAO();
+            KindergartnerDAO kdd = new KindergartnerDAO();
+
+            while (rs.next()) {
+                Form form = new Form();
+                form.setForm_id(rs.getInt("form_id"));
+                FormTyle formtyple = fd.getFormTypeById(rs.getInt("form_type_id"));
+                form.setFormstyle(formtyple);
+                Account ac = acc.getAccountByID(rs.getInt("sender_id"));
+                form.setAccount(ac);
+                Kindergartner kd = kdd.getKinderById(rs.getInt("kinder_id"));
+                form.setKindergartner(kd);
+                form.setTitle(rs.getString("title"));
+                form.setContent(rs.getString("content"));
+                form.setDate_submitted(rs.getString("date_submitted"));
+                form.setStatus(rs.getString("status"));
+                form.setReply(rs.getString("reply"));
+                formList.add(form);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formList;
+    }
+
     public List<Form> getFormByParentId(int parentId) {
         List<Form> formList = new ArrayList<>();
 
@@ -204,9 +245,11 @@ public class SendformDAO {
     public List<Form> getUnrepliedForms() {
         List<Form> forms = new ArrayList<>();
         String sql = "SELECT * FROM Form WHERE reply IS NULL OR reply = ''";
-       AccountDAO ac=new AccountDAO();
+        AccountDAO ac = new AccountDAO();
+        KindergartnerDAO kdd = new KindergartnerDAO();
+        ClassDAO cl= new ClassDAO();
         try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
+   
             while (rs.next()) {
                 Form form = new Form();
                 form.setForm_id(rs.getInt("form_id"));
@@ -217,8 +260,10 @@ public class SendformDAO {
                 form.setReply(rs.getString("reply"));
                 Account sender = ac.getAccountByID(rs.getInt("sender_id"));
                 form.setAccount(sender);
+                Kindergartner kd = kdd.getKinderById(rs.getInt("kinder_id"));
+                form.setKindergartner(kd);
                 form.setDate_submitted(rs.getString("date_submitted"));
-                      
+               
                 forms.add(form);
             }
         } catch (Exception e) {
@@ -242,7 +287,7 @@ public class SendformDAO {
 
     public static void main(String[] args) {
         SendformDAO sd = new SendformDAO();
-        List<Form> forms = sd.getFormByParentId(3);
+        List<Form> forms = sd.searchFormByContent("ok");
         for (Form f : forms) {
             System.out.println(f);
         }

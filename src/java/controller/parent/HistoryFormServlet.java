@@ -66,9 +66,23 @@ public class HistoryFormServlet extends HttpServlet {
         Account acc = (Account) session.getAttribute("account");
         int accid = acc.getAccountID();
         SendformDAO sf = new SendformDAO();
-        List<Form> forms = sf.getFormByParentId(accid);
-        request.setAttribute("formList", forms);
-        request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
+
+        List<Form> forms;
+        String action = request.getParameter("action");
+        String search = request.getParameter("search");
+      
+        if ("historyform".equals(action) && search != null && !search.trim().isEmpty()) {
+            forms = sf.searchFormByContent(search);
+            request.setAttribute("formList", forms);
+            request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
+
+        }
+        if (action == null) {
+            forms = sf.getFormByParentId(accid);
+            request.setAttribute("formList", forms);
+            request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
+        }
+
     }
 
     /**

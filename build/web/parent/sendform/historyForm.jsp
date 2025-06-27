@@ -43,6 +43,7 @@
 
         <!-- 🔍 FORM TÌM KIẾM -->
         <form method="get" action="historyform" class="search-box">
+            <input type="hidden" name="action" value="historyform" />
             <input type="text" name="search" placeholder="Tìm theo tiêu đề..." value="${param.search}" />
             <input type="submit" value="Tìm kiếm" />
         </form>
@@ -75,9 +76,8 @@
                         <td>${form.status}</td>
                         <td class="actions">
                             
-                            <a href="viewForm?id=${form.form_id}">Xem</a> |
-                            <a href="editForm?id=${form.form_id}">Sửa</a> |
-                            <a href="deleteForm?id=${form.form_id}" onclick="return confirm('Bạn có chắc muốn xóa đơn này?');">Xóa</a>
+                            <a href="viewForm?id=${form.form_id}">Xem</a>
+                           
                             
                         </td>
 
