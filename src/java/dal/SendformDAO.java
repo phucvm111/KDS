@@ -150,6 +150,69 @@ public class SendformDAO {
 
         return formList;
     }
+    public boolean updateReplyAndStatus(int form_id, String reply, String status) {
+    String sql = "UPDATE Form SET reply = ?, status = ? WHERE form_id = ?";
+    
+    try (Connection conn = DBContext.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+         
+        stmt.setString(1, reply);
+        stmt.setString(2, status);
+        stmt.setInt(3, form_id);
+
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0; // trả về true nếu có ít nhất 1 dòng được cập nhật
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return false; // trả về false nếu có lỗi xảy ra
+}
+public List<Form> getRepliedForms() {
+    List<Form> formList = new ArrayList<>();
+
+    try {
+        Connection connection = DBContext.getConnection();
+        String sql = "SELECT * FROM Form WHERE reply IS NOT NULL AND reply <> ''";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        FormTyleDAO fd = new FormTyleDAO();
+        AccountDAO acc = new AccountDAO();
+        KindergartnerDAO kdd = new KindergartnerDAO();
+
+        while (rs.next()) {
+            Form form = new Form();
+            form.setForm_id(rs.getInt("form_id"));
+
+            FormTyle formtyple = fd.getFormTypeById(rs.getInt("form_type_id"));
+            form.setFormstyle(formtyple);
+
+            Account ac = acc.getAccountByID(rs.getInt("sender_id"));
+            form.setAccount(ac);
+
+            Kindergartner kd = kdd.getKinderById(rs.getInt("kinder_id"));
+            form.setKindergartner(kd);
+
+            form.setTitle(rs.getString("title"));
+            form.setContent(rs.getString("content"));
+            form.setDate_submitted(rs.getString("date_submitted"));
+            form.setStatus(rs.getString("status"));
+            form.setReply(rs.getString("reply"));
+
+            formList.add(form);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return formList;
+}
+
 
     public Form getFormById(int id) {
         Form form = null;
