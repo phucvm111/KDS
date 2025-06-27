@@ -173,7 +173,7 @@
 
             <!-- Nút quay lại -->
             <div class="back-button">
-                <a href="${pageContext.request.contextPath}/attendance">⬅ Quay lại trang điểm danh</a>
+                <a href="${pageContext.request.contextPath}/teacher/teacherprofile.jsp">⬅ Quay lại trang điểm danh</a>
             </div>
         </div>
 

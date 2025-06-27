@@ -4,17 +4,17 @@
 
 <div class="left-side-menu">
     <div class="user-welcome">
-        <img class="user-img" src="${sessionScope.account.img != null ? sessionScope.account.img : pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="Ảnh đại diện người dùng">
+<!--        <img class="user-img" src="${sessionScope.account.img != null ? sessionScope.account.img : pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" alt="Ảnh đại diện người dùng">-->
         <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
         <span class="user-role">Giáo viên</span>
     </div>
     <div class="menu-item-container">
         <ul class="item-lists">
-            <li class="menu-item">
+<!--            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/teacher/home">
                     <i class="fa-solid fa-home"></i> Trang chủ
                 </a>
-            </li>
+            </li>-->
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/leavehistory"> 
                     <i class="fa-solid fa-file-alt"></i> Đơn xin nghỉ phép
@@ -31,23 +31,35 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacherprofile">
+                <a href="${pageContext.request.contextPath}/teacher/teacherprofile.jsp">
                     <i class="fa-solid fa-user"></i> Thông tin giáo viên
                 </a>
             </li>
             <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacher/respondform">
+                <a href="${pageContext.request.contextPath}/respondform">
                     <i class="fa-solid fa-reply-all"></i> Phản hồi biểu mẫu
                 </a>
             </li>
             <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacher/viewnutrition">
+                <a href="${pageContext.request.contextPath}/day_class">
                     <i class="fa-solid fa-carrot"></i> Xem dinh dưỡng
                 </a>
             </li>
+
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/teacher/uploadImage.jsp">
+                    <i class="fa-solid fa-upload"></i> Tải ảnh
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/teacher/viewImages">
+                    <i class="fa-solid fa-image"></i> Xem ảnh
+                </a>
+            </li>
+
         </ul>
     </div>
     <div class="logout-container">
-        <input type="button" class="log-out_button" onclick="window.location.href='${pageContext.request.contextPath}/logout'" value="Đăng xuất"/>
+        <input type="button" class="log-out_button" onclick="window.location.href = '${pageContext.request.contextPath}/logout'" value="Đăng xuất"/>
     </div>
 </div>

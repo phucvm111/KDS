@@ -114,6 +114,12 @@ public class EditKinderServlet extends HttpServlet {
                 handleError(request, response, id, msg);
                 return;
             }
+            if (dob.isAfter(today)) {
+                String msg = "❌ Ngày sinh không thể nằm trong tương lai.";
+                System.out.println(msg + " DOB: " + dobRaw);
+                handleError(request, response, id, msg);
+                return;
+            }
 
             // Nếu dữ liệu hợp lệ
             Kindergartner k = dao.getKinderById(id);
