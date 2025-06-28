@@ -46,11 +46,7 @@
                 </a>
             </li>
 
-            <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacher/uploadImage.jsp">
-                    <i class="fa-solid fa-upload"></i> Tải ảnh
-                </a>
-            </li>
+            
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/teacher/viewImages">
                     <i class="fa-solid fa-image"></i> Xem ảnh

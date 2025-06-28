@@ -91,30 +91,16 @@
 
         <div class="selection-wrapper">
             <div class="selection-section">
-                <h2>📋 Chọn danh mục học sinh</h2>
-                <a href="${pageContext.request.contextPath}/students?status=studying" class="btn btn-lg btn-primary rounded-4 shadow-sm">
-                    📚 Học sinh đang theo học
+                <h2>📋 Quản lý học sinh</h2>
+                <a href="${pageContext.request.contextPath}/viewKinderList" 
+                   class="btn btn-lg btn-primary rounded-4 shadow-sm">
+                    👨‍🎓 Xem danh sách học sinh
                 </a>
-
-                <a href="${pageContext.request.contextPath}/students?status=graduated" class="btn btn-lg btn-success rounded-4 shadow-sm">
-                    🎓 Học sinh đã tốt nghiệp
-                </a>
-                <a href="${pageContext.request.contextPath}/students?status=dropped" class="btn btn-lg btn-danger rounded-4 shadow-sm">
-                    ⛔ Học sinh đã thôi học
-                </a>
-                <a href="${pageContext.request.contextPath}/viewKinderList" class="btn btn-lg btn-warning rounded-4 shadow-sm">
-                    ✏️ Chỉnh sửa thông tin học sinh
-                </a>
-
-
-
-
-
                 <div class="info-box mt-4">
-                    <p><strong>Lưu ý:</strong> Bạn có thể chọn từng danh mục để xem và quản lý danh sách học sinh theo trạng thái học tập. Các danh sách này cho phép lọc theo lớp, tìm theo tên, và chỉnh sửa thông tin học sinh nếu cần.</p>
+                    <p><strong>Lưu ý:</strong> Trang danh sách sẽ cho phép bạn lọc theo trạng thái, lớp, tên học sinh và các tiêu chí khác.</p>
                 </div>
-
             </div>
+
         </div>
     </body>
 </html>
