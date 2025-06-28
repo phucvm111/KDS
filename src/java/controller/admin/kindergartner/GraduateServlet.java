@@ -79,7 +79,8 @@ public class GraduateServlet extends HttpServlet {
             StudyRecordDAO dao = new StudyRecordDAO();
             dao.markGraduated(kinderId, studyYear);
 
-            response.sendRedirect(request.getContextPath() + "/students?status=studying");
+            response.sendRedirect(request.getContextPath() + "/viewKinderList");
+
 
         } catch (Exception e) {
             e.printStackTrace();
