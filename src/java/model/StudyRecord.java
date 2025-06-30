@@ -7,7 +7,7 @@ public class StudyRecord {
     private Kindergartner kinder;
     private int studyYear;
     private boolean isGraduated;
-    private boolean isDroppedOut;  // ✅ thêm trường này
+    private boolean isDroppedOut;
 
     public StudyRecord() {
     }
@@ -26,11 +26,10 @@ public class StudyRecord {
         this.classID = classID;
         this.kinder = kinder;
         this.studyYear = studyYear;
-        this.isGraduated = false;     // mặc định chưa tốt nghiệp
-        this.isDroppedOut = false;    // ✅ mặc định chưa thôi học
+        this.isGraduated = false;
+        this.isDroppedOut = false;
     }
 
-    // Getter và Setter
     public int getRecord_id() {
         return record_id;
     }
@@ -67,11 +66,19 @@ public class StudyRecord {
         return isGraduated;
     }
 
+    public boolean getIsGraduated() {   // thêm getter chuẩn cho JSP EL
+        return isGraduated;
+    }
+
     public void setGraduated(boolean isGraduated) {
         this.isGraduated = isGraduated;
     }
 
     public boolean isDroppedOut() {
+        return isDroppedOut;
+    }
+
+    public boolean getIsDroppedOut() {  // thêm getter chuẩn cho JSP EL
         return isDroppedOut;
     }
 
