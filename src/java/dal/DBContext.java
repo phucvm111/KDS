@@ -3,6 +3,7 @@ package dal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class DBContext {
 
     public static Connection getConnection() {
@@ -10,7 +11,7 @@ public class DBContext {
         try {
             String user = "sa";
             String password = "123";
-            String url = "jdbc:sqlserver://localhost;databaseName=SWP391_Project_Lastest;TrustServerCertificate=true;";
+            String url = "jdbc:sqlserver://localhost;databaseName=KD;TrustServerCertificate=true;";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
@@ -18,7 +19,7 @@ public class DBContext {
         }
         return conn;
     }
-    
+
     public void closeConnection(Connection conn) {
         if (conn != null) {
             try {
@@ -30,7 +31,7 @@ public class DBContext {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         try {
             DBContext db = new DBContext();

@@ -125,5 +125,16 @@
             </button>
         </div>
 
+        <div class="text-center mt-4">
+            <button
+                class="btn btn-danger"
+                onclick="history.back()">
+                Thoát
+            </button>
+        </div>
+
+
+
+
     </body>
 </html>

@@ -113,7 +113,7 @@
                 <label for="date">Xem ảnh theo ngày:</label>
                 <input type="date" id="date" name="date" value="${selectedDate}">
                 <input type="submit" value="Xem">
-                <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp" class="back-button">⬅ Quay lại</a>
+                <a href="${pageContext.request.contextPath}/parentprofile" class="back-button">⬅ Quay lại</a>
             </form>
         </div>
 
