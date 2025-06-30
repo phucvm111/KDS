@@ -2,163 +2,132 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Lịch sử gửi đơn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            margin: 40px;
-            background-color: #f8f9fa;
+            background-color: #f4f6f9;
+            padding: 40px;
         }
 
-        h2 {
-            color: #343a40;
-            margin-bottom: 25px;
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        .search-box {
-            margin-bottom: 20px;
-        }
-
-        .search-box input[type="text"] {
-            padding: 8px 12px;
-            width: 250px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        .search-box input[type="submit"] {
-            padding: 8px 16px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .search-box input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-
-        th, td {
-            padding: 14px 12px;
-            border-bottom: 1px solid #dee2e6;
-            text-align: left;
-        }
-
-        th {
+        .table th {
             background-color: #343a40;
-            color: white;
+            color: #fff;
             text-transform: uppercase;
             font-size: 13px;
         }
 
-        td {
-            color: #495057;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .actions a {
-            padding: 6px 12px;
-            background-color: #17a2b8;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-
-        .actions a:hover {
-            background-color: #138496;
+        .table td {
+            vertical-align: middle;
         }
 
         .status {
-            font-weight: bold;
-            padding: 6px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            text-align: center;
-            width: 100px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 13px;
         }
 
         .status.pending {
-            background-color: #ffc107;
-            color: #212529;
+            background-color: #ffe08a;
+            color: #856404;
         }
 
         .status.reviewed {
-            background-color: #17a2b8;
-            color: white;
+            background-color: #74c0fc;
+            color: #084298;
         }
 
         .status.completed {
-            background-color: #28a745;
+            background-color: #b2f2bb;
+            color: #2f9e44;
+        }
+
+        .search-bar input[type="text"] {
+            max-width: 300px;
+        }
+
+        .btn-view {
+            background-color: #20c997;
             color: white;
+        }
+
+        .btn-view:hover {
+            background-color: #0ca678;
         }
     </style>
 </head>
 <body>
 
-<h2>📋 Lịch sử gửi đơn</h2>
+<div class="container">
+    <h2 class="mb-4 text-dark"><i class="bi bi-clock-history me-2"></i>Lịch sử gửi đơn</h2>
 
-<!-- 🔍 TÌM KIẾM -->
-<form method="get" action="historyform" class="search-box">
-    <input type="hidden" name="action" value="historyform" />
-    <input type="text" name="search" placeholder="🔍 Tìm theo tiêu đề..." value="${param.search}" />
-    <input type="submit" value="Tìm kiếm" />
-</form>
+    <!-- TÌM KIẾM -->
+    <form method="get" action="historyform" class="d-flex align-items-center gap-2 mb-4 search-bar">
+        <input type="hidden" name="action" value="historyform" />
+        <input type="text" name="search" class="form-control" placeholder="🔍 Tìm theo tiêu đề..." value="${param.search}" />
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Tìm</button>
+    </form>
 
-<!-- 📝 DANH SÁCH -->
-<table>
-    <thead>
-        <tr>
-            <th>Thể Loại</th>
-            <th>Người Gửi</th>
-            <th>Trẻ</th>
-            <th>Tiêu Đề</th>
-            <th>Nội Dung</th>
-            <th>Ngày Gửi</th>
-            <th>Trạng Thái</th>
-            <th>Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="form" items="${formList}">
-            <tr>
-                <td>${form.getFormstyle().type_name}</td>
-                <td>${form.getAccount().firstName} ${form.getAccount().lastName}</td>
-                <td>${form.getKindergartner().first_name} ${form.getKindergartner().last_name}</td>
-                <td>${form.title}</td>
-                <td>${form.content}</td>
-                <td>${form.date_submitted}</td>
-                <td>
-                    <span class="status ${form.status}">
-                        ${form.status == 'pending' ? 'Chờ xử lý' :
-                          form.status == 'reviewed' ? 'Đã xem' :
-                          form.status == 'completed' ? 'Hoàn thành' : form.status}
-                    </span>
-                </td>
-                <td class="actions">
-                    <a href="viewForm?id=${form.form_id}">Xem</a>
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+    <!-- DANH SÁCH ĐƠN -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th>Thể Loại</th>
+                    <th>Người Gửi</th>
+                    <th>Trẻ</th>
+                    <th>Tiêu Đề</th>
+                    <th>Nội Dung</th>
+                    <th>Ngày Gửi</th>
+                    <th>Trạng Thái</th>
+                    <th>Hành Động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="form" items="${formList}">
+                    <tr>
+                        <td>${form.getFormstyle().type_name}</td>
+                        <td>${form.getAccount().firstName} ${form.getAccount().lastName}</td>
+                        <td>${form.getKindergartner().first_name} ${form.getKindergartner().last_name}</td>
+                        <td>${form.title}</td>
+                        <td>${form.content}</td>
+                        <td>${form.date_submitted}</td>
+                        <td>
+                            <span class="status ${form.status}">
+                                <c:choose>
+                                    <c:when test="${form.status == 'pending'}">Chờ xử lý</c:when>
+                                    <c:when test="${form.status == 'reviewed'}">Đã xem</c:when>
+                                    <c:when test="${form.status == 'completed'}">Hoàn thành</c:when>
+                                    <c:otherwise>${form.status}</c:otherwise>
+                                </c:choose>
+                            </span>
+                        </td>
+                        <td>
+                            <a href="viewForm?id=${form.form_id}" class="btn btn-sm btn-view">
+                                <i class="bi bi-eye"></i> Xem
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <p style="color: green">${success}</p>
+            <p style="color: red">${error}</p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
