@@ -108,6 +108,8 @@ public class LoginServlet extends HttpServlet {
                     break;
             }
         } else {
+            request.setAttribute("email", email);
+            request.setAttribute("password", password);
             request.setAttribute("error", "Account do not exist");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
