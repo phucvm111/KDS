@@ -1,214 +1,213 @@
 package dal;
 
-import model.Account;
-import model.Kindergartner;
+import static dal.DBContext.getConnection;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import model.Notification;
+import model.Account;
+import model.Role;
 
 public class NotificationDAO extends DBContext {
 
-    // Gửi notification từ giáo viên tới phụ huynh (với con cụ thể)
-    public void sendFromTeacherToParent(Account sender, Account receiver, Kindergartner kid, String reason, String content) throws SQLException, Exception {
-        String sql = "INSERT INTO Notification (sender_id, receiver_id, kinder_id, reason, content, notification_date, is_read, notification_type) "
-                + "VALUES (?, ?, ?, ?, ?, GETDATE(), 0, 'Message')";
+    public List<Notification> getAllNotifications() {
+        List<Notification> list = new ArrayList<>();
+        String sql = """
+            SELECT n.*, a.first_name AS sender_first, a.last_name AS sender_last, r.role_name
+            FROM Notification n
+            JOIN Account a ON n.sender_id = a.account_id
+            JOIN Role r ON n.target_role_id = r.role_id
+            ORDER BY n.created_at DESC
+        """;
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(mapNotification(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Notification> searchByContent(String keyword) {
+        List<Notification> list = new ArrayList<>();
+        String sql = """
+            SELECT n.*, a.first_name AS sender_first, a.last_name AS sender_last, r.role_name
+            FROM Notification n
+            JOIN Account a ON n.sender_id = a.account_id
+            JOIN Role r ON n.target_role_id = r.role_id
+            WHERE n.message LIKE ?
+            ORDER BY n.created_at DESC
+        """;
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, sender.getAccountID());
-            ps.setInt(2, receiver.getAccountID());
-            ps.setInt(3, kid.getKinder_id());
-            ps.setString(4, reason);
-            ps.setString(5, content);
+            ps.setString(1, "%" + keyword + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapNotification(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Notification getById(int id) {
+        String sql = """
+            SELECT n.*, a.first_name AS sender_first, a.last_name AS sender_last, r.role_name
+            FROM Notification n
+            JOIN Account a ON n.sender_id = a.account_id
+            JOIN Role r ON n.target_role_id = r.role_id
+            WHERE n.notification_id = ?
+        """;
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapNotification(rs);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void insertNotification(Notification n) {
+        String sql = """
+            INSERT INTO Notification(title, message, created_at, sender_id, target_role_id, is_read, is_emailed)
+            VALUES (?, ?, GETDATE(), ?, ?, 0, 0)
+        """;
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, n.getTitle());
+            ps.setString(2, n.getMessage());
+            ps.setInt(3, n.getSender().getAccountID());
+            ps.setInt(4, n.getTargetRole().getRoleID());
             ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    // Lấy toàn bộ phụ huynh
-    public List<Account> getAllParents() throws SQLException, Exception {
-        List<Account> list = new ArrayList<>();
-        String sql = "SELECT * FROM Account WHERE role_id = 3";
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Account acc = new Account();
-                acc.setAccountID(rs.getInt("account_id"));
-                acc.setFirstName(rs.getString("first_name"));
-                acc.setLastName(rs.getString("last_name"));
-                list.add(acc);
-            }
-        }
-        return list;
-    }
-
-    // Lấy danh sách trẻ theo parent_id
-    // Lấy toàn bộ trẻ (để hiển thị dropdown Child trong form)
-    public List<Kindergartner> getAllChildren() throws SQLException, Exception {
-        List<Kindergartner> list = new ArrayList<>();
-        String sql = "SELECT * FROM Kindergartner";
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Kindergartner k = new Kindergartner();
-                k.setKinder_id(rs.getInt("kinder_id"));
-                k.setFirst_name(rs.getString("first_name"));
-                k.setLast_name(rs.getString("last_name"));
-                list.add(k);
-            }
-        }
-        return list;
-    }
-
-    public List<Notification> getNotificationsBySender(int senderId) throws Exception {
-        List<Notification> list = new ArrayList<>();
-        String sql = "SELECT n.*, a.first_name AS parentFirst, a.last_name AS parentLast, "
-                + "k.first_name AS childFirst, k.last_name AS childLast "
-                + "FROM Notification n "
-                + "LEFT JOIN Account a ON n.receiver_id = a.account_id "
-                + "LEFT JOIN Kindergartner k ON n.kinder_id = k.kinder_id "
-                + "WHERE n.sender_id = ? "
-                + "ORDER BY n.notification_date DESC";
+    public void updateNotification(Notification n) {
+        String sql = """
+            UPDATE Notification SET title = ?, message = ?, target_role_id = ?
+            WHERE notification_id = ?
+        """;
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, senderId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Notification n = new Notification();
-                n.setNotificationId(rs.getInt("notification_id"));
-
-                n.setNotificationDate(new java.util.Date(rs.getTimestamp("notification_date").getTime()));
-
-                n.setContent(rs.getString("content"));
-                n.setReason(rs.getString("reason"));
-
-                n.setRead(rs.getBoolean("is_read"));
-
-                // Tạo thông tin người nhận (phụ huynh)
-                Account parent = new Account();
-                parent.setFirstName(rs.getString("parentFirst"));
-                parent.setLastName(rs.getString("parentLast"));
-                n.setReceiver(parent);
-
-                // Tạo thông tin trẻ
-                Kindergartner kid = new Kindergartner();
-                kid.setFirst_name(rs.getString("childFirst"));
-                kid.setLast_name(rs.getString("childLast"));
-                n.setKindergartner(kid);
-
-                list.add(n);
-            }
+            ps.setString(1, n.getTitle());
+            ps.setString(2, n.getMessage());
+            ps.setInt(3, n.getTargetRole().getRoleID());
+            ps.setInt(4, n.getNotificationId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;
     }
 
-    public List<Notification> getNotificationsForParent(int parentId) throws Exception {
-        List<Notification> list = new ArrayList<>();
-        String sql = "SELECT n.*, t.first_name AS teacherFirst, t.last_name AS teacherLast, "
-                + "k.first_name AS childFirst, k.last_name AS childLast "
-                + "FROM Notification n "
-                + "LEFT JOIN Account t ON n.sender_id = t.account_id "
-                + "LEFT JOIN Kindergartner k ON n.kinder_id = k.kinder_id "
-                + "WHERE n.receiver_id = ? "
-                + "ORDER BY n.notification_date DESC";
+    public void deleteNotification(int id) {
+        String sql = "DELETE FROM Notification WHERE notification_id = ?";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, parentId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Notification n = new Notification();
-                n.setNotificationId(rs.getInt("notification_id"));
-                n.setNotificationDate(new java.util.Date(rs.getTimestamp("notification_date").getTime()));
-                n.setReason(rs.getString("reason"));
-                n.setContent(rs.getString("content"));
-                n.setRead(rs.getBoolean("is_read"));
-
-                // Sender (teacher)
-                Account teacher = new Account();
-                teacher.setFirstName(rs.getString("teacherFirst"));
-                teacher.setLastName(rs.getString("teacherLast"));
-                n.setSender(teacher);
-
-                // Child
-                Kindergartner kid = new Kindergartner();
-                kid.setFirst_name(rs.getString("childFirst"));
-                kid.setLast_name(rs.getString("childLast"));
-                n.setKindergartner(kid);
-                list.add(n);
-            }
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;
     }
 
-    public void markAsRead(int notificationId) throws Exception {
-        String sql = "UPDATE Notification SET is_read = 1 WHERE notification_id = ?";
+    public void markAsEmailed(int notificationId) {
+        String sql = "UPDATE Notification SET is_emailed = 1 WHERE notification_id = ?";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, notificationId);
             ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    // Lấy toàn bộ giáo viên
-    public List<Account> getAllTeachers() throws Exception {
+    public List<Account> getAccountsByRole(int roleId) {
         List<Account> list = new ArrayList<>();
-        String sql = "SELECT * FROM Account WHERE role_id = 2"; // assuming role_id 2 = teacher
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Account acc = new Account();
-                acc.setAccountID(rs.getInt("account_id"));
-                acc.setFirstName(rs.getString("first_name"));
-                acc.setLastName(rs.getString("last_name"));
-                list.add(acc);
+        String sql = """
+            SELECT * FROM Account WHERE role_id = ?
+        """;
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, roleId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Account acc = new Account();
+                    acc.setAccountID(rs.getInt("account_id"));
+                    acc.setFirstName(rs.getString("first_name"));
+                    acc.setLastName(rs.getString("last_name"));
+                    acc.setEmail(rs.getString("email"));
+                    list.add(acc);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-// Gửi từ admin đến teacher
-    public void sendFromAdminToTeacher(Account admin, Account teacher, String reason, String content) throws Exception {
-        String sql = "INSERT INTO Notification (sender_id, receiver_id, content, reason, notification_date, is_read, notification_type) "
-                + "VALUES (?, ?, ?, ?, GETDATE(), 0, 'AdminMessage')";
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, admin.getAccountID());
-            ps.setInt(2, teacher.getAccountID());
-            ps.setString(3, content);
-            ps.setString(4, reason);
-            ps.executeUpdate();
-        }
+    private Notification mapNotification(ResultSet rs) throws SQLException {
+        Notification n = new Notification();
+        n.setNotificationId(rs.getInt("notification_id"));
+        n.setTitle(rs.getString("title"));
+        n.setMessage(rs.getString("message"));
+        n.setCreatedAt(rs.getTimestamp("created_at"));
+        n.setRead(rs.getBoolean("is_read"));
+        n.setEmailed(rs.getBoolean("is_emailed"));
+
+        Account sender = new Account();
+        sender.setAccountID(rs.getInt("sender_id"));
+        sender.setFirstName(rs.getString("sender_first"));
+        sender.setLastName(rs.getString("sender_last"));
+        n.setSender(sender);
+
+        Role role = new Role();
+        role.setRoleID(rs.getInt("target_role_id"));
+        role.setRoleName(rs.getString("role_name"));
+        n.setTargetRole(role);
+
+        return n;
     }
-
-    // Lấy danh sách thông báo từ admin gửi xuống giáo viên
-    public List<Notification> getNotificationsFromAdminToTeacher(int teacherId) throws Exception {
-        List<Notification> list = new ArrayList<>();
-        String sql = "SELECT n.*, a.first_name AS adminFirst, a.last_name AS adminLast "
-                + "FROM Notification n "
-                + "JOIN Account a ON n.sender_id = a.account_id "
-                + "WHERE n.receiver_id = ? AND n.notification_type = 'AdminMessage' "
-                + "ORDER BY n.notification_date DESC";
-
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, teacherId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Notification n = new Notification();
-                n.setNotificationId(rs.getInt("notification_id"));
-                n.setContent(rs.getString("content"));
-                n.setReason(rs.getString("reason"));
-                n.setNotificationDate(new java.util.Date(rs.getTimestamp("notification_date").getTime()));
-                n.setRead(rs.getBoolean("is_read"));
-                n.setNotificationType(rs.getString("notification_type"));
-
-                Account admin = new Account();
-                admin.setFirstName(rs.getString("adminFirst"));
-                admin.setLastName(rs.getString("adminLast"));
-                n.setSender(admin);
-
-                list.add(n);
-            }
-        }
-        return list;
-    }
+    // THÊM VÀO CUỐI FILE NotificationDAO.java
 
     public static void main(String[] args) {
-        NotificationDAO noti = new NotificationDAO();
-        try {
-            System.out.println(noti.getNotificationsBySender(2));
-            System.out.println(noti.getNotificationsFromAdminToTeacher(2));
-        } catch (Exception e) {
+        NotificationDAO dao = new NotificationDAO();
+
+        // Test getAllNotifications
+        System.out.println("===== All Notifications =====");
+        List<Notification> list = dao.getAllNotifications();
+        for (Notification n : list) {
+            System.out.println(
+                    "ID=" + n.getNotificationId()
+                    + ", Title=" + n.getTitle()
+                    + ", is_emailed=" + n.isEmailed()
+                    + ", Target Role=" + n.getTargetRole().getRoleName()
+                    + ", Sender=" + n.getSender().getFirstName()
+            );
+        }
+
+        // Test getAccountsByRole
+        System.out.println("\n===== Accounts by Role =====");
+        List<Account> accounts = dao.getAccountsByRole(2); // ví dụ roleID 2
+        for (Account a : accounts) {
+            System.out.println(
+                    "ID=" + a.getAccountID()
+                    + ", Name=" + a.getFirstName() + " " + a.getLastName()
+                    + ", Email=" + a.getEmail()
+            );
+        }
+
+        // Test markAsEmailed
+        System.out.println("\n===== Mark as emailed =====");
+        int testNotiId = 6; // chỉnh id notification muốn test
+        dao.markAsEmailed(testNotiId);
+        System.out.println("✅ Marked notification id=" + testNotiId + " as emailed.");
+
+        // Xác minh lại
+        Notification nCheck = dao.getById(testNotiId);
+        if (nCheck != null) {
+            System.out.println("is_emailed after update = " + nCheck.isEmailed());
         }
     }
 
