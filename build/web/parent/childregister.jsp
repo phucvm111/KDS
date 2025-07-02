@@ -1,248 +1,339 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
         <title>ATKD ChildCare - Child Register</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
-        <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
-        <script src="js/childdetails.js"></script>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childdetails.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childregister.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
         <style>
+            /* === Biến màu chung === */
+            :root {
+                --primary-color: #6a5af9;
+                --secondary-color: #00bcd4;
+                --text-color: #333;
+                --text-secondary: #6c757d;
+                --background-color: #f8f9fa;
+                --white-color: #fff;
+                --border-color: #e0e0e0;
+                --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            }
+
+            /* Right Side Content */
+            .right-side {
+                flex-grow: 1;
+                padding: 40px;
+                overflow-y: auto;
+            }
+
+            /* Profile Card Container */
+            .profile-card {
+                background-color: var(--white-color);
+                border-radius: 16px;
+                box-shadow: var(--box-shadow);
+                overflow: hidden;
+            }
+
+            /* Header: Title + Log out */
+            .profile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 30px;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: var(--white-color);
+            }
+
+            .profile-header h1 {
+                font-size: 2em;
+                margin: 0;
+            }
+
+            .log-out_button {
+                padding: 8px 20px;
+                background-color: #f44336;
+                color: var(--white-color);
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: background-color 0.3s;
+            }
+
+            .log-out_button:hover {
+                background-color: #d32f2f;
+            }
+
+            /* Form Content */
+            .profile-content {
+                padding: 30px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            .content-item {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .item-title {
+                font-size: 0.9em;
+                font-weight: 600;
+                color: var(--text-secondary);
+                margin-bottom: 8px;
+            }
+
+            .content-item input[type="text"],
+            .content-item input[type="date"],
+            .content-item input[type="file"],
+            .content-item select {
+                padding: 12px;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                font-size: 1em;
+                background-color: var(--background-color);
+            }
+
+            .content-item label {
+                font-size: 1em;
+                margin-right: 10px;
+            }
+
+            .invalid {
+                font-size: 0.85em;
+                color: red;
+                margin-top: 5px;
+            }
+
+            /* Full-width for Confirm Button */
+            .profile-actions {
+                grid-column: 1 / -1;
+                display: flex;
+                justify-content: center;
+            }
+
+            .button {
+                padding: 12px 30px;
+                font-size: 1em;
+                font-weight: 600;
+                color: var(--white-color);
+                background-color: var(--primary-color);
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            .button:hover {
+                background-color: #5548d9;
+                transform: translateY(-2px);
+            }
+
+            /* Success & No Class Message */
+            .success-message,
+            .nochild {
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 30px;
+            }
+
+            .nochild {
+                background-color: #fff3cd;
+                color: #856404;
+                border-color: #ffeeba;
+            }
+
+            /* Popup Confirm */
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: var(--white-color);
+                padding: 40px;
+                border-radius: 16px;
+                box-shadow: var(--box-shadow);
+                text-align: center;
+                z-index: 1000;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .popup.open-popup {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .popup img {
+                width: 60px;
+                margin-bottom: 20px;
+            }
+
+            .popup h2 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+
+            .confirm_button,
+            .cancel_button {
+                padding: 10px 25px;
+                border: none;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            .confirm_button {
+                background-color: #28a745;
+                color: var(--white-color);
+            }
+
+            .cancel_button {
+                background-color: #dc3545;
+                color: var(--white-color);
+            }
+
+            .confirm_button:hover {
+                background-color: #218838;
+            }
+
+            .cancel_button:hover {
+                background-color: #c82333;
+            }
 
         </style>
     </head>
-
     <body>
-        <!-- Link to Add child to database -->
-
         <div class="wrapper">
-            <div class="home">
-                <div class="left-side-menu">
-                    <div class="vertical-menu">
-                        <div class="user-welcome">
-                            <img class="user-img" src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
-                            <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
-                        </div>
-                        <div class="menu-item-container">
-                            <ul class="item-lists">
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
-                                </li>
-                                <li class="menu-item  current1">
-                                    <a href="${pageContext.request.contextPath}/parent/childregister.jsp">Child Register</a>
-                                </li>
-                                <li class="menu-item  ">
-                                    <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
-                                </li>
-                                <li class="menu-item  ">
-                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div style="border-top: 3px solid gray;"></div>
-                        <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/events')" value="Log out"/>
-                        </div>
-                    </div>
-                </div>
-                <!-- Form add -->
-                <c:if test="${classlist.isEmpty()}">
-                    <div class="nochild">
-                        <h1>There is no class available right now !</h1>
-                        <br><!-- comment -->
-                        <h1>Please wait until a class is available to register</h1> 
+            <jsp:include page="/view/sidebarParent.jsp" />
+
+            <div class="right-side">
+
+                <!-- Success message -->
+                <c:if test="${not empty success}">
+                    <div class="success-message">
+                        <p>${success}</p>
+                        <c:if test="${not empty registeredChild}">
+                            <p>Đã đăng ký thành công cho trẻ: ${registeredChild.first_name} ${registeredChild.last_name}</p>
+                        </c:if>
                     </div>
                 </c:if>
+
+                <!-- No class message -->
+                <c:if test="${classlist.isEmpty()}">
+                    <div class="nochild">
+                        <h1>There is no class available right now!</h1>
+                        <h1>Please wait until a class is available to register</h1>
+                    </div>
+                </c:if>
+
+                <!-- Register form -->
                 <c:if test="${!classlist.isEmpty()}">
-                    <form action="${pageContext.request.contextPath}/childregister" method="POST">
-                        <div class="child-register">
-                            <div class="page-content">
-                                <div class="kid-register">
-                                    <div class="kid-register_content">
-                                        <div class="kindergartner-register" >Kindergartner Register</div>
-                                        <div style="width: 80%;height: auto; margin-left: 10%; padding-top: 0;padding-bottom: 0; margin-top: 40px">
-                                            <div class="mb-3">
-                                                <div class="content-item wrap-input100 validate-input">
-                                                    <div class="item-title">
-                                                        <strong>Child first name</strong>
-                                                    </div>
-                                                    <label for="exampleFormControlInput1" class="form-label"></label>
-                                                    <input type="text" class="class content-item" id="ChildFirstName" name="ChildFirstName" pattern="[a-zA-Z]+" title="Alphabetical letters only" required="">
-                                                    <span class="focus-input100"></span>
-                                                </div>
-                                            </div>
-                                            <span class="invalid" id="fnameinvalid1" style="display: none;margin-left: 12%" >Name cannot contain
-                                                numeric characters !</span>
-                                            <span class="invalid" id="fnameinvalid2" style="display: none;margin-left: 12%">Name cannot contain
-                                                special characters !</span>
-                                            <div class="mb-3">
-                                                <div class="content-item wrap-input100 validate-input">
-                                                    <div class="item-title">
-                                                        <strong>Child last name</strong>
-                                                    </div>
-                                                    <label for="exampleFormControlInput1" class="form-label"></label>
-                                                    <input type="text" class="class content-item" id="ChildLastName" name="ChildLastName" pattern="[a-zA-Z]+" title="Alphabetical letters only" required="">
-                                                    <span class="focus-input100"></span>
-                                                </div>
-                                            </div>
-                                            <span class="invalid" id="lnameinvalid1" style="display: none;margin-left: 12%" >Name cannot contain
-                                                numeric characters !</span>
-                                            <span class="invalid" id="lnameinvalid2" style="display: none;margin-left: 12%">Name cannot contain
-                                                special characters !</span>
-                                            <div class="mb-3">
-                                                <div class="content-item">
-                                                    <div class="item-title">
-                                                        <strong>DOB</strong>
-                                                    </div>
-                                                    <label for="exampleFormControlInput1" class="form-label"></label>
-                                                    <input type="date" class="class content-item" id="exampleFormControlInput1" name="DOB" required="">     
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="content-item">
-                                                    <div class="gender">
-                                                        <strong>Gender</strong>
-                                                    </div>
-
-                                                    <div class="rdCheck" style="display: flex;padding-left: 30px">
-
-                                                        <div class="form-check">
-                                                            <div class="img-gender" >
-                                                                <img src="${pageContext.request.contextPath}/parent/img/userImg/images.jpg" alt="">
-                                                                <p style="padding-top: 10px;padding-left: 10px;padding-right: 10px">
-                                                                    Male
-                                                                </p>
-                                                                <input class="form-check-input" type="radio" value="male" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check" style="padding-left: 80px">
-                                                        <div class="img-gender">
-                                                            <img src="${pageContext.request.contextPath}/parent/img/userImg/download.png" alt="">
-                                                            <p style="padding-top: 10px;padding-left: 10px;padding-right: 10px">
-                                                                Female
-                                                            </p>
-                                                            <input class="form-check-input" type="radio" value="female" name="flexRadioDefault" id="flexRadioDefault2">
-                                                        </div>
-                                                    </div>     
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="content-item">
-                                                    <div class="item-title">
-                                                        <strong>Choose desired class</strong>
-                                                    </div>
-
-                                                    <select name="register_classid" id="register_classid" class="class content-item">
-                                                        <c:forEach items="${requestScope.classlist}" var="c">
-                                                            <option value="${c.class_id}">
-                                                            <h1>${c.class_name}</h1>
-                                                            </option>
-                                                        </c:forEach>
-                                                    </select>  
-                                                </div>
-                                            </div>
-                                            <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 250px ">
-                                                <input type="button" class="button" onclick="openPopup()" value="Confirm"/>
-                                                <div class="popup" id="popup">
-                                                    <img src="${pageContext.request.contextPath}/parent/img/icon/tick.png">
-                                                    <h2>Confirm registration ?</h2>
-                                                    <input type="button" class="cancel_button" onclick="closePopup()" value="Cancel">
-                                                    <input style="margin-left: 60px;" type="submit" class="confirm_button"  value="Confirm">
-                                                </div>    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>       
-                            </div>
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <h1>Kindergartner Register</h1>
                         </div>
-                    </form>
-                </div>
+
+                        <form action="${pageContext.request.contextPath}/childregister" method="POST" enctype="multipart/form-data">
+                            <div class="profile-content">
+
+                                <!-- Child First Name -->
+                                <div class="content-item">
+                                    <div class="item-title">Child First Name</div>
+                                    <input type="text" id="ChildFirstName" name="ChildFirstName" pattern="[a-zA-Z]+" required title="Alphabetical letters only"/>
+                                    <span class="invalid" id="fnameinvalid1" style="display:none;">Name cannot contain numbers!</span>
+                                    <span class="invalid" id="fnameinvalid2" style="display:none;">Name cannot contain special characters!</span>
+                                </div>
+
+                                <!-- Child Last Name -->
+                                <div class="content-item">
+                                    <div class="item-title">Child Last Name</div>
+                                    <input type="text" id="ChildLastName" name="ChildLastName" pattern="[a-zA-Z]+" required title="Alphabetical letters only"/>
+                                    <span class="invalid" id="lnameinvalid1" style="display:none;">Name cannot contain numbers!</span>
+                                    <span class="invalid" id="lnameinvalid2" style="display:none;">Name cannot contain special characters!</span>
+                                </div>
+
+                                <!-- DOB -->
+                                <div class="content-item">
+                                    <div class="item-title">Date of Birth</div>
+                                    <input type="date" name="DOB" required />
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="content-item">
+                                    <div class="item-title">Gender</div>
+                                    <label>
+                                        <input type="radio" name="flexRadioDefault" value="male" checked /> Male
+                                    </label>
+                                    <label style="margin-left:20px;">
+                                        <input type="radio" name="flexRadioDefault" value="female" /> Female
+                                    </label>
+                                </div>
+
+                                <!-- Profile Image -->
+                                <div class="content-item">
+                                    <div class="item-title">Profile Image</div>
+                                    <input type="file" name="profileImage" accept="image/*" />
+                                </div>
+
+                                <!-- Class Selection -->
+                                <div class="content-item">
+                                    <div class="item-title">Choose Desired Class</div>
+                                    <select name="register_classid">
+                                        <c:forEach items="${requestScope.classlist}" var="c">
+                                            <option value="${c.class_id}">${c.class_name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <!-- Confirm Button -->
+                                <div class="profile-actions">
+                                    <input type="button" class="button" onclick="openPopup()" value="Confirm" />
+                                </div>
+
+                                <!-- Popup -->
+                                <div class="popup" id="popup">
+                                    <img src="${pageContext.request.contextPath}/parent/img/icon/tick.png" alt="tick"/>
+                                    <h2>Confirm registration?</h2>
+                                    <input type="button" class="cancel_button" onclick="closePopup()" value="Cancel"/>
+                                    <input type="submit" class="confirm_button" value="Confirm"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </c:if>
             </div>
-            <!-- <script src="agu.js"></script> -->
-            <script>
-                let popup = document.getElementById("popup");
+        </div>
 
-                function openPopup() {
-                    popup.classList.add("open-popup");
-                }
-                function closePopup() {
-                    popup.classList.remove("open-popup");
-                }
-            </script>
-            <script>
-            var fname = document.getElementById("ChildFirstName");
-            var lname = document.getElementById("ChildLastName");
-            
-            fname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (fname.value.match(numbers)) {
-                    document.getElementById("fnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid1").style.display = "none";
-                }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (fname.value.match(specs)) {
-                    document.getElementById("fnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid2").style.display = "none";
-                }
+        <script>
+            let popup = document.getElementById("popup");
+            function openPopup() {
+                popup.classList.add("open-popup");
+            }
+            function closePopup() {
+                popup.classList.remove("open-popup");
             }
 
-            lname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (lname.value.match(numbers)) {
-                    document.getElementById("lnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid1").style.display = "none";
-                }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (lname.value.match(specs)) {
-                    document.getElementById("lnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid2").style.display = "none";
-                }
-            }
+            const fname = document.getElementById("ChildFirstName");
+            const lname = document.getElementById("ChildLastName");
 
-            
+            fname.addEventListener("keyup", () => {
+                document.getElementById("fnameinvalid1").style.display = /\d/.test(fname.value) ? "block" : "none";
+                document.getElementById("fnameinvalid2").style.display = /[^a-zA-Z]/.test(fname.value.replace(/\s+/g, '')) && !/\d/.test(fname.value) ? "block" : "none";
+            });
+
+            lname.addEventListener("keyup", () => {
+                document.getElementById("lnameinvalid1").style.display = /\d/.test(lname.value) ? "block" : "none";
+                document.getElementById("lnameinvalid2").style.display = /[^a-zA-Z]/.test(lname.value.replace(/\s+/g, '')) && !/\d/.test(lname.value) ? "block" : "none";
+            });
         </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        </c:if>
     </body>
-
-
-
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -67,7 +67,7 @@ public class KidProfile extends HttpServlet {
                 int kid_id = Integer.parseInt(request.getParameter("kid_id"));
                 KindergartnerDAO studao = new KindergartnerDAO();
                 Kindergartner kc = studao.getKidInfoById(kid_id);
-                Account p = studao.getParentById(kc.getParentAccount().getAccountID());
+                Account p = studao.getParentById(kc.getParent_id());
                 request.setAttribute("kid_info", kc);
                 request.setAttribute("parent", p);
                 request.getRequestDispatcher("teacher/kidprofile.jsp").forward(request, response);

@@ -9,44 +9,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
         <title>KDS - Child Attendance</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
         <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
         <script src="js/childdetails.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childdetails.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
     </head>
     <body>
         <div class="wrapper">
             <div class="home">
-                <div class="left-side-menu">
-                    <div class="vertical-menu">
-                        <div class="user-welcome">
-                            <img class="user-img" src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
-                            <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
-                        </div>
-                        <div class="menu-item-container">
-                            <ul class="item-lists">
-                                <li class="menu-item current1">
-                                    <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
-                                    
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="border-top: 3px solid gray;"></div>
-                        <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/events')" value="Log out"/>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="/view/sidebarParent.jsp" /> 
                 <c:if test="${kidlist.isEmpty()}">
                     <div class="nochild">
                         <h1>You haven't register any child yet !</h1>
