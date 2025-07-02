@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.util.Date;
@@ -9,17 +5,16 @@ import java.util.Date;
 public class Notification {
 
     private int notificationId;
-    private String content;
-    private Date notificationDate;
+    private String title;
+    private String message;
+    private Date createdAt;
     private boolean isRead;
-    private String notificationType;
-    private String reason;
+    private boolean emailed;
 
-    private Account sender;
-    private Account receiver;
-    private Kindergartner kindergartner;
+    private Account sender;     // liên kết FK sender_id
+    private Role targetRole;    // liên kết FK target_role_id
 
-    // Constructors (optional)
+    // Constructor
     public Notification() {
     }
 
@@ -32,20 +27,28 @@ public class Notification {
         this.notificationId = notificationId;
     }
 
-    public String getContent() {
-        return content;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Date getNotificationDate() {
-        return notificationDate;
+    public String getMessage() {
+        return message;
     }
 
-    public void setNotificationDate(Date notificationDate) {
-        this.notificationDate = notificationDate;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public boolean isRead() {
@@ -56,22 +59,6 @@ public class Notification {
         this.isRead = isRead;
     }
 
-    public String getNotificationType() {
-        return notificationType;
-    }
-
-    public void setNotificationType(String notificationType) {
-        this.notificationType = notificationType;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public Account getSender() {
         return sender;
     }
@@ -80,19 +67,20 @@ public class Notification {
         this.sender = sender;
     }
 
-    public Account getReceiver() {
-        return receiver;
+    public Role getTargetRole() {
+        return targetRole;
     }
 
-    public void setReceiver(Account receiver) {
-        this.receiver = receiver;
+    public void setTargetRole(Role targetRole) {
+        this.targetRole = targetRole;
     }
 
-    public Kindergartner getKindergartner() {
-        return kindergartner;
+    public boolean isEmailed() {
+        return emailed;
     }
 
-    public void setKindergartner(Kindergartner kindergartner) {
-        this.kindergartner = kindergartner;
+    public void setEmailed(boolean emailed) {
+        this.emailed = emailed;
     }
+
 }
