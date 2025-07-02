@@ -92,15 +92,26 @@ public class AdminNotificationServlet extends HttpServlet {
 
                 default:
                     String searchContent = request.getParameter("searchContent");
+                    String emailStatus = request.getParameter("emailStatus");
+
                     List<Notification> list;
                     if (searchContent != null && !searchContent.trim().isEmpty()) {
                         list = dao.searchByContent(searchContent);
                     } else {
                         list = dao.getAllNotifications();
                     }
+
+                    // lọc thêm theo trạng thái emailStatus
+                    if (emailStatus != null && !emailStatus.isEmpty()) {
+                        boolean emailedFilter = "sent".equals(emailStatus);
+                        list.removeIf(n -> n.isEmailed() != emailedFilter);
+                    }
+
                     request.setAttribute("notificationList", list);
+                    request.setAttribute("emailStatus", emailStatus);
                     request.getRequestDispatcher("/admin/notification/listnotification.jsp").forward(request, response);
                     break;
+
             }
         } catch (Exception e) {
             e.printStackTrace();
