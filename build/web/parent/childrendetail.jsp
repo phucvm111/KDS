@@ -4,16 +4,16 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
         <title>ATKD ChildCare - Child Details</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/parenthome.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childprofile.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
         <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childdetails.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
         <style>
             * {
                 font-family: 'Poppins', sans-serif;
@@ -30,18 +30,16 @@
                 min-height: 100vh;
             }
 
-            .home {
-                display: flex;
-                width: 100%;
+            .right-side {
+                flex: 1;
+                padding: 30px;
             }
 
             .child-details-container {
-                flex: 1;
+                background: #fff;
                 padding: 30px;
-                margin: 20px;
-                background-color: #ffffff;
                 border-radius: 15px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             }
 
             .page-title {
@@ -103,7 +101,7 @@
                 padding: 30px;
                 border-radius: 15px;
                 color: white;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             }
 
             .child-image-wrapper {
@@ -117,7 +115,7 @@
                 border-radius: 50%;
                 object-fit: cover;
                 border: 5px solid white;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
 
             .gender-badge {
@@ -131,7 +129,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             }
 
             .male-icon {
@@ -146,7 +144,7 @@
                 font-size: 32px;
                 font-weight: bold;
                 margin-bottom: 5px;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
             .child-class {
@@ -158,7 +156,7 @@
                 background: white;
                 border-radius: 15px;
                 padding: 30px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             }
 
             .form-grid {
@@ -255,6 +253,9 @@
                 color: #777;
             }
 
+            .form-actions {
+                margin-top: 20px;
+            }
 
             .btn {
                 padding: 8px 20px;
@@ -263,59 +264,23 @@
                 color: #333;
                 border-radius: 4px;
                 cursor: pointer;
+                margin-right: 10px;
             }
 
             .btn:hover {
                 background-color: #f0f0f0;
             }
-
-
-
-
         </style>
     </head>
 
     <body>
         <div class="wrapper">
-            <div class="home">
-                <!-- Giữ nguyên sidebar bên trái -->
-                <div class="left-side-menu">
-                    <div class="vertical-menu">
-                        <div class="user-welcome">
-                            <img class="user-img" src="${pageContext.request.contextPath}/parent/img/userImg/dummy-user-img.png" style="width: 80px; height: 80px;" alt="">
-                            <p>${sessionScope.account.firstName} ${sessionScope.account.lastName}</p>
-                        </div>
-                        <div class="menu-item-container">
-                            <ul class="item-lists">
-                                <li class="menu-item current1">
-                                    <a href="${pageContext.request.contextPath}/childrenlist">Child Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="border-top: 3px solid gray;"></div>
-                        <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
-                            <input type="button" class="log-out_button" onclick="window.location.replace('${pageContext.request.contextPath}/homepage/events')" value="Log out"/>
-                        </div>
-                    </div>
-                </div>
+            <jsp:include page="/view/sidebarParent.jsp" />
 
-                <!-- Phần hiển thị chi tiết trẻ em -->
+            <div class="right-side">
                 <div class="child-details-container">
                     <h1 class="page-title">Child Profile Details</h1>
 
-                    <!-- Hiển thị thông báo thành công hoặc lỗi -->
                     <c:if test="${not empty successMessage}">
                         <div class="alert alert-success">
                             <i class="fas fa-check-circle"></i>
@@ -331,7 +296,6 @@
                     </c:if>
 
                     <div class="profile-section">
-                        <!-- Phần header với ảnh và tên trẻ -->
                         <div class="child-header">
                             <div class="child-image-wrapper">
                                 <c:choose>
@@ -346,88 +310,78 @@
                                     <i class="fas ${kindergartner.gender ? 'fa-mars' : 'fa-venus'}"></i>
                                 </div>
                             </div>
-
                             <div>
                                 <div class="child-name-large">${kindergartner.first_name} ${kindergartner.last_name}</div>
                                 <div class="child-class">Class: ${className}</div>
                             </div>
                         </div>
 
-                        <!-- Form cập nhật thông tin -->
                         <div class="form-container">
                             <form action="${pageContext.request.contextPath}/childrendetail" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="kinder_id" value="${kindergartner.kinder_id}">
 
                                 <div class="form-grid">
                                     <div class="form-group">
-                                        <label class="form-label" for="first_name">First Name</label>
-                                        <input type="text" id="first_name" name="first_name" class="form-control" value="${kindergartner.first_name}" required>
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" name="first_name" class="form-control" value="${kindergartner.first_name}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="last_name">Last Name</label>
-                                        <input type="text" id="last_name" name="last_name" class="form-control" value="${kindergartner.last_name}" required>
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" name="last_name" class="form-control" value="${kindergartner.last_name}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="dob">Date of Birth</label>
-                                        <input type="date" id="dob" name="dob" class="form-control" value="${kindergartner.dob}" required>
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" name="dob" class="form-control" value="${kindergartner.dob}" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-label">Gender</label>
                                         <div class="radio-group">
                                             <label class="radio-option">
-                                                <input type="radio" id="gender_male" name="gender" value="male" ${kindergartner.gender ? 'checked' : ''}>
-                                                Male
+                                                <input type="radio" name="gender" value="male" ${kindergartner.gender ? 'checked' : ''}> Male
                                             </label>
                                             <label class="radio-option">
-                                                <input type="radio" id="gender_female" name="gender" value="female" ${!kindergartner.gender ? 'checked' : ''}>
-                                                Female
+                                                <input type="radio" name="gender" value="female" ${!kindergartner.gender ? 'checked' : ''}> Female
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="address">Address</label>
-                                        <input type="text" id="address" name="address" class="form-control" value="${kindergartner.address}">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" name="address" class="form-control" value="${kindergartner.address}">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="parentPhone">Parent Phone</label>
-                                        <input type="text" id="parentPhone" name="parentPhone" class="form-control" value="${kindergartner.parentPhone}">
+                                        <label class="form-label">Parent Phone</label>
+                                        <input type="text" name="parentPhone" class="form-control" value="${kindergartner.parentPhone}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label" for="img">Profile Image</label>
+                                    <label class="form-label">Profile Image</label>
                                     <div class="file-upload">
                                         <label class="file-upload-label">
                                             <i class="fas fa-cloud-upload-alt"></i> Choose a new image
-                                            <input type="file" id="img" name="img" accept="image/*">
+                                            <input type="file" name="img" accept="image/*">
                                         </label>
                                         <span class="file-upload-info">Leave empty to keep current image</span>
                                     </div>
                                 </div>
 
+                                <div class="form-actions">
+                                    <button type="submit" class="btn">Update</button>
+                                    <button type="button" class="btn" onclick="window.location.href = '${pageContext.request.contextPath}/childrenlist'">Back to List</button>
+                                </div>
 
-
-
-
+                            </form>
                         </div>
-                        </form>
                     </div>
-                    <div class="form-actions">
-                        <button type="submit" class="">
-                            Update
-                        </button>
-                        <button type="button" class="btn btn-secondary" onclick="window.location.href = '${pageContext.request.contextPath}/childrenlist'">
-                            Back to List
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
+
 </html>

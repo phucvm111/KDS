@@ -9,7 +9,7 @@
     <div class="menu-item-container">
         <ul class="item-lists">
             <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/childdetailservlet">
+                <a href="${pageContext.request.contextPath}/childrenlist">
                     <i class="fa-solid fa-child"></i> Thông tin trẻ
                 </a>
             </li>
