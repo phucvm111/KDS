@@ -21,6 +21,15 @@
     </head>
 
     <body>
+
+        <c:if test="${not empty success}">
+            <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+                ${success}
+                <c:if test="${not empty registeredChild}">
+                    <p>Đã đăng ký thành công cho trẻ: ${registeredChild.first_name} ${registeredChild.last_name}</p>
+                </c:if>
+            </div>
+        </c:if>
         <!-- Link to Add child to database -->
 
         <div class="wrapper">
@@ -34,13 +43,13 @@
                         <div class="menu-item-container">
                             <ul class="item-lists">
                                 <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
+                                    <a href="${pageContext.request.contextPath}/childrenlist">Child Information</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
                                 <li class="menu-item  current1">
-                                    <a href="${pageContext.request.contextPath}/parent/childregister.jsp">Child Register</a>
+                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
                                 </li>
                                 <li class="menu-item  ">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
@@ -48,7 +57,7 @@
                                 <li class="menu-item  ">
                                     <a href="${pageContext.request.contextPath}/viewmeetings">View Meetings</a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <div style="border-top: 3px solid gray;"></div>
@@ -66,7 +75,7 @@
                     </div>
                 </c:if>
                 <c:if test="${!classlist.isEmpty()}">
-                    <form action="${pageContext.request.contextPath}/childregister" method="POST">
+                    <form action="${pageContext.request.contextPath}/childregister" method="POST" enctype="multipart/form-data">
                         <div class="child-register">
                             <div class="page-content">
                                 <div class="kid-register">
@@ -139,6 +148,16 @@
                                                     </div>     
                                                 </div>
                                             </div>
+                                            <!-- Thêm trường cho ảnh hồ sơ -->
+                                            <div class="mb-3">
+                                                <div class="content-item">
+                                                    <div class="item-title">
+                                                        <strong>Profile Image</strong>
+                                                    </div>
+                                                    <label for="profileImage" class="form-label"></label>
+                                                    <input type="file" class="class content-item" id="profileImage" name="profileImage" accept="image/*">     
+                                                </div>
+                                            </div>
                                             <div class="mb-3">
                                                 <div class="content-item">
                                                     <div class="item-title">
@@ -154,6 +173,9 @@
                                                     </select>  
                                                 </div>
                                             </div>
+                                            
+
+
                                             <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 250px ">
                                                 <input type="button" class="button" onclick="openPopup()" value="Confirm"/>
                                                 <div class="popup" id="popup">
@@ -183,66 +205,45 @@
                 }
             </script>
             <script>
-            var fname = document.getElementById("ChildFirstName");
-            var lname = document.getElementById("ChildLastName");
-            
-            fname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (fname.value.match(numbers)) {
-                    document.getElementById("fnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid1").style.display = "none";
-                }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (fname.value.match(specs)) {
-                    document.getElementById("fnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("fnameinvalid2").style.display = "none";
-                }
-            }
+                var fname = document.getElementById("ChildFirstName");
+                var lname = document.getElementById("ChildLastName");
 
-            lname.onkeyup = function () {
-                var numbers = /[0-9]/g;
-                if (lname.value.match(numbers)) {
-                    document.getElementById("lnameinvalid1").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid1").style.display = "none";
+                fname.onkeyup = function () {
+                    var numbers = /[0-9]/g;
+                    if (fname.value.match(numbers)) {
+                        document.getElementById("fnameinvalid1").style.display = "block";
+                    } else {
+                        document.getElementById("fnameinvalid1").style.display = "none";
+                    }
+                    var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                    if (fname.value.match(specs)) {
+                        document.getElementById("fnameinvalid2").style.display = "block";
+                    } else {
+                        document.getElementById("fnameinvalid2").style.display = "none";
+                    }
                 }
-                var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                if (lname.value.match(specs)) {
-                    document.getElementById("lnameinvalid2").style.display = "block";
-                } else {
-                    document.getElementById("lnameinvalid2").style.display = "none";
-                }
-            }
 
-            
-        </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+                lname.onkeyup = function () {
+                    var numbers = /[0-9]/g;
+                    if (lname.value.match(numbers)) {
+                        document.getElementById("lnameinvalid1").style.display = "block";
+                    } else {
+                        document.getElementById("lnameinvalid1").style.display = "none";
+                    }
+                    var specs = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                    if (lname.value.match(specs)) {
+                        document.getElementById("lnameinvalid2").style.display = "block";
+                    } else {
+                        document.getElementById("lnameinvalid2").style.display = "none";
+                    }
+                }
+
+
+            </script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         </c:if>
     </body>
-
-
-
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

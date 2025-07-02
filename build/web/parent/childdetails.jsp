@@ -27,13 +27,13 @@
                         <div class="menu-item-container">
                             <ul class="item-lists">
                                 <li class="menu-item current1">
-                                    <a href="${pageContext.request.contextPath}/childdetailservlet">Child Information</a>
+                                    <a href="${pageContext.request.contextPath}/parent/childdetailservlet">Child Information</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/parent/parentprofile.jsp">Parent Information</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="${pageContext.request.contextPath}/childregister">Child Register</a>
+                                    <a href="${pageContext.request.contextPath}/parent/childregister">Child Register</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="${pageContext.request.contextPath}/changepassword">Change Password</a>
