@@ -5,6 +5,12 @@
 <head>
     <title>Gửi đơn</title>
 
+    <!-- Load Font Awesome nếu sidebar có icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- CSS của sidebar -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,9 +19,18 @@
             padding: 0;
         }
 
+        .wrapper {
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+        }
+
         .container {
             max-width: 700px;
-            margin: 50px auto;
+            margin: auto;
             background: #fff;
             padding: 30px 40px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -75,45 +90,48 @@
 </head>
 <body>
 
-<div class="container">
-    <h2>Gửi đơn</h2>
-<p style="color: red">Lưu ý: hãy cập nhật thông tin trẻ trước khi gửi đơn</p>
-    <form action="${pageContext.request.contextPath}/sendform" method="post">
-      
-        <label for="formType">Loại đơn:</label>
-        <select name="formTypeId" id="formType" required>
-            <c:forEach var="type" items="${formTypes}">
-                <option value="${type.form_type_id}">${type.type_name}</option>
-            </c:forEach>
-        </select>
+<div class="wrapper">
+    <!-- Include sidebar -->
+    <jsp:include page="/view/sidebarParent.jsp" />
 
-       
-        <label for="kinderId">Chọn bé:</label>
-        <select name="kinderId" id="kinderId">
-           
-            <c:forEach var="kid" items="${kinderList}">
-                <option value="${kid.kinder_id}">${kid.first_name} ${kid.last_name}</option>
-            </c:forEach>
-        </select>
+    <div class="main-content">
+        <div class="container">
+            <h2>Gửi đơn</h2>
+            <p style="color: red">Lưu ý: hãy cập nhật thông tin trẻ trước khi gửi đơn</p>
 
-   
-        <label for="title">Tiêu đề:</label>
-        <input type="text" name="title" id="title" required>
+            <form action="${pageContext.request.contextPath}/sendform" method="post">
 
-    
-        <label for="content">Nội dung:</label>
-        <textarea name="content" id="content" rows="6" required></textarea>
+                <label for="formType">Loại đơn:</label>
+                <select name="formTypeId" id="formType" required>
+                    <c:forEach var="type" items="${formTypes}">
+                        <option value="${type.form_type_id}">${type.type_name}</option>
+                    </c:forEach>
+                </select>
 
-     
-        <div class="btn-group">
-            <a href="historyform" class="btn-secondary" style="text-decoration: none;">
-                <button type="button" class="btn-secondary">Lịch sử gửi đơn</button>
-            </a>
-            <button type="submit">Gửi đơn</button>
-            <p style="color: green">${success}</p>
-            <p style="color: red">${error}</p>
+                <label for="kinderId">Chọn bé:</label>
+                <select name="kinderId" id="kinderId" required>
+                    <c:forEach var="kid" items="${kinderList}">
+                        <option value="${kid.kinder_id}">${kid.first_name} ${kid.last_name}</option>
+                    </c:forEach>
+                </select>
+
+                <label for="title">Tiêu đề:</label>
+                <input type="text" name="title" id="title" required>
+
+                <label for="content">Nội dung:</label>
+                <textarea name="content" id="content" rows="6" required></textarea>
+
+                <div class="btn-group">
+                    <a href="${pageContext.request.contextPath}/historyform" class="btn-secondary" style="text-decoration: none;">
+                        <button type="button" class="btn-secondary">Lịch sử gửi đơn</button>
+                    </a>
+                    <button type="submit">Gửi đơn</button>
+                    <p style="color: green">${success}</p>
+                    <p style="color: red">${error}</p>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 </body>

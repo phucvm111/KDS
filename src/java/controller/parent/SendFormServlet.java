@@ -26,7 +26,6 @@ import model.Kindergartner;
  *
  * @author ACE
  */
-
 public class SendFormServlet extends HttpServlet {
 
     /**
@@ -129,12 +128,15 @@ public class SendFormServlet extends HttpServlet {
         Form form = new Form(formstyle, acc, kindergartner, title, content, dateofsubmit, "Pending", "");
         try {
             sf.insertForm(form);
-            request.setAttribute("success", "Đã gửi đơn thành công và các thông tin đơn nằm trong lịch.");
+            request.setAttribute("success", "Đã gửi đơn thành công ");
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Gửi đơn thất bại! Vui lòng thử lại.");
         }
-        request.getRequestDispatcher("/parent/sendform/sendForm.jsp").forward(request, response);
+
+        List<Form> forms = sf.getFormByParentId(senderid);
+        request.setAttribute("formList", forms);
+        request.getRequestDispatcher("/parent/sendform/historyForm.jsp").forward(request, response);
 
     }
 

@@ -253,7 +253,7 @@
             
             <c:set var="backLink" value="listschedule" />
             <c:if test="${sessionScope.account.role.roleID == 3}">
-                <c:set var="backLink" value="childdetailservlet" />
+                <c:set var="backLink" value="parentprofile" />
             </c:if>
             <c:if test="${sessionScope.account.role.roleID == 2}">
                 <c:set var="backLink" value="attendance" />
