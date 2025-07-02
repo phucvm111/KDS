@@ -63,7 +63,7 @@ public class ViewKinderListServlet extends HttpServlet {
                     true;
             };
             boolean matchClass = classId == -1 || sr.getClassID().getClass_id() == classId;
-            boolean matchName = keyword.isEmpty() || sr.getKinder().getFullName().toLowerCase().contains(keyword);
+            boolean matchName = keyword.isEmpty() || sr.getKinder().getFirst_name().toLowerCase().contains(keyword);
 
             if (matchStatus && matchClass && matchName) {
                 filtered.add(sr);

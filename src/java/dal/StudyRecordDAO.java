@@ -415,7 +415,7 @@ public class StudyRecordDAO {
         System.out.println("🔍 Tổng số học sinh đang học năm " + year + ": " + studyingList.size());
 
         for (StudyRecord sr : studyingList) {
-            System.out.println("👦 " + sr.getKinder().getFullName()
+            System.out.println("👦 " + sr.getKinder().getFirst_name()
                     + " | Lớp: " + sr.getClassID().getClass_name()
                     + " | Tốt nghiệp: " + sr.isGraduated()
                     + " | Thôi học: " + sr.isDroppedOut());
