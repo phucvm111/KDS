@@ -2,25 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/parent/SendFormServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/parent/parentprofile.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/LoginServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/parent/HistoryFormServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/login.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/parent/sendform/historyForm.jsp</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/parent/sendform/formDetail.jsp</file>
-=======
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/ViewKinderListServlet.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/admin/kinder/kinder_view.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/StudyRecord.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/DropoutServlet.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/GraduateServlet.java</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/admin/kinder/kinderAdminPage.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/admin/kinder/students.jsp</file>
-            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/KinderRecordStudy.java</file>
->>>>>>> 0536ea6e8ae0112333d288beeee5081b5145af93
-        </group>
+        <group/>
     </open-files>
 </project-private>

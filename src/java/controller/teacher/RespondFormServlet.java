@@ -64,7 +64,7 @@ public class RespondFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         SendformDAO sf = new SendformDAO();
         StudyRecordDAO sr = new StudyRecordDAO();
 
@@ -109,7 +109,14 @@ public class RespondFormServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            HttpSession session=request.getSession();
+          
+            
+            
+            
+            
+            
+
+            HttpSession session = request.getSession();
             SendformDAO dao = new SendformDAO();
             String formString = request.getParameter("form_id");
             int formid = Integer.parseInt(formString);
@@ -120,14 +127,19 @@ public class RespondFormServlet extends HttpServlet {
             f.setStatus(request.getParameter("status"));
             f.setReply(request.getParameter("reply"));
 
-            
-            
             dao.updateReplyAndStatus(f);
             List<Form> formList = dao.getUnrepliedForms();
             request.setAttribute("formList", formList);
-            List<model.Class> classList=(List<model.Class>)session.getAttribute("classList");
+            List<model.Class> classList = (List<model.Class>) session.getAttribute("classList");
             session.setAttribute("classList", classList);
             request.setAttribute("success", "Phản hồi tới " + fullname + " " + "thành công");
+            
+            
+            
+            
+   
+    
+            
 
             request.getRequestDispatcher("/teacher/respond_form.jsp").forward(request, response);
         } catch (Exception e) {
