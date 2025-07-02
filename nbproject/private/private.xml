@@ -3,11 +3,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/admin/notification/listnotification.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/NotificationDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/MenuDao.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/admin/kinder/kinder_view.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/Kindergartner.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/StudentStatusServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/GraduateServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/notifications/AdminNotificationServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/Account.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/teacher/RespondFormServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/ViewKinderListServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/teacher/HistoryRespondFormServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/admin/kindergartner/DropoutServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/StudyRecord.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/KindergartnerDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/teacher/AttendanceServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/parent/ChildRegisterServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/Notification.java</file>
+
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/dal/SendformDAO.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/parent/HistoryFormServlet.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/teacher/HistoryRespondFormServlet.java</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/teacher/Historyreplyform.jsp</file>
             <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/WEB-INF/web.xml</file>
+
         </group>
     </open-files>
 </project-private>
