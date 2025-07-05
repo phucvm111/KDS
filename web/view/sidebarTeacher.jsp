@@ -10,11 +10,11 @@
     </div>
     <div class="menu-item-container">
         <ul class="item-lists">
-<!--            <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacher/home">
-                    <i class="fa-solid fa-home"></i> Trang chủ
-                </a>
-            </li>-->
+            <!--            <li class="menu-item">
+                            <a href="${pageContext.request.contextPath}/teacher/home">
+                                <i class="fa-solid fa-home"></i> Trang chủ
+                            </a>
+                        </li>-->
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/leavehistory"> 
                     <i class="fa-solid fa-file-alt"></i> Đơn xin nghỉ phép
@@ -46,10 +46,15 @@
                 </a>
             </li>
 
-            
+
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/teacher/viewImages">
                     <i class="fa-solid fa-image"></i> Xem ảnh
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/teacher/parentmeetings">
+                    <i class="fa-solid fa-people-group"></i> Cuộc họp phụ huynh
                 </a>
             </li>
 

@@ -109,19 +109,22 @@
 
                 <div class="menu-items">
                     <ul class="nav-links">
-                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
-                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
-                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
-                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
-                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
+                        <%-- Sử dụng pageContext.request.contextPath để đường dẫn luôn đúng --%>
+                        <li><a href="${pageContext.request.contextPath}/dashboard"><i class="uil uil-dashboard"></i><span class="link-name">Trang chính</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/listaccount"><i class="uil uil-estate"></i><span class="link-name">Tài Khoản </span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/listkinder"><i class="uil uil-chart"></i><span class="link-name">Học sinh</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/listclass"><i class="uil uil-thumbs-up"></i><span class="link-name">Lớp</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/listschedule"><i class="uil uil-comments"></i><span class="link-name">Lịch Học</span></a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/event"><i class="uil uil-calendar-alt"></i><span class="link-name">Sự Kiện</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/day_class"><i class="uil uil-utensils-alt"></i><span class="link-name">Dinh Dưỡng</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/adminleaverequests"><i class="uil uil-file-alt"></i><span class="link-name">Đơn từ</span></a></li>
                         <li>
-                            <a href="day_class">
-                                <i class="uil uil-utensils-alt"></i>
-                                <span class="link-name">Nutrition</span>
+                            <a href="${pageContext.request.contextPath}/notification">
+                                <i class="uil uil-bell"></i><span class="link-name">Thông Báo</span>
                             </a>
                         </li>
+                        <li><a href="${pageContext.request.contextPath}/changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Đổi Mật Khẩu</span></a></li>
 
                     </ul>
                     <ul class="logout-mode">
