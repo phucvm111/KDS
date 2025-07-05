@@ -27,10 +27,10 @@
             <nav>
                 <div class="logo-name">
                     <div class="logo-image">
-                        <img src="images/logo.jpg" alt="Logo">
+                        <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
                     </div>
                     <span class="logo_name">
-                        <a href="listaccount">Admin Page</a>
+                        <a href="dashboard">Admin Page</a>
                     </span>
                 </div>
 

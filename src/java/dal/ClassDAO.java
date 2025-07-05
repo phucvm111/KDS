@@ -24,7 +24,8 @@ public class ClassDAO extends DBContext {
     private Connection connection;
     private PreparedStatement ps;
     private ResultSet rs;
-public void updateClass(Class cl) {
+
+    public void updateClass(Class cl) {
         try {
             String sql = "UPDATE [Class]   SET [class_name] = ?\n"
                     + "                      ,[grade] = ?\n"
@@ -46,6 +47,7 @@ public void updateClass(Class cl) {
         }
 
     }
+
     public void addClass(Class c) {
         String sql = "insert into Class values(?,?,?,?)";
         try {
@@ -61,6 +63,7 @@ public void updateClass(Class cl) {
 
         }
     }
+
     public void deleteAccount(int id) {
         try {
             String sql = "DELETE FROM [Class]\n"
@@ -115,31 +118,30 @@ public void updateClass(Class cl) {
         return null;
     }
 
-    
     public Class getClassByTeacherID(int teacherId) {
-    String sql = "SELECT * FROM class WHERE teacher_id = ?";
-    try {
-        AccountDAO ad = new AccountDAO();
-        connection = new DBContext().getConnection();
-        ps = connection.prepareStatement(sql);
-        ps.setInt(1, teacherId);
-        rs = ps.executeQuery();
+        String sql = "SELECT * FROM class WHERE teacher_id = ?";
+        try {
+            AccountDAO ad = new AccountDAO();
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, teacherId);
+            rs = ps.executeQuery();
 
-        if (rs.next()) {
-            Class c = new Class();
-            c.setClass_id(rs.getInt("class_id"));
-            c.setClass_name(rs.getString("class_name"));
-            c.setGrade(rs.getInt("grade"));
-            c.setClass_description(rs.getString("class_description"));
-            Account a = ad.getAccountByID(rs.getInt("teacher_id"));
-            c.setAcc(a);
-            return c;
+            if (rs.next()) {
+                Class c = new Class();
+                c.setClass_id(rs.getInt("class_id"));
+                c.setClass_name(rs.getString("class_name"));
+                c.setGrade(rs.getInt("grade"));
+                c.setClass_description(rs.getString("class_description"));
+                Account a = ad.getAccountByID(rs.getInt("teacher_id"));
+                c.setAcc(a);
+                return c;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi ra để debug dễ hơn
         }
-    } catch (Exception e) {
-        e.printStackTrace(); // In lỗi ra để debug dễ hơn
+        return null;
     }
-    return null;
-}
 
     public Class getClassByID(int id) {
 
@@ -167,10 +169,46 @@ public void updateClass(Class cl) {
         return null;
     }
 
+    public List<Class> getClassesByTeacher(int teacherId) {
+        List<Class> list = new ArrayList<>();
+        String sql = """
+        SELECT c.*, 
+               a.account_id, a.first_name, a.last_name, a.email
+        FROM Class c
+        JOIN Account a ON c.teacher_id = a.account_id
+        WHERE c.teacher_id = ?
+    """;
+
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, teacherId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account acc = new Account();
+                acc.setAccountID(rs.getInt("account_id"));
+                acc.setFirstName(rs.getString("first_name"));
+                acc.setLastName(rs.getString("last_name"));
+                acc.setEmail(rs.getString("email"));
+                // ... nếu cần thêm thì add tiếp
+
+                Class c = new Class();
+                c.setClass_id(rs.getInt("class_id"));
+                c.setClass_name(rs.getString("class_name"));
+                c.setGrade(rs.getInt("grade"));
+                c.setClass_description(rs.getString("class_description"));
+                c.setAcc(acc);
+
+                list.add(c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ClassDAO cd = new ClassDAO();
-        Class classs=cd.getClassByTeacherID(2);
-        
+        Class classs = cd.getClassByTeacherID(2);
+
         System.out.println(classs);
     }
 }
