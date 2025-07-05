@@ -59,6 +59,13 @@
     <body>
 
         <h1>Lịch sử phản hồi các đơn</h1>
+        <!-- 🔍 Thanh tìm kiếm -->
+        <form action="historyreply" method="get" style="margin-bottom: 20px;">
+            <input type="hidden" name="action" value="search">
+            <input type="text" name="keyword" value="${param.keyword}" placeholder="🔍 Tìm kiếm theo người gửi, trẻ hoặc nội dung..."
+                   style="padding: 10px; width: 300px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            <button type="submit" style="padding: 10px 16px; border: none; background-color: #007bff; color: white; border-radius: 5px; margin-left: 5px;">Tìm</button>
+        </form>
 
         <table>
             <thead>
@@ -101,7 +108,7 @@
             </tbody>
         </table>
         <p style="color: greenyellow">${success}</p>
-         <p style="color: red">${error}</p>
+        <p style="color: red">${error}</p>
         <div class="back-button">
             <button onclick="history.back()">← Quay lại</button>
         </div>

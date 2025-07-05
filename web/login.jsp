@@ -61,8 +61,8 @@
                       
                     </div>
                     <span>or use your account</span>
-                    <input type="text" name="email" placeholder="Email" required=""/><br />
-                    <input type="password" name="password" placeholder="Password" required=""/><br />
+                    <input type="text" name="email" placeholder="Email" required="" value="${email}"/><br />
+                    <input type="password" name="password" placeholder="Password" value="${password}" required=""/><br />
                     <!--<br />-->
                     <!--<a href="#">Forgot your password?</a>-->
                     <!--<c:if test="${requestScope.error != null}">-->
