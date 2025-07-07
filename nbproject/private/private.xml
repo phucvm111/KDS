@@ -2,6 +2,28 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/teacher/attendance/AttendanceReportServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/Attendance/attendance.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/css/checkattendence.css</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/Kindergartner.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/AttendanceDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/uploadImage.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/ClassDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/Attendance/attendance_form.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/view/sidebarTeacher.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/Historyreplyform.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/checkAttendence.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/viewImages.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/dal/KindergartnerDAO.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/Attendance/attendance_report.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/leaveHistory.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/controller/teacher/attendance/AttendanceServlet.java</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/css/attendance.css</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/web/teacher/leaveRequestForm.jsp</file>
+            <file>file:/C:/Users/admin/OneDrive/Desktop/2506/KDS/src/java/model/Attendance.java</file>
+        </group>
     </open-files>
 </project-private>
