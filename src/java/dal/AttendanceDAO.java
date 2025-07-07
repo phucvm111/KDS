@@ -222,3 +222,174 @@
 //    }
 //
 //}
+package dal;
+
+import model.Account;
+import model.Attendance;
+import model.Kindergartner;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.Date;
+
+public class AttendanceDAO extends DBContext {
+
+    private Connection connection;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
+    public List<Attendance> getAttendanceByDateAndClass(Date date, int classId) {
+        List<Attendance> list = new ArrayList<>();
+        String sql = """
+            SELECT a.kinder_id, a.check_date, a.status, a.teacher_id
+            FROM Attendance a
+            JOIN Study_Record s ON a.kinder_id = s.kinder_id
+            WHERE s.class_id = ? AND a.check_date = ?
+        """;
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, classId);
+            ps.setDate(2, date);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Attendance att = new Attendance();
+                Kindergartner kid = new Kindergartner();
+                kid.setKinder_id(rs.getInt("kinder_id"));
+                att.setKinder(kid);
+                att.setCheck_date(rs.getDate("check_date").toString());
+                att.setStatus(rs.getString("status").equalsIgnoreCase("Present") ? 1 : 0);
+                Account teacher = new Account();
+                teacher.setAccountID(rs.getInt("teacher_id"));
+                att.setTeacherAccount(teacher);
+                list.add(att);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return list;
+    }
+
+    public void insertOrUpdateAttendance(Attendance att) {
+        String sql = """
+            MERGE INTO Attendance AS target
+            USING (SELECT ? AS kinder_id, ? AS check_date) AS source
+            ON target.kinder_id = source.kinder_id AND target.check_date = source.check_date
+            WHEN MATCHED THEN
+                UPDATE SET status = ?, teacher_id = ?
+            WHEN NOT MATCHED THEN
+                INSERT (kinder_id, check_date, status, teacher_id) VALUES (?, ?, ?, ?);
+        """;
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, att.getKinder().getKinder_id());
+            ps.setDate(2, Date.valueOf(att.getCheck_date()));
+            ps.setString(3, att.getStatus() == 1 ? "Present" : "Absent");
+            ps.setInt(4, att.getTeacherAccount().getAccountID());
+            ps.setInt(5, att.getKinder().getKinder_id());
+            ps.setDate(6, Date.valueOf(att.getCheck_date()));
+            ps.setString(7, att.getStatus() == 1 ? "Present" : "Absent");
+            ps.setInt(8, att.getTeacherAccount().getAccountID());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public Map<String, Double> getAttendanceStatistics(int classId, int month, int year) {
+        Map<String, Double> stats = new LinkedHashMap<>();
+        String sql = """
+            SELECT k.first_name, k.last_name,
+                   SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END) as present_days,
+                   COUNT(*) as total_days
+            FROM Attendance a
+            JOIN Kindergartner k ON a.kinder_id = k.kinder_id
+            JOIN Study_Record s ON s.kinder_id = k.kinder_id
+            WHERE s.class_id = ? AND MONTH(a.check_date) = ? AND YEAR(a.check_date) = ?
+            GROUP BY k.first_name, k.last_name
+        """;
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, classId);
+            ps.setInt(2, month);
+            ps.setInt(3, year);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                int present = rs.getInt("present_days");
+                int total = rs.getInt("total_days");
+                double percent = total > 0 ? present * 100.0 / total : 0.0;
+                stats.put(name, percent);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return stats;
+    }
+
+    public double getAttendancePercentageForKid(int kinderId) {
+        String sql = """
+        SELECT 
+          SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS present_days,
+          COUNT(*) AS total_days
+        FROM Attendance
+        WHERE kinder_id = ?
+    """;
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, kinderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int present = rs.getInt("present_days");
+                int total = rs.getInt("total_days");
+                return total > 0 ? (present * 100.0 / total) : 0.0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+     /**
+     * đếm số ngày có mặt của 1 trẻ
+     */
+    public int countPresentDays(int kinderId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM Attendance WHERE kinder_id = ? AND status = 1";
+        try (Connection conn = connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, kinderId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    /**
+     * đếm số ngày vắng mặt của 1 trẻ
+     */
+    public int countAbsentDays(int kinderId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM Attendance WHERE kinder_id = ? AND status = 0";
+        try (Connection conn = connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, kinderId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    /**
+     * Tỷ lệ có mặt của 1 trẻ (ví dụ 70%)
+     */
+   
+
+}

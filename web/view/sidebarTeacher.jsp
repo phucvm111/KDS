@@ -16,6 +16,12 @@
                             </a>
                         </li>-->
             <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/attendance">
+                    <i class="fa-solid fa-check-circle"></i> Điểm danh
+                </a>
+            </li>
+
+            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/leavehistory"> 
                     <i class="fa-solid fa-file-alt"></i> Đơn xin nghỉ phép
                 </a>
@@ -57,6 +63,7 @@
                     <i class="fa-solid fa-people-group"></i> Cuộc họp phụ huynh
                 </a>
             </li>
+
 
         </ul>
     </div>
