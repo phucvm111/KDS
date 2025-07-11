@@ -50,6 +50,11 @@
                     <i class="fa-solid fa-image"></i> Xem ảnh hằng ngày
                 </a>
             </li>
+                <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/paymoney">
+                    <i class="fa-solid fa-image"></i> Thanh toán hóa đơn
+                </a>
+            </li>
 
         </ul>
     </div>

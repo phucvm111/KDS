@@ -27,6 +27,7 @@
             <li><a href="${pageContext.request.contextPath}/event"><i class="uil uil-calendar-alt"></i><span class="link-name">Event</span></a></li>
             <li><a href="${pageContext.request.contextPath}/day_class"><i class="uil uil-utensils-alt"></i><span class="link-name">Nutrition</span></a></li>
             <li><a href="${pageContext.request.contextPath}/adminleaverequests"><i class="uil uil-file-alt"></i><span class="link-name">LeaveRequests</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/tutitionfree"><i class="uil uil-file-alt"></i><span class="link-name">Quản lí thanh toán học phí</span></a></li>
             <li>
                 <a href="${pageContext.request.contextPath}/notification">
                     <i class="uil uil-bell"></i><span class="link-name">Notifications</span>

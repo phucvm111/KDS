@@ -10,7 +10,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/adminSidebar.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarTeacher.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css">
         <!----======== CSS ======== -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <link rel="stylesheet" href="admin/schedule/css/style.css">
@@ -26,62 +28,22 @@
     </head>
 
     <body>
-        <c:if test="${sessionScope.userid == 1}">
-            <nav>
-                <div class="logo-name">
-                    <div class="logo-image">
-                        <!--<img src="images/logo.png" alt="">-->
-                    </div>
+        <c:choose>
+            <c:when test="${sessionScope.userid == 1}">
+                <jsp:include page="/view/adminSidebar.jsp" />
+            </c:when>
+            <c:when test="${sessionScope.userid == 2}">
+                <jsp:include page="/view/sidebarTeacher.jsp" />
+            </c:when>
+            <c:when test="${sessionScope.userid == 3}">
+                <jsp:include page="/view/sidebarParent.jsp" />
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="/view/defaultSidebar.jsp" />
+            </c:otherwise>
+        </c:choose>
 
-                    <span class="logo_name">Admin Page</span>
-                </div>
-
-                <div class="menu-items">
-                    <ul class="nav-links">
-                        <li><a href="listaccount">
-                                <i class="uil uil-estate"></i>
-                                <span class="link-name">Account</span>
-                            </a></li>
-
-                        <li><a href="listkinder">
-                                <i class="uil uil-chart"></i>
-                                <span class="link-name">Kindergartner</span>
-                            </a></li>
-                        <li><a href="listclass">
-                                <i class="uil uil-thumbs-up"></i>
-                                <span class="link-name">Class</span>
-                            </a></li>
-                        <li><a href="listschedule">
-                                <i class="uil uil-comments"></i>
-                                <span class="link-name">Schedule</span>
-                            </a></li>
-                        <li><a href="changepassword">
-                                <i class="uil uil-lock-alt"></i>
-                                <span class="link-name">Change Password</span>
-                            </a></li>
-                        <li><a href="day_class">
-                                <i class="uil uil-user-square"></i>
-                                <span class="link-name">Nutrition</span>
-                            </a></li>
-
-                        <!--                    <li><a href="#">
-                                                    <i class="uil uil-share"></i>
-                                                    <span class="link-name">Attendance</span>
-                                                </a></li>-->
-                    </ul>
-
-                    <ul class="logout-mode">
-                        <li>
-                            <a href="logout">
-                                <i class="uil uil-signout"></i>
-                                <span class="link-name">Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </c:if>
-
+ 
         <div class="dashboard">
             <div class="dash-lefttop">
                 <img src="https://i.pinimg.com/originals/72/45/fb/7245fb0ca786bb4a98fb8465e437c5bb.jpg" alt="">
