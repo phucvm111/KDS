@@ -20,6 +20,10 @@
         <servlet-name>paymoneyServlet</servlet-name>
         <servlet-class>controller.parent.paymoneyServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>paymenthistoryServerlet</servlet-name>
+        <servlet-class>controller.parent.paymenthistoryServerlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
         <url-pattern>/pay</url-pattern>
@@ -599,6 +603,10 @@
     <servlet-mapping>
         <servlet-name>paymoneyServlet</servlet-name>
         <url-pattern>/paymoney</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymenthistoryServerlet</servlet-name>
+        <url-pattern>/paymenthistory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
 package controller.parent;
 
 import dal.KindergartnerDAO;
+import dal.PaymentHistoryDAO;
 import dal.TutitionFreeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Account;
 import model.Kindergartner;
+import model.PaymentHistory;
 import model.TutitionFree;
 
 /**
@@ -61,43 +63,62 @@ public class paymoneyServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        KindergartnerDAO kd = new KindergartnerDAO();
-        TutitionFreeDAO td = new TutitionFreeDAO();
-        List<TutitionFree> tuitionfrees = new ArrayList<>();
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    KindergartnerDAO kd = new KindergartnerDAO();
+    TutitionFreeDAO td = new TutitionFreeDAO();
+    PaymentHistoryDAO phd = new PaymentHistoryDAO(); // ✅ thêm DAO mới
+    List<TutitionFree> tuitionfrees = new ArrayList<>();
 
-        Account account = (Account) session.getAttribute("account");
+    Account account = (Account) session.getAttribute("account");
 
-        // ✅ Bước 1: Lấy thông tin đơn hàng từ VNPay trả về
-        String orderInfo = request.getParameter("vnp_OrderInfo");
-        String responseCode = request.getParameter("vnp_ResponseCode");
+    // ✅ Lấy thông tin từ VNPay callback
+    String orderInfo = request.getParameter("vnp_OrderInfo");  // ví dụ: "Thanh toan don hang:2"
+    String responseCode = request.getParameter("vnp_ResponseCode"); // "00" nếu thành công
+    String txnRef = request.getParameter("vnp_TxnRef");              // Mã học phí
+    String amountStr = request.getParameter("vnp_Amount");           // Nhân 100
+    String transactionNo = request.getParameter("vnp_TransactionNo");// Mã giao dịch VNPay
 
-        if (orderInfo != null && responseCode != null && responseCode.equals("00")) {
-            // ✅ Bước 2: Parse mã đơn hàng
-            String orderId = orderInfo.substring(orderInfo.lastIndexOf(":") + 1);
-            int tuitionId = Integer.parseInt(orderId);
+    if (orderInfo != null && responseCode != null && txnRef != null && responseCode.equals("00")) {
+        try {
+            int tuitionId = Integer.parseInt(txnRef);
+            double amount = Double.parseDouble(amountStr) / 100.0;
 
-            // ✅ Bước 3: Cập nhật trạng thái đơn hàng thành "Đã nộp"
-            td.updateStatusById(tuitionId);  // <-- bạn đã viết hàm này rồi
-        }
+            // ✅ Cập nhật trạng thái học phí
+            td.updateStatusById(tuitionId); // ví dụ: set status = 'Đã nộp'
 
-        // ✅ Bước 4: Lấy lại danh sách học phí còn "Chưa nộp"
-        List<Kindergartner> kindergartners = kd.getKindergartnersByParentId(account.getAccountID());
-        if (kindergartners != null) {
-            for (Kindergartner kinder : kindergartners) {
-                TutitionFree tf = td.getTuitionFreeByKinderIdChuanop(kinder.getKinder_id());
-                if (tf != null) {
-                    tuitionfrees.add(tf);
-                }
-            }
-            request.setAttribute("tuitionFrees", tuitionfrees);
-            request.getRequestDispatcher("/parent/paymoney.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("error.jsp");
+            // ✅ Lưu vào bảng PaymentHistory
+            PaymentHistory ph = new PaymentHistory(
+                tuitionId,
+                account.getAccountID(),
+                amount,
+                transactionNo,
+                "Success"
+            );
+            phd.insert(ph);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Nếu lỗi parse số
         }
     }
+
+    // ✅ Lấy danh sách học phí còn "Chưa nộp"
+    List<Kindergartner> kindergartners = kd.getKindergartnersByParentId(account.getAccountID());
+    if (kindergartners != null) {
+        for (Kindergartner kinder : kindergartners) {
+            TutitionFree tf = td.getTuitionFreeByKinderIdChuanop(kinder.getKinder_id());
+            if (tf != null) {
+                tuitionfrees.add(tf);
+            }
+        }
+        request.setAttribute("tuitionFrees", tuitionfrees);
+        request.getRequestDispatcher("/parent/paymentparent/paymoney.jsp").forward(request, response);
+    } else {
+        response.sendRedirect("error.jsp");
+    }
+}
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
