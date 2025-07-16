@@ -1,80 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.admin.account;
 
 import dal.AccountDAO;
 import dal.RoleDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.regex.Pattern;
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
-
-
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import model.Account;
 import model.Role;
 
-/**
- *
-<<<<<<< HEAD
- * @author Vu Tuan Hai <HE176383>
- */
 @WebServlet(name = "AddAccountServlet", urlPatterns = {"/AddAccountServlet"})
 public class AddAccountServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddAccountServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddAccountServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     AccountDAO ad = new AccountDAO();
-
-
-
     RoleDAO rd = new RoleDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-
-
 
         List<Account> acts = ad.getAllAccounts();
         List<Role> roles = rd.getAllRoles();
@@ -83,55 +31,84 @@ public class AddAccountServlet extends HttpServlet {
         request.getRequestDispatcher("admin/account/adminAccountAdd.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Lấy dữ liệu và trim
+        String firstName = trimParam(request.getParameter("txtFirstName"));
+        String lastName = trimParam(request.getParameter("txtLastName"));
+        String genderStr = request.getParameter("flexRadioDefault");
+        boolean gender = "male".equalsIgnoreCase(genderStr);
+        String email = trimParam(request.getParameter("txtEmail"));
+        String password = trimParam(request.getParameter("txtPassword"));
+        String dob = trimParam(request.getParameter("dob"));
+        String phone = trimParam(request.getParameter("txtPhone"));
+        String address = trimParam(request.getParameter("ttAddress"));
+        String img = trimParam(request.getParameter("txtImg"));
+        int roleId = Integer.parseInt(request.getParameter("slRole"));
+
+        String error = "";
+
+        // === VALIDATE ===
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            error = "Họ và tên không được để trống.";
+        } else if (firstName.length() > 50 || lastName.length() > 50) {
+            error = "Họ và tên không được vượt quá 50 ký tự.";
+        } else if (!Pattern.matches("^[A-Za-zÀ-ỹà-ỹ\\s]+$", firstName) || !Pattern.matches("^[A-Za-zÀ-ỹà-ỹ\\s]+$", lastName)) {
+            error = "Họ và tên chỉ được chứa chữ cái và khoảng trắng.";
+        } else if (email.isEmpty()) {
+            error = "Email không được để trống.";
+        } else if (!Pattern.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$", email)) {
+            error = "Định dạng email không hợp lệ.";
+        } else if (password.isEmpty() || password.length() < 6) {
+            error = "Mật khẩu phải từ 6 ký tự trở lên.";
+        } else if (dob.isEmpty()) {
+            error = "Ngày sinh không được để trống.";
+        } else {
+            try {
+                LocalDate.parse(dob);
+            } catch (Exception e) {
+                error = "Định dạng ngày sinh không hợp lệ (yyyy-MM-dd).";
+            }
+        }
+
+        if (!phone.isEmpty() && !Pattern.matches("^[0-9]{8,15}$", phone)) {
+            error = "Số điện thoại phải là số, từ 8 đến 15 chữ số.";
+        }
+
+        if (!error.isEmpty()) {
+            request.setAttribute("errorMessage", error);
+            request.setAttribute("roles", rd.getAllRoles());
+            request.getRequestDispatcher("admin/account/adminAccountAdd.jsp").forward(request, response);
+            return;
+        }
+
+        // === Nếu hợp lệ: thêm account ===
         Account ac = new Account();
         ac.setAccountID(0);
+        ac.setFirstName(firstName);
+        ac.setLastName(lastName);
+        ac.setGender(gender);
+        ac.setEmail(email);
+        ac.setPassword(password);
+        ac.setDob(dob);
+        ac.setPhoneNumber(phone);
+        ac.setAddress(address);
+        ac.setImg(img);
+        Role role = rd.getRoleByID(roleId);
+        ac.setRole(role);
 
-
-        ac.setFirstName(request.getParameter("txtFirstName"));
-        ac.setLastName(request.getParameter("txtLastName"));
-        ac.setGender(request.getParameter("flexRadioDefault").equals("male"));
-        ac.setEmail(request.getParameter("txtEmail"));
-        ac.setPassword(request.getParameter("txtPassword"));
-        ac.setDob((request.getParameter("dob")));
-        ac.setPhoneNumber(request.getParameter("txtPhone"));
-        ac.setAddress(request.getParameter("ttAddress"));
-        ac.setImg(request.getParameter("txtImg"));
-        // ac.setRoleId(Integer.parseInt(request.getParameter("slRole")));
-        Role rr = rd.getRoleByID(Integer.parseInt(request.getParameter("slRole")));
-//        Role r = new Role(Integer.parseInt(request.getParameter("slRole")));
-        ac.setRole(rr);
         ad.addAccount(ac);
-        PrintWriter out = response.getWriter();
-        out.print(ac.toString());
         response.sendRedirect("listaccount");
-
-
-
-
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    private String trimParam(String param) {
+        return param != null ? param.trim() : "";
+    }
+
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-
+        return "AddAccountServlet - Thêm tài khoản quản trị với validate tiếng Việt.";
+    }
 }
-

@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
-        <title>Update Teacher Profile</title>
+        <title>Cập nhật thông tin giáo viên</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarTeacher.css" />
 
@@ -90,7 +90,7 @@
                 flex-grow: 1;
                 padding: 40px;
                 max-width: 900px;
-                margin: 0 auto;
+                margin: 20px auto;
                 background: var(--white-color);
                 border-radius: 16px;
                 box-shadow: var(--box-shadow);
@@ -166,38 +166,38 @@
             <jsp:include page="/view/sidebarTeacher.jsp" />
 
             <div class="form-container">
-                <h2>Update Profile</h2>
+                <h2>Cập nhật hồ sơ</h2>
                 <form method="post" action="updateTeacher">
                     <div class="form-group">
-                        <label>First Name</label>
+                        <label>Họ</label>
                         <input type="text" name="firstName" value="${teacher.firstName}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Last Name</label>
+                        <label>Tên</label>
                         <input type="text" name="lastName" value="${teacher.lastName}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Date of Birth</label>
+                        <label>Ngày sinh</label>
                         <input type="date" name="dob" value="${teacher.dob}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Gender</label>
+                        <label>Giới tính</label>
                         <select name="gender" required>
-                            <option value="true" ${teacher.gender == true ? 'selected' : ''}>Male</option>
-                            <option value="false" ${teacher.gender == false ? 'selected' : ''}>Female</option>
+                            <option value="true" ${teacher.gender == true ? 'selected' : ''}>Nam</option>
+                            <option value="false" ${teacher.gender == false ? 'selected' : ''}>Nữ</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Phone</label>
+                        <label>Số điện thoại</label>
                         <input type="text" name="phone" value="${teacher.phoneNumber}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>Địa chỉ</label>
                         <input type="text" name="address" value="${teacher.address}" required>
                     </div>
 
@@ -206,7 +206,7 @@
                         <input type="email" name="email" value="${teacher.email}" required>
                     </div>
 
-                    <button type="submit" class="submit-btn">Save Changes</button>
+                    <button type="submit" class="submit-btn">Lưu thay đổi</button>
                 </form>
             </div>
         </div>

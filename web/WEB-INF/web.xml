@@ -117,18 +117,6 @@
         <servlet-class>controller.admin.classs.ListClassServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddClassServlet</servlet-name>
-        <servlet-class>controller.admin.classs.AddClassServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteClassServlet</servlet-name>
-        <servlet-class>controller.admin.classs.DeleteClassServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateClassServlet</servlet-name>
-        <servlet-class>controller.admin.classs.UpdateClassServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ViewEventDetailsServlet</servlet-name>
         <servlet-class>controller.admin.event.ViewEventDetailsServlet</servlet-class>
     </servlet>
@@ -140,11 +128,11 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
     </servlet>
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>AttendanceServlet</servlet-name>
         <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
     </servlet>-->
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <servlet-class>controller.teacher.CheckAttendancePastServlet</servlet-class>
     </servlet>-->
@@ -264,7 +252,6 @@
         <servlet-name>SendFormServlet</servlet-name>
         <servlet-class>controller.parent.SendFormServlet</servlet-class>
     </servlet>
-  
     <servlet>
         <servlet-name>HistoryFormServlet</servlet-name>
         <servlet-class>controller.parent.HistoryFormServlet</servlet-class>
@@ -329,7 +316,7 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/resetpassword</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>updatereplyServlet</servlet-name>
         <url-pattern>/updatereply</url-pattern>
     </servlet-mapping>
@@ -401,19 +388,6 @@
         <servlet-name>ListClassServlet</servlet-name>
         <url-pattern>/listclass</url-pattern>
     </servlet-mapping>
-  
-    <servlet-mapping>
-        <servlet-name>AddClassServlet</servlet-name>
-        <url-pattern>/addclass</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteClassServlet</servlet-name>
-        <url-pattern>/deleteclass</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateClassServlet</servlet-name>
-        <url-pattern>/updateclass</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewEventDetailsServlet</servlet-name>
         <url-pattern>/vieweventdetails</url-pattern>
@@ -426,11 +400,11 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <url-pattern>/loadteacherhome</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>AttendanceServlet</servlet-name>
         <url-pattern>/attendance</url-pattern>
     </servlet-mapping>-->
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <url-pattern>/checkattendance</url-pattern>
     </servlet-mapping>-->

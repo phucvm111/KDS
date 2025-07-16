@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
-        <title>ATKD ChildCare - Child Details</title>
+        <title>ATKD ChildCare - Chi tiết trẻ</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
         <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
@@ -279,7 +279,7 @@
 
             <div class="right-side">
                 <div class="child-details-container">
-                    <h1 class="page-title">Child Profile Details</h1>
+                    <h1 class="page-title">Chi Tiết Hồ Sơ Trẻ</h1>
 
                     <c:if test="${not empty successMessage}">
                         <div class="alert alert-success">
@@ -312,7 +312,7 @@
                             </div>
                             <div>
                                 <div class="child-name-large">${kindergartner.first_name} ${kindergartner.last_name}</div>
-                                <div class="child-class">Class: ${className}</div>
+                                <div class="child-class">Lớp: ${className}</div>
                             </div>
                         </div>
 
@@ -322,57 +322,57 @@
 
                                 <div class="form-grid">
                                     <div class="form-group">
-                                        <label class="form-label">First Name</label>
+                                        <label class="form-label">Họ</label>
                                         <input type="text" name="first_name" class="form-control" value="${kindergartner.first_name}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Last Name</label>
+                                        <label class="form-label">Tên</label>
                                         <input type="text" name="last_name" class="form-control" value="${kindergartner.last_name}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Date of Birth</label>
+                                        <label class="form-label">Ngày sinh</label>
                                         <input type="date" name="dob" class="form-control" value="${kindergartner.dob}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Gender</label>
+                                        <label class="form-label">Giới tính</label>
                                         <div class="radio-group">
                                             <label class="radio-option">
-                                                <input type="radio" name="gender" value="male" ${kindergartner.gender ? 'checked' : ''}> Male
+                                                <input type="radio" name="gender" value="male" ${kindergartner.gender ? 'checked' : ''}> Nam
                                             </label>
                                             <label class="radio-option">
-                                                <input type="radio" name="gender" value="female" ${!kindergartner.gender ? 'checked' : ''}> Female
+                                                <input type="radio" name="gender" value="female" ${!kindergartner.gender ? 'checked' : ''}> Nữ
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Address</label>
+                                        <label class="form-label">Địa chỉ</label>
                                         <input type="text" name="address" class="form-control" value="${kindergartner.address}">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Parent Phone</label>
+                                        <label class="form-label">Số điện thoại phụ huynh</label>
                                         <input type="text" name="parentPhone" class="form-control" value="${kindergartner.parentPhone}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label">Profile Image</label>
+                                    <label class="form-label">Ảnh hồ sơ</label>
                                     <div class="file-upload">
                                         <label class="file-upload-label">
-                                            <i class="fas fa-cloud-upload-alt"></i> Choose a new image
+                                            <i class="fas fa-cloud-upload-alt"></i> Chọn ảnh mới
                                             <input type="file" name="img" accept="image/*">
                                         </label>
-                                        <span class="file-upload-info">Leave empty to keep current image</span>
+                                        <span class="file-upload-info">Để trống để giữ hình ảnh hiện tại</span>
                                     </div>
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn">Update</button>
-                                    <button type="button" class="btn" onclick="window.location.href = '${pageContext.request.contextPath}/childrenlist'">Back to List</button>
+                                    <button type="submit" class="btn">Cập nhật</button>
+                                    <button type="button" class="btn" onclick="window.location.href = '${pageContext.request.contextPath}/childrenlist'">Quay lại</button>
                                 </div>
 
                             </form>
