@@ -10,7 +10,7 @@
             <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
         </div>
         <span class="logo_name">
-            <a href="${pageContext.request.contextPath}/dashboard">Admin Page</a>
+            <a href="${pageContext.request.contextPath}/dashboard">Trang quản trị</a>
         </span>
     </div>
     <div class="menu-items">

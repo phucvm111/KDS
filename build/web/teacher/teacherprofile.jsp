@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
-    <title>KDS - Teacher Profile</title>
+    <title>KDS - Hồ sơ giáo viên</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarTeacher.css" />
 
@@ -148,37 +148,37 @@
 
                 <div class="profile-content">
                     <div class="content-item">
-                        <div class="item-title">First Name</div>
+                        <div class="item-title">Họ</div>
                         <p class="parent-infor">${sessionScope.account.firstName}</p>
                     </div>
 
                     <div class="content-item">
-                        <div class="item-title">Last Name</div>
+                        <div class="item-title">Tên</div>
                         <p class="parent-infor">${sessionScope.account.lastName}</p>
                     </div>
 
                     <div class="content-item">
-                        <div class="item-title">Date of Birth</div>
+                        <div class="item-title">Ngày sinh</div>
                         <p class="parent-infor">${sessionScope.account.dob}</p>
                     </div>
 
                     <div class="content-item">
-                        <div class="item-title">Gender</div>
+                        <div class="item-title">Giới tính</div>
                         <p class="parent-infor">
                             <c:choose>
-                                <c:when test="${sessionScope.account.gender}">Male</c:when>
-                                <c:otherwise>Female</c:otherwise>
+                                <c:when test="${sessionScope.account.gender}">Nam</c:when>
+                                <c:otherwise>Nữ</c:otherwise>
                             </c:choose>
                         </p>
                     </div>
 
                     <div class="content-item">
-                        <div class="item-title">Phone</div>
+                        <div class="item-title">Số điện thoại</div>
                         <p class="parent-infor">${sessionScope.account.phoneNumber}</p>
                     </div>
 
                     <div class="content-item">
-                        <div class="item-title">Address</div>
+                        <div class="item-title">Địa chỉ</div>
                         <p class="parent-infor">${sessionScope.account.address}</p>
                     </div>
 
@@ -189,7 +189,7 @@
 
                     <div class="profile-actions">
                         <a href="${pageContext.request.contextPath}/updateTeacher">
-                            <input type="button" class="button" value="Update Profile" />
+                            <input type="button" class="button" value="Cập nhật hồ sơ" />
                         </a>
                     </div>
                 </div>

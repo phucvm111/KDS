@@ -17,6 +17,7 @@
 
         <!----======== CSS ======== -->
         <link rel="stylesheet" href="admin/class/css/style.css">
+        <link rel="stylesheet" href="view/css/adminSidebar.css">
         <link rel="stylesheet" href="admin/class/boot/bootstrap.min.css">
         <link rel="stylesheet" href="admin/class/boot/bootstrap.css">
         <!----===== Iconscout CSS ===== -->
@@ -38,25 +39,7 @@
                 </div>
 
                 <div class="menu-items">
-                    <ul class="nav-links">
-                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
-                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
-                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
-                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
-                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
-                        <li>
-                            <a href="day_class">
-                                <i class="uil uil-utensils-alt"></i>
-                                <span class="link-name">Nutrition</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="logout-mode">
-                        <li><a href="login"><i class="uil uil-signout"></i>Logout</a></li>
-                    </ul>
+                    <jsp:include page="/view/adminSidebar.jsp" />
                 </div>
             </nav>
 
@@ -72,8 +55,8 @@
 
 
                     <div>
-                        <button  type="submit" style="width: 40%;margin-left: 70px;margin-top: 20px;">
-                            <a href="addclass" style="text-decoration: none">Add</a> 
+                        <button  type="submit" style="width: auto;margin-left: 70px;margin-top: 20px;">
+                            <a href="addclass" style="text-decoration: none">Thêm lớp mới</a> 
                         </button> 
                     </div>
                 </div>
@@ -83,14 +66,15 @@
                     <table class="table" >
                         <thead>
                             <tr>
-                                <th scope="col">Class ID</th>
-                                <th scope="col">Class Name</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col">Class Description</th>
-                                <th scope="col">Teacher name</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Tên lớp</th>
+                                <th scope="col">Khối</th>
+                                <th scope="col">Thông tin chi tiết</th>
+                                <th scope="col">Tên giáo viên phụ trách</th>
 
-                                <th scope="col">Update</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">Chỉnh sửa</th>
+                                <th scope="col">Xóa</th>
+                                <th scope="col">Xem danh sách trẻ</th>
 
                             </tr>
                         </thead>
@@ -103,8 +87,9 @@
                                     <td>${lsc.class_description}</td>                           
                                     <td>${lsc.acc.lastName}</td>
 
-                                    <td><a href="updateclass?sid=${lsc.class_id}">Update</a></td>
-                                    <td><a href="deleteclass?sid=${lsc.class_id}">Delete</a></td>
+                                    <td><a href="updateclass?sid=${lsc.class_id}">Chỉnh sửa</a></td>
+                                    <td><a href="deleteclass?sid=${lsc.class_id}">Xóa</a></td>
+                                    <td><a href="">Xem</a></td>
                                 </tr>
 
                             </c:forEach>

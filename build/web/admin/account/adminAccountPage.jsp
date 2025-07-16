@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ATKD ChildCare - Admin Page</title>
+        <title>ATKD ChildCare - Trang quản trị</title>
 
         <link rel="icon" href="./assets/image/logo2-removebg-preview.png">
         <link rel="stylesheet" href="admin/account/css/style.css">
@@ -30,30 +30,12 @@
                         <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
                     </div>
                     <span class="logo_name">
-                        <a href="dashboard">Admin Page</a>
+                        <a href="dashboard">Trang quản trị</a>
                     </span>
                 </div>
 
                 <div class="menu-items">
-                    <ul class="nav-links">
-                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
-                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
-                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
-                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
-                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
-                        <li>
-                            <a href="day_class">
-                                <i class="uil uil-utensils-alt"></i>
-                                <span class="link-name">Nutrition</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="logout-mode">
-                        <li><a href="login"><i class="uil uil-signout"></i>Logout</a></li>
-                    </ul>
+                    <jsp:include page="/view/adminSidebar.jsp" />
                 </div>
             </nav>
 
@@ -64,21 +46,21 @@
                 </div>
 
                 <div class="dash-bottom">
-                    <input class="search-input" type="search" value="${requestScope.searchName}" name="search" placeholder="Search">
-                    <button class="search-button" type="submit">Search</button>
+                    <input class="search-input" type="search" value="${requestScope.searchName}" name="search" placeholder="Tìm kiếm">
+                    <button class="search-button" type="submit">Tìm kiếm</button>
                 </div>
 
                 <div class="sl-id">
                     <div>
                         <select name="slRole">
-                            <option value="0" selected>All</option>
+                            <option value="0" selected>Tất cả</option>
                             <c:forEach items="${requestScope.roles}" var="roles">
                                 <option value="${roles.roleID}" <c:if test="${roles.roleID == searchRole}">selected</c:if>>${roles.roleName}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div>
-                        <button class="add-button" type="submit"><a href="addaccount">Add</a></button>
+                        <button class="add-button" type="submit"><a href="addaccount">Thêm tài khoản</a></button>
                     </div>
                 </div>
 
@@ -87,19 +69,19 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Name</th>
-                                <th>Gender</th>
+                                <th>Họ</th>
+                                <th>Tên</th>
+                                <th>Tên đầy đủ</th>
+                                <th>Giới tính</th>
                                 <th>Email</th>
-                                <th>Password</th>
-                                <th>Dob</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Image</th>
+                                <th>Mật khẩu</th>
+                                <th>Ngày sinh</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Ảnh</th>
                                 <th>Role</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Chỉnh sửa</th>
+                                <th>Xóa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,8 +92,8 @@
                                     <td>${t.lastName}</td>
                                     <td>${t.firstName} ${t.lastName}</td>
                                     <td>
-                                        <c:if test="${t.gender == true}">Male</c:if>
-                                        <c:if test="${t.gender == false}">Female</c:if>
+                                        <c:if test="${t.gender == true}">Nam</c:if>
+                                        <c:if test="${t.gender == false}">Nữ</c:if>
                                         </td>
                                         <td>${t.email}</td>
                                     <td>${t.password}</td>
@@ -129,8 +111,8 @@
                                         </c:choose>
                                     </td>
                                     <td>${t.role.roleName}</td>
-                                    <td><a href="updateaccount?sid=${t.accountID}">Update</a></td>
-                                    <td><a href="deleteaccount?sid=${t.accountID}">Delete</a></td>
+                                    <td><a href="updateaccount?sid=${t.accountID}">Chỉnh sửa</a></td>
+                                    <td><a href="deleteaccount?sid=${t.accountID}">Xóa</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

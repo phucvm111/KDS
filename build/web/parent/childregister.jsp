@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
-        <title>ATKD ChildCare - Child Register</title>
+        <title>ATKD ChildCare - Đăng ký trẻ</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
@@ -230,8 +230,8 @@
                 <!-- No class message -->
                 <c:if test="${classlist.isEmpty()}">
                     <div class="nochild">
-                        <h1>There is no class available right now!</h1>
-                        <h1>Please wait until a class is available to register</h1>
+                        <h1>Hiện tại không có lớp học nào!</h1>
+                        <h1>Vui lòng đợi đến khi có lớp học mới đăng ký</h1>
                     </div>
                 </c:if>
 
@@ -239,7 +239,7 @@
                 <c:if test="${!classlist.isEmpty()}">
                     <div class="profile-card">
                         <div class="profile-header">
-                            <h1>Kindergartner Register</h1>
+                            <h1>Đăng Ký Thông Tin Trẻ</h1>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/childregister" method="POST" enctype="multipart/form-data">
@@ -247,46 +247,46 @@
 
                                 <!-- Child First Name -->
                                 <div class="content-item">
-                                    <div class="item-title">Child First Name</div>
+                                    <div class="item-title">Họ</div>
                                     <input type="text" id="ChildFirstName" name="ChildFirstName" pattern="[a-zA-Z]+" required title="Alphabetical letters only"/>
-                                    <span class="invalid" id="fnameinvalid1" style="display:none;">Name cannot contain numbers!</span>
-                                    <span class="invalid" id="fnameinvalid2" style="display:none;">Name cannot contain special characters!</span>
+                                    <span class="invalid" id="fnameinvalid1" style="display:none;">Tên không được chứa số!</span>
+                                    <span class="invalid" id="fnameinvalid2" style="display:none;">Tên không được chứa ký tự đặc biệt!</span>
                                 </div>
 
                                 <!-- Child Last Name -->
                                 <div class="content-item">
-                                    <div class="item-title">Child Last Name</div>
+                                    <div class="item-title">Tên</div>
                                     <input type="text" id="ChildLastName" name="ChildLastName" pattern="[a-zA-Z]+" required title="Alphabetical letters only"/>
-                                    <span class="invalid" id="lnameinvalid1" style="display:none;">Name cannot contain numbers!</span>
-                                    <span class="invalid" id="lnameinvalid2" style="display:none;">Name cannot contain special characters!</span>
+                                    <span class="invalid" id="lnameinvalid1" style="display:none;">Tên không được chứa số!</span>
+                                    <span class="invalid" id="lnameinvalid2" style="display:none;">Tên không được chứa ký tự đặc biệt!</span>
                                 </div>
 
                                 <!-- DOB -->
                                 <div class="content-item">
-                                    <div class="item-title">Date of Birth</div>
+                                    <div class="item-title">Ngày sinh</div>
                                     <input type="date" name="DOB" required />
                                 </div>
 
                                 <!-- Gender -->
                                 <div class="content-item">
-                                    <div class="item-title">Gender</div>
+                                    <div class="item-title">Giới tính</div>
                                     <label>
-                                        <input type="radio" name="flexRadioDefault" value="male" checked /> Male
+                                        <input type="radio" name="flexRadioDefault" value="male" checked /> Nam
                                     </label>
                                     <label style="margin-left:20px;">
-                                        <input type="radio" name="flexRadioDefault" value="female" /> Female
+                                        <input type="radio" name="flexRadioDefault" value="female" /> Nữ
                                     </label>
                                 </div>
 
                                 <!-- Profile Image -->
                                 <div class="content-item">
-                                    <div class="item-title">Profile Image</div>
+                                    <div class="item-title">Ảnh hồ sơ</div>
                                     <input type="file" name="profileImage" accept="image/*" />
                                 </div>
 
                                 <!-- Class Selection -->
                                 <div class="content-item">
-                                    <div class="item-title">Choose Desired Class</div>
+                                    <div class="item-title">Chọn lớp</div>
                                     <select name="register_classid">
                                         <c:forEach items="${requestScope.classlist}" var="c">
                                             <option value="${c.class_id}">${c.class_name}</option>
@@ -296,15 +296,15 @@
 
                                 <!-- Confirm Button -->
                                 <div class="profile-actions">
-                                    <input type="button" class="button" onclick="openPopup()" value="Confirm" />
+                                    <input type="button" class="button" onclick="openPopup()" value="Xác nhận" />
                                 </div>
 
                                 <!-- Popup -->
                                 <div class="popup" id="popup">
                                     <img src="${pageContext.request.contextPath}/parent/img/icon/tick.png" alt="tick"/>
-                                    <h2>Confirm registration?</h2>
-                                    <input type="button" class="cancel_button" onclick="closePopup()" value="Cancel"/>
-                                    <input type="submit" class="confirm_button" value="Confirm"/>
+                                    <h2>Bạn chắc chắn muốn đăng ký?</h2>
+                                    <input type="button" class="cancel_button" onclick="closePopup()" value="Hủy"/>
+                                    <input type="submit" class="confirm_button" value="Xác nhận"/>
                                 </div>
                             </div>
                         </form>

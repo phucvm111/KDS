@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Admin Account</title>
+    <title>Chỉnh sửa tài khoản</title>
 
     <!-- Bootstrap CSS từ CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,29 +41,29 @@
 <body>
 
 <form action="updateaccount?ida=${s.accountID}" method="POST" class="update-form">
-    <h2 class="text-center">Update Account</h2>
+    <h2 class="text-center">Chỉnh sửa tài khoản</h2>
 
     <div class="mb-3">
-        <label class="form-label">First Name</label>
+        <label class="form-label">Họ</label>
         <input type="text" name="txtFirstName" class="form-control" value="${s.firstName}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Last Name</label>
+        <label class="form-label">Tên</label>
         <input type="text" name="txtLastName" class="form-control" value="${s.lastName}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label d-block">Gender</label>
+        <label class="form-label d-block">Giới tính</label>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="gender" value="male"
                    <c:if test="${s.gender}">checked</c:if>>
-            <label class="form-check-label">Male</label>
+            <label class="form-check-label">Nam</label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="gender" value="female"
                    <c:if test="${!s.gender}">checked</c:if>>
-            <label class="form-check-label">Female</label>
+            <label class="form-check-label">Nữ</label>
         </div>
     </div>
 
@@ -73,27 +73,27 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Password</label>
+        <label class="form-label">Mật khẩu</label>
         <input type="password" name="txtPassword" class="form-control" value="${s.password}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Date of Birth</label>
+        <label class="form-label">Ngày sinh</label>
         <input type="date" name="dob" class="form-control" value="${s.dob}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Phone Number</label>
+        <label class="form-label">Số điện thoại</label>
         <input type="text" name="txtPhone" class="form-control" value="${s.phoneNumber}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Address</label>
+        <label class="form-label">Địa chỉ</label>
         <input type="text" name="ttAddress" class="form-control" value="${s.address}" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Image URL</label>
+        <label class="form-label">Ảnh</label>
         <input type="text" name="txtImg" class="form-control" value="${s.img}">
     </div>
 
@@ -109,7 +109,7 @@
     </div>
 
     <div class="text-center mt-4">
-        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Lưu thay đổi" class="btn btn-primary">
     </div>
 </form>
 

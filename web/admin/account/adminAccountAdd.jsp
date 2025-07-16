@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Account</title>
+    <title>Thêm tài khoản mới</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -56,34 +56,34 @@
 <nav class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <img src="images/logo.jpg" alt="Logo" width="50" height="50" class="me-3">
-        <span class="logo_name"><a href="listaccount" class="text-dark text-decoration-none">Admin Page</a></span>
+        <span class="logo_name"><a href="listaccount" class="text-dark text-decoration-none">Trang quản trị</a></span>
     </div>
     <a href="#" class="btn btn-outline-danger"><i class="uil uil-signout"></i> Logout</a>
 </nav>
 
-<div class="form-title">Add New Account</div>
+<div class="form-title">Thêm tài khoản mới</div>
 
 <form action="addaccount" method="POST" class="form-section">
     <div class="mb-3">
-        <label class="form-label">First Name</label>
+        <label class="form-label">Họ</label>
         <input type="text" class="form-control" name="txtFirstName" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Last Name</label>
+        <label class="form-label">Tên</label>
         <input type="text" class="form-control" name="txtLastName" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Gender</label>
+        <label class="form-label">Giới tính</label>
         <div class="rdCheck">
             <div class="form-check">
                 <input class="form-check-input" type="radio" value="male" name="flexRadioDefault" id="genderMale">
-                <label class="form-check-label" for="genderMale">Male</label>
+                <label class="form-check-label" for="genderMale">Nam</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" value="female" name="flexRadioDefault" id="genderFemale" checked>
-                <label class="form-check-label" for="genderFemale">Female</label>
+                <label class="form-check-label" for="genderFemale">Nữ</label>
             </div>
         </div>
     </div>
@@ -94,27 +94,27 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Password</label>
+        <label class="form-label">Mật khẩu</label>
         <input type="password" class="form-control" name="txtPassword" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Date of Birth</label>
+        <label class="form-label">Ngày sinh</label>
         <input type="date" class="form-control" name="dob" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Phone Number</label>
+        <label class="form-label">Số điện thoại</label>
         <input type="text" class="form-control" name="txtPhone" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Address</label>
+        <label class="form-label">Địa chỉ</label>
         <textarea class="form-control" name="ttAddress" rows="3" required></textarea>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Image URL</label>
+        <label class="form-label">ẢNh</label>
         <input type="text" class="form-control" name="txtImg">
     </div>
 
@@ -130,7 +130,7 @@
     </div>
 
     <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-primary">Save Account</button>
+        <button type="submit" class="btn btn-primary">Thêm tài khoản</button>
     </div>
 </form>
 
