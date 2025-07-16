@@ -17,6 +17,7 @@
 
         <!----======== CSS ======== -->
         <link rel="stylesheet" href="admin/class/css/style.css">
+        <link rel="stylesheet" href="view/css/adminSidebar.css">
         <link rel="stylesheet" href="admin/class/boot/bootstrap.min.css">
         <link rel="stylesheet" href="admin/class/boot/bootstrap.css">
         <!----===== Iconscout CSS ===== -->
