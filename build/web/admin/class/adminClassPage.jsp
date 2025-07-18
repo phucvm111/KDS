@@ -74,7 +74,6 @@
 
                                 <th scope="col">Chỉnh sửa</th>
                                 <th scope="col">Xóa</th>
-                                <th scope="col">Xem danh sách trẻ</th>
 
                             </tr>
                         </thead>
@@ -89,7 +88,6 @@
 
                                     <td><a href="updateclass?sid=${lsc.class_id}">Chỉnh sửa</a></td>
                                     <td><a href="deleteclass?sid=${lsc.class_id}">Xóa</a></td>
-                                    <td><a href="">Xem</a></td>
                                 </tr>
 
                             </c:forEach>

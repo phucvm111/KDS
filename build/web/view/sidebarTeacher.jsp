@@ -63,6 +63,16 @@
                     <i class="fa-solid fa-people-group"></i> Cuộc họp phụ huynh
                 </a>
             </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/ViewStudentInClassServlet">
+                    <i class="fa-solid fa-list"></i> Xem danh sách học sinh
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/ViewTeacherFeedbackServlet">
+                    <i class="fa-solid fa-comment"></i> Xem nhận xét từ phụ huynh
+                </a>
+            </li>
 
 
         </ul>
