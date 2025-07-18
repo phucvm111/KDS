@@ -451,11 +451,61 @@ public class KindergartnerDAO extends DBContext {
         }
     }
 
+    public List<Kindergartner> getKindergartnersByClassId(int classId) {
+        List<Kindergartner> list = new ArrayList<>();
+
+        String sql = "SELECT k.*, c.class_name, a.first_name AS parent_first, a.last_name AS parent_last, "
+                + "a.email AS parent_email, a.phone_number AS parent_phone, a.address AS parent_address "
+                + "FROM Kindergartner k "
+                + "JOIN Class c ON k.class_id = c.class_id "
+                + "JOIN Account a ON k.parent_id = a.account_id "
+                + "WHERE k.class_id = ?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, classId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Kindergartner k = new Kindergartner();
+                k.setKinder_id(rs.getInt("kinder_id"));
+                k.setParent_id(rs.getInt("parent_id"));
+                k.setFirst_name(rs.getString("first_name"));
+                k.setLast_name(rs.getString("last_name"));
+                k.setDob(rs.getString("dob"));
+                k.setGender(rs.getBoolean("gender"));
+                k.setImg(rs.getString("img"));
+                k.setClass_id(rs.getInt("class_id"));
+                k.setAddress(rs.getString("address"));
+                k.setParentPhone(rs.getString("parentPhone")); // Đảm bảo cột parentPhone tồn tại trong DB
+                k.setClassName(rs.getString("class_name"));
+
+                // Gắn thông tin phụ huynh
+                Account parent = new Account();
+                parent.setFirstName(rs.getString("parent_first"));
+                parent.setLastName(rs.getString("parent_last"));
+                parent.setEmail(rs.getString("parent_email"));
+                parent.setPhoneNumber(rs.getString("parent_phone"));
+                parent.setAddress(rs.getString("parent_address"));
+                k.setParentAccount(parent);
+
+                list.add(k);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-        List<Kindergartner> kiders = dao.getKindergartnersByParentId(3);
-        for (Kindergartner k : kiders) {
-            System.out.println(k);
+        List<Kindergartner> students = dao.getKindergartnersByClassId(1); // Lấy lớp có class_id = 1
+
+        for (Kindergartner k : students) {
+            System.out.println(k.getFullName() + " - Class: " + k.getClassName()
+                    + " - Parent: " + k.getParentAccount().getFirstName() + " " + k.getParentAccount().getLastName());
         }
     }
 
