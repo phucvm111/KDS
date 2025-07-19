@@ -5,6 +5,42 @@
         <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>com.vnpay.common.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayQuery</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayRefund</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>paymoneyServlet</servlet-name>
+        <servlet-class>controller.parent.paymoneyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>paymenthistoryServerlet</servlet-name>
+        <servlet-class>controller.parent.paymenthistoryServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>add_tuitionServlet</servlet-name>
+        <servlet-class>controller.admin.tutitionfree.add_tuitionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/pay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayQuery</servlet-name>
+        <url-pattern>/vnpayquery/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayRefund</servlet-name>
+        <url-pattern>/vnpayrefund</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
@@ -264,7 +300,6 @@
         <servlet-name>SendFormServlet</servlet-name>
         <servlet-class>controller.parent.SendFormServlet</servlet-class>
     </servlet>
-  
     <servlet>
         <servlet-name>HistoryFormServlet</servlet-name>
         <servlet-class>controller.parent.HistoryFormServlet</servlet-class>
@@ -280,6 +315,10 @@
     <servlet>
         <servlet-name>RespondFormServlet</servlet-name>
         <servlet-class>controller.teacher.RespondFormServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>tutitionfreeServlet</servlet-name>
+        <servlet-class>controller.admin.tutitionfree.tutitionfreeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -329,7 +368,7 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/resetpassword</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>updatereplyServlet</servlet-name>
         <url-pattern>/updatereply</url-pattern>
     </servlet-mapping>
@@ -401,7 +440,6 @@
         <servlet-name>ListClassServlet</servlet-name>
         <url-pattern>/listclass</url-pattern>
     </servlet-mapping>
-  
     <servlet-mapping>
         <servlet-name>AddClassServlet</servlet-name>
         <url-pattern>/addclass</url-pattern>
@@ -561,6 +599,22 @@
     <servlet-mapping>
         <servlet-name>RespondFormServlet</servlet-name>
         <url-pattern>/respondform</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tutitionfreeServlet</servlet-name>
+        <url-pattern>/tutitionfree</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymoneyServlet</servlet-name>
+        <url-pattern>/paymoney</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymenthistoryServerlet</servlet-name>
+        <url-pattern>/paymenthistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add_tuitionServlet</servlet-name>
+        <url-pattern>/add_tuition</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
