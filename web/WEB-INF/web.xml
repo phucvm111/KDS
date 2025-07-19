@@ -176,14 +176,14 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
     </servlet>
-    <servlet>
+<!--    <servlet>
         <servlet-name>AttendanceServlet</servlet-name>
         <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet>-->
+<!--    <servlet>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <servlet-class>controller.teacher.CheckAttendancePastServlet</servlet-class>
-    </servlet>
+    </servlet>-->
     <servlet>
         <servlet-name>FilterStudentServlet</servlet-name>
         <servlet-class>controller.teacher.FilterStudentServlet</servlet-class>
@@ -464,14 +464,14 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <url-pattern>/loadteacherhome</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+<!--    <servlet-mapping>
         <servlet-name>AttendanceServlet</servlet-name>
         <url-pattern>/attendance</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <url-pattern>/checkattendance</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>FilterStudentServlet</servlet-name>
         <url-pattern>/filter</url-pattern>

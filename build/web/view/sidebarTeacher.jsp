@@ -10,11 +10,17 @@
     </div>
     <div class="menu-item-container">
         <ul class="item-lists">
-<!--            <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/teacher/home">
-                    <i class="fa-solid fa-home"></i> Trang chủ
+            <!--            <li class="menu-item">
+                            <a href="${pageContext.request.contextPath}/teacher/home">
+                                <i class="fa-solid fa-home"></i> Trang chủ
+                            </a>
+                        </li>-->
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/attendance">
+                    <i class="fa-solid fa-check-circle"></i> Điểm danh
                 </a>
-            </li>-->
+            </li>
+
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/leavehistory"> 
                     <i class="fa-solid fa-file-alt"></i> Đơn xin nghỉ phép
@@ -46,12 +52,28 @@
                 </a>
             </li>
 
-            
+
             <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/teacher/viewImages">
                     <i class="fa-solid fa-image"></i> Xem ảnh
                 </a>
             </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/teacher/parentmeetings">
+                    <i class="fa-solid fa-people-group"></i> Cuộc họp phụ huynh
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/ViewStudentInClassServlet">
+                    <i class="fa-solid fa-list"></i> Xem danh sách học sinh
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/ViewTeacherFeedbackServlet">
+                    <i class="fa-solid fa-comment"></i> Xem nhận xét từ phụ huynh
+                </a>
+            </li>
+
 
         </ul>
     </div>

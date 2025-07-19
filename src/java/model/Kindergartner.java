@@ -13,6 +13,15 @@ public class Kindergartner {
     private String address;
     private String parentPhone;
     private String className; // Trường này không có trong database, chỉ để hiển thị
+    private Account parentAccount;
+
+    public Account getParentAccount() {
+        return parentAccount;
+    }
+
+    public void setParentAccount(Account parentAccount) {
+        this.parentAccount = parentAccount;
+    }
 
 // Getter và setter cho className
     public String getClassName() {
@@ -140,6 +149,8 @@ public class Kindergartner {
                 + '}';
     }
 
-    
+    public String getFullName() {
+        return first_name + " " + last_name;
+    }
 
 }

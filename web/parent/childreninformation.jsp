@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="${pageContext.request.contextPath}/assets/image/logo2-removebg-preview.png" />
-        <title>ATKD ChildCare - Children Information</title>
+        <title>ATKD ChildCare - Thông tin trẻ</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/sidebarParent.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/styleparent.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/parent/css/childdetails.css" />
@@ -192,15 +192,15 @@
             <jsp:include page="/view/sidebarParent.jsp" />
             <div class="right-side">
                 <div class="children-list">
-                    <h1 class="page-title">Your Children Information</h1>
+                    <h1 class="page-title">Thông tin trẻ</h1>
 
                     <c:if test="${empty kindergartners}">
                         <div class="no-children">
                             <div class="empty-state-icon">
                                 <i class="fas fa-child"></i>
                             </div>
-                            <p>You don't have any registered children yet.</p>
-                            <p>Go to <a href="${pageContext.request.contextPath}/childregister">Child Register</a> to register a child.</p>
+                            <p>Bạn chưa đăng ký trẻ nào.</p>
+                            <p>Vui lòng <a href="${pageContext.request.contextPath}/childregister">Đăng ký trẻ</a> để thêm thông tin</p>
                         </div>
                     </c:if>
 
@@ -232,22 +232,22 @@
                                     <div class="card-body">
                                         <div class="child-name">${child.first_name} ${child.last_name}</div>
                                         <div class="child-details-grid">
-                                            <div class="detail-label">Date of Birth:</div>
+                                            <div class="detail-label">Ngày sinh:</div>
                                             <div class="detail-value">${child.dob}</div>
-                                            <div class="detail-label">Gender:</div>
+                                            <div class="detail-label">Giới tính:</div>
                                             <div class="detail-value">
                                                 <c:choose>
-                                                    <c:when test="${child.gender == true}">Male</c:when>
-                                                    <c:otherwise>Female</c:otherwise>
+                                                    <c:when test="${child.gender == true}">Nam</c:when>
+                                                    <c:otherwise>Nữ</c:otherwise>
                                                 </c:choose>
                                             </div>
-                                            <div class="detail-label">Class:</div>
+                                            <div class="detail-label">Lớp:</div>
                                             <div class="detail-value">${child.className}</div>
-                                            <div class="detail-label">Address:</div>
+                                            <div class="detail-label">Địa chỉ:</div>
                                             <div class="detail-value">${child.address}</div>
                                         </div>
                                         <a href="${pageContext.request.contextPath}/childrendetail?id=${child.kinder_id}" class="view-button">
-                                            <i class="fas fa-eye"></i> View Details
+                                            <i class="fas fa-eye"></i> Xem chi tiết
                                         </a>
                                     </div>
                                 </div>

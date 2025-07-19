@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Admin Dashboard</title>
+        <title>Bảng điều khiển quản trị</title>
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
@@ -103,102 +103,84 @@
                         <img src="${pageContext.request.contextPath}/assets/image/logo.png" alt="Logo">
                     </div>
                     <span class="logo_name">
-                        <a href="dashboard">Admin Page</a>
+                        <a href="dashboard">Trang quản trị</a>
                     </span>
                 </div>
 
                 <div class="menu-items">
-                    <ul class="nav-links">
-                        <li><a href="dashboard"><i class="uil uil-dashboard"></i>Dashboard</a></li>
-                        <li><a href="listaccount"><i class="uil uil-estate"></i>Account</a></li>
-                        <li><a href="listkinder"><i class="uil uil-chart"></i>Kindergartner</a></li>
-                        <li><a href="listclass"><i class="uil uil-thumbs-up"></i>Class</a></li>
-                        <li><a href="listschedule"><i class="uil uil-comments"></i>Schedule</a></li>
-                        <li><a href="changepassword"><i class="uil uil-lock-alt"></i>Change Password</a></li>
-                        <li><a href="event"><i class="uil uil-calendar-alt"></i>Event</a></li>
-                        <li>
-                            <a href="day_class">
-                                <i class="uil uil-utensils-alt"></i>
-                                <span class="link-name">Nutrition</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="logout-mode">
-                        <li><a href="login"><i class="uil uil-signout"></i>Logout</a></li>
-                    </ul>
+                    <jsp:include page="/view/adminSidebar.jsp" />
                 </div>
             </nav>
             <h2>Dashboard</h2>
             <div class="dashboard">
                 <div class="card ">
                     <div class="count">${accountNum}</div>
-                    <div class="label">Account</div>
-                    <a href="listaccount"> View all <i class="uil uil-arrow-right"></i> </a>
+                    <div class="label">Tài khoản</div><br/>
+                    <a href="listaccount"> Xem tất cả <i class="uil uil-arrow-right"></i> </a>
                 </div>
                 <div class="card ">
                     <div class="count">${parentNum}</div>
-                    <div class="label">Parent</div>
-                    <a href="listaccount"> View all<i class="uil uil-arrow-right"></i> </a>
+                    <div class="label">Phụ huynh</div><br/>
+                    <a href="listaccount"> Xem tất cả<i class="uil uil-arrow-right"></i> </a>
                 </div>
                 <div class="card ">
                     <div class="count">${teacherNum}</div>
-                    <div class="label">Teacher</div>
-                    <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
+                    <div class="label">Giáo viên</div><br/>
+                    <a href="listaccount"> Xem tất cả <i class="uil uil-arrow-right"></i></a>
                 </div>
                 <div class="card ">
                     <div class="count">${classNum}</div>
-                    <div class="label">Class</div>
-                    <a href="listaccount"> View all <i class="uil uil-arrow-right"></i></a>
+                    <div class="label">Lớp</div><br/>
+                    <a href="listaccount"> Xem tất cả <i class="uil uil-arrow-right"></i></a>
                 </div>
                 <div class="card ">
                     <div class="count">${kindergartnerNum}</div>
-                    <div class="label">Kindergartner</div>
-                    <a href="listkinder"> View all <i class="uil uil-arrow-right"></i></a>
+                    <div class="label">Trẻ</div><br/>
+                    <a href="listkinder"> Xem tất cả <i class="uil uil-arrow-right"></i></a>
                 </div>
                 <div class="card ">
                     <div class="count">${eventNum}</div>
-                    <div class="label">Event</div>
-                    <a href="event"> View all <i class="uil uil-arrow-right"></i></a>
+                    <div class="label">Sự kiện</div><br/>
+                    <a href="event"> Xem tất cả <i class="uil uil-arrow-right"></i></a>
                 </div>
-                <h2>Chart of number of accounts</h2>
+                <h2>Biểu đồ số lượng tài khoản</h2>
                 <div class="container">
                     <canvas id="myChart"></canvas>
                 </div>
-                <h2>List of Classes</h2>
+                <h2>Danh sách lớp</h2>
                 <c:choose>
                     <c:when test="${not empty classList}">
                         <div class="dashboard">
                             <c:forEach var="c" items="${classList}">
                                 <div class="card ">
                                     <div class="count">${c.class_name}</div>
-                                    <div class="label">Grade: ${c.grade}</div>
-                                    <div class="label">Description: ${c.class_description}</div>
+                                    <div class="label">Khối: ${c.grade}</div>
+                                    <div class="label">Thông tin: ${c.class_description}</div>
                                 </div>
                             </c:forEach>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <p>No classes found.</p>
+                        <p>Chưa có lớp nào.</p>
                     </c:otherwise>
                 </c:choose>
 
-                <h2>List of Events</h2>
+                <h2>Danh sách sự kiện</h2>
                 <c:choose>
                     <c:when test="${not empty event}">
                         <div class="dashboard">
                             <c:forEach var="e" items="${event}">
                                 <div class="card ">
                                     <div class="count">${e.eventName}</div>
-                                    <div class="label">Date: ${e.eventDate}</div>
-                                    <div class="label">Description: ${e.eventDescription}</div>
-                                    <div class="label">Location: ${e.location}</div>
+                                    <div class="label">Ngày tổ chức: ${e.eventDate}</div>
+                                    <div class="label">Thông tin chi tiết: ${e.eventDescription}</div>
+                                    <div class="label">Địa điểm tổ chức: ${e.location}</div>
                                 </div>
                             </c:forEach>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <p>No events found.</p>
+                        <p>Chưa có sự kiện nào.</p>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -213,9 +195,9 @@
             let massPopChart = new Chart(myChart, {
                 type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: ['Teacher', 'Parent'],
+                    labels: ['Giáo viên', 'Phụ huynh'],
                     datasets: [{
-                            label: 'Population',
+                            label: '',
                             data: [
             ${teacherNum},
             ${parentNum}
@@ -234,7 +216,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Chart of number of accounts',
+                        text: 'Biểu đồ số lượng tài khoản',
                         fontSize: 25
                     },
                     legend: {

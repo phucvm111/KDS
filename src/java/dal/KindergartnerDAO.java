@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import model.Account;
 import model.Feedback;
 import model.Kindergartner;
+import model.StudyRecord;
 
 public class KindergartnerDAO extends DBContext {
 
@@ -53,20 +54,9 @@ public class KindergartnerDAO extends DBContext {
 
     public void insertKinder(Kindergartner kindergartner) {
         try {
-            String sql = "INSERT INTO [dbo].[Kindergartner]\n"
-                    + "           ([parent_id]\n"
-                    + "           ,[first_name]\n"
-                    + "           ,[last_name]\n"
-                    + "           ,[dob]\n"
-                    + "           ,[gender]\n"
-                    + "           ,[img]\n"
-                    + "           ,[class_id]\n"
-                    + "           ,[address]\n"
-                    + "           ,[parentPhone])\n"
-                    + "     VALUES\n"
-                    + "           (?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Kindergartner (parent_id, first_name, last_name, dob, gender, img, class_id, address, parentPhone) VALUES (?,?,?,?,?,?,?,?,?)";
             connection = new DBContext().getConnection();
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, kindergartner.getParent_id());
             ps.setString(2, kindergartner.getFirst_name());
             ps.setString(3, kindergartner.getLast_name());
@@ -78,10 +68,25 @@ public class KindergartnerDAO extends DBContext {
             ps.setString(9, kindergartner.getParentPhone());
 
             ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            // lấy id vừa thêm
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int kinderId = generatedKeys.getInt(1);
+                // thêm StudyRecord mặc định
+                StudyRecordDAO srdao = new StudyRecordDAO();
+                srdao.addStudyRecord(new StudyRecord(
+                        0,
+                        new ClassDAO().getClassByID(kindergartner.getClass_id()),
+                        getKinderById(kinderId),
+                        java.time.LocalDate.now().getYear(),
+                        false, // isGraduated
+                        false // isDroppedOut
+                ));
+            }
+
         } catch (Exception ex) {
-            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             closeResources();
         }
@@ -263,7 +268,7 @@ public class KindergartnerDAO extends DBContext {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, parentId);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Kindergartner k = new Kindergartner(
                         rs.getInt("kinder_id"),
@@ -288,45 +293,43 @@ public class KindergartnerDAO extends DBContext {
     }
 
     public List<Kindergartner> getKindergartnersByParentId(int parentId) {
-    List<Kindergartner> kindergartners = new ArrayList<>();
-    String sql = "SELECT * FROM kindergartner WHERE parent_id = ?";
-    
-    try (Connection conn = DBContext.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        
-        ps.setInt(1, parentId);
-        
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Kindergartner kindergartner = new Kindergartner();
-                kindergartner.setKinder_id(rs.getInt("kinder_id"));
-                kindergartner.setParent_id(rs.getInt("parent_id"));
-                kindergartner.setClass_id(rs.getInt("class_id"));
-                kindergartner.setFirst_name(rs.getString("first_name"));
-                kindergartner.setLast_name(rs.getString("last_name"));
-                kindergartner.setDob(rs.getString("dob"));
-                
-                
-               kindergartner.setGender(rs.getBoolean("gender"));
-                
-                kindergartner.setImg(rs.getString("img"));
-                kindergartner.setAddress(rs.getString("address"));
-                kindergartner.setParentPhone(rs.getString("parentPhone"));
-                
-                // Lấy tên lớp học cho trẻ em này
-                String className = getClassNameById(kindergartner.getClass_id());
-                kindergartner.setClassName(className);
-                
-                kindergartners.add(kindergartner);
+        List<Kindergartner> kindergartners = new ArrayList<>();
+        String sql = "SELECT * FROM kindergartner WHERE parent_id = ?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, parentId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Kindergartner kindergartner = new Kindergartner();
+                    kindergartner.setKinder_id(rs.getInt("kinder_id"));
+                    kindergartner.setParent_id(rs.getInt("parent_id"));
+                    kindergartner.setClass_id(rs.getInt("class_id"));
+                    kindergartner.setFirst_name(rs.getString("first_name"));
+                    kindergartner.setLast_name(rs.getString("last_name"));
+                    kindergartner.setDob(rs.getString("dob"));
+
+                    kindergartner.setGender(rs.getBoolean("gender"));
+
+                    kindergartner.setImg(rs.getString("img"));
+                    kindergartner.setAddress(rs.getString("address"));
+                    kindergartner.setParentPhone(rs.getString("parentPhone"));
+
+                    // Lấy tên lớp học cho trẻ em này
+                    String className = getClassNameById(kindergartner.getClass_id());
+                    kindergartner.setClassName(className);
+
+                    kindergartners.add(kindergartner);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving kindergartners by parent ID: " + e.getMessage());
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        System.out.println("Error retrieving kindergartners by parent ID: " + e.getMessage());
-        e.printStackTrace();
+
+        return kindergartners;
     }
-    
-    return kindergartners;
-}
 
     public void updateKinderBasicInfo(Kindergartner kindergartner) {
         String sql = "UPDATE Kindergartner SET first_name = ?, last_name = ?, dob = ?, gender = ? WHERE kinder_id = ?";
@@ -345,7 +348,7 @@ public class KindergartnerDAO extends DBContext {
             closeResources();
         }
     }
-    
+
     // Phương thức cập nhật lớp học cho trẻ
     public void updateKinderClass(int kinderId, int classId) {
         String sql = "UPDATE Kindergartner SET class_id = ? WHERE kinder_id = ?";
@@ -365,90 +368,145 @@ public class KindergartnerDAO extends DBContext {
     // Phương thức đóng tài nguyên
     private void closeResources() {
         try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (connection != null) connection.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 // Lấy tên lớp học dựa trên class_id
-public String getClassNameById(int classId) {
-    String className = null;
-    String sql = "SELECT class_name FROM class WHERE class_id = ?";
-    
-    try (Connection conn = DBContext.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        
-        ps.setInt(1, classId);
-        ResultSet rs = ps.executeQuery();
-        
-        if (rs.next()) {
-            className = rs.getString("class_name");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    
-    return className;
-}
-public boolean updateKindergartner(Kindergartner kindergartner) {
-    String sql = "UPDATE Kindergartner SET first_name=?, last_name=?, dob=?, gender=?, " +
-                 "img=?, address=?, parentPhone=? WHERE kinder_id=?";
-    
-    try (Connection conn = DBContext.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        
-        // Thiết lập các tham số cho câu lệnh SQL
-        ps.setString(1, kindergartner.getFirst_name());
-        ps.setString(2, kindergartner.getLast_name());
-        ps.setString(3, kindergartner.getDob());
-        
-        // Chuyển boolean thành string khi lưu vào database
-        // Giả sử trường gender trong DB là kiểu nvarchar/varchar lưu "male" hoặc "female"
-        ps.setBoolean(4, kindergartner.isGender());
-        
-        // Xử lý trường hợp img có thể null
-        if (kindergartner.getImg() != null) {
-            ps.setString(5, kindergartner.getImg());
-        } else {
-            ps.setNull(5, java.sql.Types.VARCHAR);
-        }
-        
-        ps.setString(6, kindergartner.getAddress());
-        ps.setString(7, kindergartner.getParentPhone());
-        ps.setInt(8, kindergartner.getKinder_id());
-        
-        // Thêm log để debug
-        System.out.println("Executing SQL: " + sql);
-        System.out.println("Parameters: " + 
-                          "first_name=" + kindergartner.getFirst_name() + ", " + 
-                          "last_name=" + kindergartner.getLast_name() + ", " + 
-                          "dob=" + kindergartner.getDob() + ", " + 
-                          "gender=" + (kindergartner.isGender() )+ ", " + 
-                          "img=" + kindergartner.getImg() + ", " + 
-                          "address=" + kindergartner.getAddress() + ", " + 
-                          "parentPhone=" + kindergartner.getParentPhone() + ", " + 
-                          "kinder_id=" + kindergartner.getKinder_id());
-        
-        int rowsAffected = ps.executeUpdate();
-        System.out.println("Rows affected: " + rowsAffected);
-        
-        return rowsAffected > 0;
-    } catch (SQLException e) {
-        System.out.println("SQL Error in updateKindergartner: " + e.getMessage());
-        e.printStackTrace();
-        return false;
-    }
-}
 
+    public String getClassNameById(int classId) {
+        String className = null;
+        String sql = "SELECT class_name FROM class WHERE class_id = ?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, classId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                className = rs.getString("class_name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return className;
+    }
+
+    public boolean updateKindergartner(Kindergartner kindergartner) {
+        String sql = "UPDATE Kindergartner SET first_name=?, last_name=?, dob=?, gender=?, "
+                + "img=?, address=?, parentPhone=? WHERE kinder_id=?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Thiết lập các tham số cho câu lệnh SQL
+            ps.setString(1, kindergartner.getFirst_name());
+            ps.setString(2, kindergartner.getLast_name());
+            ps.setString(3, kindergartner.getDob());
+
+            // Chuyển boolean thành string khi lưu vào database
+            // Giả sử trường gender trong DB là kiểu nvarchar/varchar lưu "male" hoặc "female"
+            ps.setBoolean(4, kindergartner.isGender());
+
+            // Xử lý trường hợp img có thể null
+            if (kindergartner.getImg() != null) {
+                ps.setString(5, kindergartner.getImg());
+            } else {
+                ps.setNull(5, java.sql.Types.VARCHAR);
+            }
+
+            ps.setString(6, kindergartner.getAddress());
+            ps.setString(7, kindergartner.getParentPhone());
+            ps.setInt(8, kindergartner.getKinder_id());
+
+            // Thêm log để debug
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("Parameters: "
+                    + "first_name=" + kindergartner.getFirst_name() + ", "
+                    + "last_name=" + kindergartner.getLast_name() + ", "
+                    + "dob=" + kindergartner.getDob() + ", "
+                    + "gender=" + (kindergartner.isGender()) + ", "
+                    + "img=" + kindergartner.getImg() + ", "
+                    + "address=" + kindergartner.getAddress() + ", "
+                    + "parentPhone=" + kindergartner.getParentPhone() + ", "
+                    + "kinder_id=" + kindergartner.getKinder_id());
+
+            int rowsAffected = ps.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("SQL Error in updateKindergartner: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Kindergartner> getKindergartnersByClassId(int classId) {
+        List<Kindergartner> list = new ArrayList<>();
+
+        String sql = "SELECT k.*, c.class_name, a.first_name AS parent_first, a.last_name AS parent_last, "
+                + "a.email AS parent_email, a.phone_number AS parent_phone, a.address AS parent_address "
+                + "FROM Kindergartner k "
+                + "JOIN Class c ON k.class_id = c.class_id "
+                + "JOIN Account a ON k.parent_id = a.account_id "
+                + "WHERE k.class_id = ?";
+
+        try (Connection conn = DBContext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, classId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Kindergartner k = new Kindergartner();
+                k.setKinder_id(rs.getInt("kinder_id"));
+                k.setParent_id(rs.getInt("parent_id"));
+                k.setFirst_name(rs.getString("first_name"));
+                k.setLast_name(rs.getString("last_name"));
+                k.setDob(rs.getString("dob"));
+                k.setGender(rs.getBoolean("gender"));
+                k.setImg(rs.getString("img"));
+                k.setClass_id(rs.getInt("class_id"));
+                k.setAddress(rs.getString("address"));
+                k.setParentPhone(rs.getString("parentPhone")); // Đảm bảo cột parentPhone tồn tại trong DB
+                k.setClassName(rs.getString("class_name"));
+
+                // Gắn thông tin phụ huynh
+                Account parent = new Account();
+                parent.setFirstName(rs.getString("parent_first"));
+                parent.setLastName(rs.getString("parent_last"));
+                parent.setEmail(rs.getString("parent_email"));
+                parent.setPhoneNumber(rs.getString("parent_phone"));
+                parent.setAddress(rs.getString("parent_address"));
+                k.setParentAccount(parent);
+
+                list.add(k);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-        List<Kindergartner> kiders = dao.getKindergartnersByParentId(3);
-        for (Kindergartner k : kiders) {
-            System.out.println(k);
+        List<Kindergartner> students = dao.getKindergartnersByClassId(1); // Lấy lớp có class_id = 1
+
+        for (Kindergartner k : students) {
+            System.out.println(k.getFullName() + " - Class: " + k.getClassName()
+                    + " - Parent: " + k.getParentAccount().getFirstName() + " " + k.getParentAccount().getLastName());
         }
     }
-    
+
 }
