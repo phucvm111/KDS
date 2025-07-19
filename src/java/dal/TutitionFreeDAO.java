@@ -53,6 +53,35 @@ public class TutitionFreeDAO extends DBContext {
         }
         return tutitionFrees;
     }
+    
+    public void addTuition(TutitionFree tuitionFree) {
+    try {
+        String sql = """
+            INSERT INTO TuitionFee (kinder_id, amount, due_date, status)
+            VALUES (?, ?, ?, ?)
+        """;
+        connection = new DBContext().getConnection();
+        ps = connection.prepareStatement(sql);
+
+        ps.setInt(1, tuitionFree.getKinder().getKinder_id()); 
+        ps.setDouble(2, tuitionFree.getAmount());
+        ps.setString(3, tuitionFree.getDue_date()); 
+        ps.setString(4, tuitionFree.getStatus());
+
+        ps.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace(); // để dễ debug khi có lỗi
+    } finally {
+        // đóng tài nguyên nếu cần
+        try {
+            if (ps != null) ps.close();
+            if (connection != null) connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+
 
     public List<TutitionFree> getAllChuaNop() {
         ArrayList<TutitionFree> tutitionFrees = new ArrayList<>();
@@ -199,11 +228,23 @@ public void updateStatusById(int tuitionId) {
         return null;
     }
 
-    public static void main(String[] args) {
-        TutitionFreeDAO td = new TutitionFreeDAO();
-        List<TutitionFree> tutitionFrees = td.getAlltutition();
-        for (TutitionFree tt : tutitionFrees) {
-            System.out.println(tt);
-        }
+     public static void main(String[] args) {
+        TutitionFreeDAO dao = new TutitionFreeDAO();
+
+        // Tạo đối tượng Kindergartner và set ID (giả sử ID 1 tồn tại trong DB)
+        Kindergartner kinder = new Kindergartner();
+        kinder.setKinder_id(3); // đổi sang setId() nếu bạn đặt tên là id
+
+        // Tạo học phí mới
+        TutitionFree tf = new TutitionFree();
+        tf.setKinder(kinder);
+        tf.setAmount(1500000); // số tiền học phí
+        tf.setDue_date("2025-08-10"); // định dạng yyyy-MM-dd (tuỳ theo DB)
+        tf.setStatus("Chưa đóng"); // hoặc "Đã đóng"
+
+        // Gọi hàm thêm
+        dao.addTuition(tf);
+
+        System.out.println("Đã thêm học phí mới cho bé có ID = " + kinder.getKinder_id());
     }
 }

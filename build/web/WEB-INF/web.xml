@@ -24,6 +24,10 @@
         <servlet-name>paymenthistoryServerlet</servlet-name>
         <servlet-class>controller.parent.paymenthistoryServerlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>add_tuitionServlet</servlet-name>
+        <servlet-class>controller.admin.tutitionfree.add_tuitionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
         <url-pattern>/pay</url-pattern>
@@ -607,6 +611,10 @@
     <servlet-mapping>
         <servlet-name>paymenthistoryServerlet</servlet-name>
         <url-pattern>/paymenthistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add_tuitionServlet</servlet-name>
+        <url-pattern>/add_tuition</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -63,62 +63,63 @@ public class paymoneyServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    KindergartnerDAO kd = new KindergartnerDAO();
-    TutitionFreeDAO td = new TutitionFreeDAO();
-    PaymentHistoryDAO phd = new PaymentHistoryDAO(); // ✅ thêm DAO mới
-    List<TutitionFree> tuitionfrees = new ArrayList<>();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        KindergartnerDAO kd = new KindergartnerDAO();
+        TutitionFreeDAO td = new TutitionFreeDAO();
+        PaymentHistoryDAO phd = new PaymentHistoryDAO(); // ✅ thêm DAO mới
+        List<TutitionFree> tuitionfrees = new ArrayList<>();
 
-    Account account = (Account) session.getAttribute("account");
+        Account account = (Account) session.getAttribute("account");
 
-    // ✅ Lấy thông tin từ VNPay callback
-    String orderInfo = request.getParameter("vnp_OrderInfo");  // ví dụ: "Thanh toan don hang:2"
-    String responseCode = request.getParameter("vnp_ResponseCode"); // "00" nếu thành công
-    String txnRef = request.getParameter("vnp_TxnRef");              // Mã học phí
-    String amountStr = request.getParameter("vnp_Amount");           // Nhân 100
-    String transactionNo = request.getParameter("vnp_TransactionNo");// Mã giao dịch VNPay
+        // ✅ Lấy thông tin từ VNPay callback
+        String orderInfo = request.getParameter("vnp_OrderInfo");  // ví dụ: "Thanh toan don hang:2"
+        String responseCode = request.getParameter("vnp_ResponseCode"); // "00" nếu thành công
+        String txnRef = request.getParameter("vnp_TxnRef");              // Mã học phí
+        String amountStr = request.getParameter("vnp_Amount");           // Nhân 100
+        String transactionNo = request.getParameter("vnp_TransactionNo");// Mã giao dịch VNPay
 
-    if (orderInfo != null && responseCode != null && txnRef != null && responseCode.equals("00")) {
-        try {
-            int tuitionId = Integer.parseInt(txnRef);
-            double amount = Double.parseDouble(amountStr) / 100.0;
+        if (orderInfo != null && responseCode != null && txnRef != null && responseCode.equals("00")) {
+            try {
+                String[] txnParts = txnRef.split("_");
+                int tuitionId = Integer.parseInt(txnParts[0]);
 
-            // ✅ Cập nhật trạng thái học phí
-            td.updateStatusById(tuitionId); // ví dụ: set status = 'Đã nộp'
+                double amount = Double.parseDouble(amountStr) / 100.0;
 
-            // ✅ Lưu vào bảng PaymentHistory
-            PaymentHistory ph = new PaymentHistory(
-                tuitionId,
-                account.getAccountID(),
-                amount,
-                transactionNo,
-                "Success"
-            );
-            phd.insert(ph);
+                // ✅ Cập nhật trạng thái học phí
+                td.updateStatusById(tuitionId); // ví dụ: set status = 'Đã nộp'
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace(); // Nếu lỗi parse số
-        }
-    }
+                // ✅ Lưu vào bảng PaymentHistory
+                PaymentHistory ph = new PaymentHistory(
+                        tuitionId,
+                        account.getAccountID(),
+                        amount,
+                        transactionNo,
+                        "Success"
+                );
+                phd.insert(ph);
 
-    // ✅ Lấy danh sách học phí còn "Chưa nộp"
-    List<Kindergartner> kindergartners = kd.getKindergartnersByParentId(account.getAccountID());
-    if (kindergartners != null) {
-        for (Kindergartner kinder : kindergartners) {
-            TutitionFree tf = td.getTuitionFreeByKinderIdChuanop(kinder.getKinder_id());
-            if (tf != null) {
-                tuitionfrees.add(tf);
+            } catch (NumberFormatException e) {
+                e.printStackTrace(); // Nếu lỗi parse số
             }
         }
-        request.setAttribute("tuitionFrees", tuitionfrees);
-        request.getRequestDispatcher("/parent/paymentparent/paymoney.jsp").forward(request, response);
-    } else {
-        response.sendRedirect("error.jsp");
-    }
-}
 
+        // ✅ Lấy danh sách học phí còn "Chưa nộp"
+        List<Kindergartner> kindergartners = kd.getKindergartnersByParentId(account.getAccountID());
+        if (kindergartners != null) {
+            for (Kindergartner kinder : kindergartners) {
+                TutitionFree tf = td.getTuitionFreeByKinderIdChuanop(kinder.getKinder_id());
+                if (tf != null) {
+                    tuitionfrees.add(tf);
+                }
+            }
+            request.setAttribute("tuitionFrees", tuitionfrees);
+            request.getRequestDispatcher("/parent/paymentparent/paymoney.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("error.jsp");
+        }
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

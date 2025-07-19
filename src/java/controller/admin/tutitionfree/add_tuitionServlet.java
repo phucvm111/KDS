@@ -5,7 +5,6 @@
 
 package controller.admin.tutitionfree;
 
-import dal.AccountDAO;
 import dal.KindergartnerDAO;
 import dal.TutitionFreeDAO;
 import java.io.IOException;
@@ -14,10 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Kindergartner;
 import model.TutitionFree;
 
@@ -25,7 +21,7 @@ import model.TutitionFree;
  *
  * @author ACE
  */
-public class tutitionfreeServlet extends HttpServlet {
+public class add_tuitionServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,10 +38,10 @@ public class tutitionfreeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet tutitionfreeServlet</title>");  
+            out.println("<title>Servlet add_tuitionServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet tutitionfreeServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet add_tuitionServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,39 +55,15 @@ public class tutitionfreeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-@Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-
-    // DAO khởi tạo
-    TutitionFreeDAO td = new TutitionFreeDAO();
-    KindergartnerDAO kd = new KindergartnerDAO();
-    AccountDAO ad = new AccountDAO();
-
-    // Lấy danh sách học phí
-    List<TutitionFree> tfList = td.getAlltutition();
-    request.setAttribute("tutitionfrees", tfList);
-
-    // Lấy danh sách trẻ
-    List<Kindergartner> kindergartners = kd.getAllStudent();
-    request.setAttribute("kinders", kindergartners);
-
-    // Lấy danh sách phụ huynh tương ứng với các bé có học phí
-    List<Account> parentAccounts = new ArrayList<>();
-    if (tfList != null) {
-        for (TutitionFree tf : tfList) {
-            int parentId = tf.getKinder().getParent_id();
-            Account parent = ad.getAccountByID(parentId);
-            parentAccounts.add(parent);
-        }
-    }
-    request.setAttribute("accounts", parentAccounts);
-
-    // Forward đến JSP
-    request.getRequestDispatcher("Management_TuitionFee/TuitionFee/tuition_list.jsp")
-           .forward(request, response);
-}
-
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        //processRequest(request, response);
+         
+        
+      
+        request.getRequestDispatcher("/Management_TuitionFee/TuitionFee/tuition_list.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -100,11 +72,47 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-      
+  @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    // Lấy tham số từ form gửi lên
+    String kinderIdRaw = request.getParameter("kinderId");
+    String amountRaw = request.getParameter("amount");
+    String dueDate = request.getParameter("dueDate");
+    String status = request.getParameter("status");
+
+    try {
+        int kinderId = Integer.parseInt(kinderIdRaw);
+        double amount = Double.parseDouble(amountRaw);
+
+        // Tạo đối tượng Kindergartner và gán ID
+        Kindergartner kinder = new Kindergartner();
+        kinder.setKinder_id(kinderId); // Hoặc setId nếu bạn dùng tên khác
+
+        // Tạo đối tượng học phí mới
+        TutitionFree tf = new TutitionFree();
+        tf.setKinder(kinder);
+        tf.setAmount(amount);
+        tf.setDue_date(dueDate); 
+        tf.setStatus(status);
+
+        // Gọi DAO để thêm
+        TutitionFreeDAO dao = new TutitionFreeDAO();
+        dao.addTuition(tf);
+
+        // Redirect về trang danh sách sau khi thêm thành công
+        response.sendRedirect("tutitionfree"); // hoặc URL mapping tương ứng của bạn
+
+    } catch (NumberFormatException e) {
+        request.setAttribute("error", "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.");
+        request.getRequestDispatcher("Management_TuitionFee/TuitionFee/add_tuition.jsp").forward(request, response);
+    } catch (Exception ex) {
+        request.setAttribute("error", "Có lỗi xảy ra: " + ex.getMessage());
+        request.getRequestDispatcher("Management_TuitionFee/TuitionFee/add_tuition.jsp").forward(request, response);
     }
+}
+
 
     /** 
      * Returns a short description of the servlet.

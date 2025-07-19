@@ -47,7 +47,8 @@ public class ajaxServlet extends HttpServlet {
         double amountDouble = tutitionFree.getAmount(); // VD: 1900000.0
         long amount = (long) (amountDouble * 100);
 
-        String vnp_TxnRef = tuitionId;
+        String vnp_TxnRef = tuitionId + "_" + System.currentTimeMillis();
+
         String vnp_IpAddr = Config.getIpAddress(req);
 
         String vnp_TmnCode = Config.vnp_TmnCode;

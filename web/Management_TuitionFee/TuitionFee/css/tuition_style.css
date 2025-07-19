@@ -74,3 +74,47 @@ form {
     margin: 0;
 }
 
+.add-form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 500px;
+}
+
+.add-form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.add-form input,
+.add-form select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.add-form button {
+    margin-top: 15px;
+    padding: 10px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-form button:hover {
+    background-color: #218838;
+}
+
+
+
