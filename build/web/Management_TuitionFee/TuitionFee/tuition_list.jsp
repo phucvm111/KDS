@@ -37,89 +37,92 @@
                     <select name="status">
                         <option value="Chưa nộp">Chưa nộp</option>
                         <option value="Đã nộp">Đã nộp</option>
-                       
+
                     </select>
 
                     <button type="submit">💾 Lưu học phí</button>
                 </form>
 
-               
 
 
-                    <table class="tuition-table">
 
-                        <thead>
+                <table class="tuition-table">
+
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên bé</th>
+                            <th>Tên phụ huynh</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Số tiền (VND)</th>
+                            <th>Hạn thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <c:forEach var="tf" items="${tutitionfrees}" varStatus="status">
+                            <c:set var="acc" value="${accounts[status.index]}" />
                             <tr>
-                                <th>STT</th>
-                                <th>Tên bé</th>
-                                <th>Tên phụ huynh</th>
-                                <th>Số điện thoại</th>
-                                <th>Số tiền (VND)</th>
-                                <th>Hạn thanh toán</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <c:forEach var="tf" items="${tutitionfrees}" varStatus="status">
-                                <c:set var="acc" value="${accounts[status.index]}" />
-                                <tr>
-                                    <td>${tf.tuition_id}</td>
-                                    <td>${tf.kinder.first_name} ${tf.kinder.last_name}</td>
-                                    <td>${acc.firstName} ${acc.lastName} </td> 
-                                    <td>${acc.phoneNumber}</td>
-                                    <td>${tf.amount}</td>
-                                    <td>${tf.due_date}</td>
-                                    <td>${tf.status}</td>
-                                    <td>
-                                        <form action="remind" method="post">
-                                            <input type="hidden" name="tuitionId" value="" />
-                                            <button class="remind-btn" type="submit">🔔 Nhắc nhở</button>
-                                        </form>
-                                    </td>
-                                </tr>          
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                <td>${tf.tuition_id}</td>
+                                <td>${tf.kinder.first_name} ${tf.kinder.last_name}</td>
+                                <td>${acc.firstName} ${acc.lastName} </td> 
+                                <td>${acc.email} </td>
+                                <td>${acc.phoneNumber}</td>
+                                <td>${tf.amount}</td>
+                                <td>${tf.due_date}</td>
+                                <td>${tf.status}</td>
+                                <td>
+                                    <form action="remind" method="post">
+                                        <input type="hidden" name="tuitionId" value="${tf.tuition_id}" />
+                                        <input type="hidden" name="accountId" value="${acc.accountID}" />
+                                        <button class="remind-btn" type="submit">🔔 Nhắc nhở</button>
+                                    </form>
+                                </td>
+                            </tr>          
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
-                    
-                    <script>
-    const form = document.querySelector('.add-form');
-    const errorMsg = document.getElementById('error-msg');
 
-    form.addEventListener('submit', function (event) {
-        const amount = document.querySelector('input[name="amount"]').value;
-        const dueDate = document.querySelector('input[name="dueDate"]').value;
+        <script>
+            const form = document.querySelector('.add-form');
+            const errorMsg = document.getElementById('error-msg');
 
-        // Lấy ngày hôm nay dưới dạng yyyy-MM-dd
-        const today = new Date().toISOString().split('T')[0];
+            form.addEventListener('submit', function (event) {
+                const amount = document.querySelector('input[name="amount"]').value;
+                const dueDate = document.querySelector('input[name="dueDate"]').value;
 
-        // Kiểm tra số tiền
-        if (amount < 1000) {
-            errorMsg.textContent = "⚠️ Số tiền phải từ 1,000 VND trở lên.";
-            event.preventDefault(); // Ngăn không gửi form
-            return;
-        }
+// Lấy ngày hôm nay dưới dạng yyyy-MM-dd
+                const today = new Date().toISOString().split('T')[0];
 
-        if (amount.length > 10) {
-            errorMsg.textContent = "⚠️ Số tiền không được vượt quá 10 chữ số.";
-            event.preventDefault();
-            return;
-        }
+// Kiểm tra số tiền
+                if (amount < 1000) {
+                    errorMsg.textContent = "⚠️ Số tiền phải từ 1,000 VND trở lên.";
+                    event.preventDefault(); // Ngăn không gửi form
+                    return;
+                }
 
-        // Kiểm tra hạn thanh toán
-        if (dueDate < today) {
-            errorMsg.textContent = "⚠️ Hạn thanh toán không được nhỏ hơn hôm nay.";
-            event.preventDefault();
-            return;
-        }
+                if (amount.length > 10) {
+                    errorMsg.textContent = "⚠️ Số tiền không được vượt quá 10 chữ số.";
+                    event.preventDefault();
+                    return;
+                }
 
-        // Nếu mọi thứ hợp lệ
-        errorMsg.textContent = ""; // Xóa lỗi nếu có
-    });
-</script>
+// Kiểm tra hạn thanh toán
+                if (dueDate < today) {
+                    errorMsg.textContent = "⚠️ Hạn thanh toán không được nhỏ hơn hôm nay.";
+                    event.preventDefault();
+                    return;
+                }
+
+// Nếu mọi thứ hợp lệ
+                errorMsg.textContent = ""; // Xóa lỗi nếu có
+            });
+        </script>
 
     </body>
 
