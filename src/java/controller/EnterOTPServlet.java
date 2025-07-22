@@ -4,7 +4,7 @@
  */
 package controller;
 
-import jakarta.mail.Session;
+import javax.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
