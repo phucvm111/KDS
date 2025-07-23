@@ -36,6 +36,11 @@
                 </a>
             </li>
             <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/FeedbackTeacherServlet">
+                    <i class="fa-solid fa-file-signature"></i> Nhận xét giáo viên
+                </a>
+            </li>
+            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/sendform">
                     <i class="fa-solid fa-file-signature"></i> Viết đơn
                 </a>
@@ -50,7 +55,7 @@
                     <i class="fa-solid fa-image"></i> Xem ảnh hằng ngày
                 </a>
             </li>
-                <li class="menu-item">
+            <li class="menu-item">
                 <a href="${pageContext.request.contextPath}/paymoney">
                     <i class="fa-solid fa-image"></i> Thanh toán hóa đơn
                 </a>
