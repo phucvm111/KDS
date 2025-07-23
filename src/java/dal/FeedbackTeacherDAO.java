@@ -192,6 +192,77 @@ public class FeedbackTeacherDAO extends DBContext {
         }
         return feedbackList;
     }
+// Retrieve all feedbacks for a specific teacher
+
+    public List<FeedbackTeacher> getFeedbackByParent( int parentId) {
+        List<FeedbackTeacher> feedbackList = new ArrayList<>();
+        String sql = "SELECT feedback_id, parent_id, teacher_id, fb_content, rating, fb_date "
+                + "FROM FeedbackTeacher WHERE parent_id = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, parentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                FeedbackTeacher feedback = new FeedbackTeacher(
+                        rs.getInt("feedback_id"),
+                        rs.getInt("parent_id"),
+                        rs.getInt("teacher_id"),
+                        rs.getString("fb_content"),
+                        rs.getFloat("rating"),
+                        rs.getDate("fb_date")
+                );
+                feedbackList.add(feedback);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackTeacherDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return feedbackList;
+    }
+// Get feedback by feedback ID
+
+    public FeedbackTeacher getFeedbackById(int feedbackId) {
+        String sql = "SELECT feedback_id, parent_id, teacher_id, fb_content, rating, fb_date FROM FeedbackTeacher WHERE feedback_id = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, feedbackId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new FeedbackTeacher(
+                        rs.getInt("feedback_id"),
+                        rs.getInt("parent_id"),
+                        rs.getInt("teacher_id"),
+                        rs.getString("fb_content"),
+                        rs.getFloat("rating"),
+                        rs.getDate("fb_date")
+                );
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return null;
+    }
+
+    // Close resources
+    private void closeResources() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         FeedbackTeacherDAO feedbackDAO = new FeedbackTeacherDAO();

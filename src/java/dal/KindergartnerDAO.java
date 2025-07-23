@@ -364,23 +364,7 @@ public class KindergartnerDAO extends DBContext {
             closeResources();
         }
     }
-
     // Phương thức đóng tài nguyên
-    private void closeResources() {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 // Lấy tên lớp học dựa trên class_id
 
     public String getClassNameById(int classId) {
@@ -499,13 +483,94 @@ public class KindergartnerDAO extends DBContext {
         return list;
     }
 
+    // Lấy danh sách các lớp của học sinh theo parentId, bỏ các lớp giống nhau
+    public List<String> getClassesByParentId(int parentId) {
+        List<String> classes = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.class_name FROM Kindergartner k "
+                + "JOIN Class c ON k.class_id = c.class_id "
+                + "WHERE k.parent_id = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, parentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String className = rs.getString("class_name");
+                classes.add(className);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources();
+        }
+        return classes;
+    }
+
+    // Lấy giáo viên của lớp theo class_name
+    public Account getTeacherByClassName(String className) {
+        Account teacher = null;
+        String sql = "SELECT a.* FROM Account a "
+                + "JOIN Class c ON a.account_id = c.teacher_id "
+                + "WHERE c.class_name = ?";
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, className);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                teacher = new Account(
+                        rs.getInt("account_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getBoolean("gender"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("dob"),
+                        rs.getString("phone_number"),
+                        rs.getString("address"),
+                        rs.getString("img"),
+                        null // Set role to null or fetch if needed
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KindergartnerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources();
+        }
+        return teacher;
+    }
+
+    private void closeResources() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         KindergartnerDAO dao = new KindergartnerDAO();
-        List<Kindergartner> students = dao.getKindergartnersByClassId(1); // Lấy lớp có class_id = 1
+        List<Kindergartner> students = dao.getKindergartnersByClassId(2); // Lấy lớp có class_id = 1
+        int parentId = 3; // thay bằng ID thật để test
+        List<String> classList = dao.getClassesByParentId(parentId);
 
-        for (Kindergartner k : students) {
-            System.out.println(k.getFullName() + " - Class: " + k.getClassName()
-                    + " - Parent: " + k.getParentAccount().getFirstName() + " " + k.getParentAccount().getLastName());
+        if (classList.isEmpty()) {
+            System.out.println("No classes found for parent ID: " + parentId);
+        } else {
+            System.out.println("Classes for parent ID " + parentId + ":");
+            for (String className : classList) {
+                System.out.println("- " + className);
+            }
         }
     }
 
