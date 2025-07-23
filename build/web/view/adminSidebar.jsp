@@ -15,8 +15,7 @@
     </div>
     <div class="menu-items">
         <ul class="nav-links">
-<<<<<<< HEAD
-            <%-- Sử dụng pageContext.request.contextPath để đường dẫn luôn đúng --%>
+
             <li><a href="${pageContext.request.contextPath}/dashboard"><i class="uil uil-dashboard"></i><span class="link-name">Dashboard</span></a></li>
             <li><a href="${pageContext.request.contextPath}/listaccount"><i class="uil uil-estate"></i><span class="link-name">Account</span></a></li>
             <li><a href="${pageContext.request.contextPath}/listkinder"><i class="uil uil-chart"></i><span class="link-name">Kindergartner</span></a></li>
@@ -32,18 +31,7 @@
                     <i class="uil uil-bell"></i><span class="link-name">Notifications</span>
                 </a>
             </li>
-=======
-            <li><a href="${pageContext.request.contextPath}/dashboard"><i class="uil uil-dashboard"></i><span class="link-name">Trang chính</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/listaccount"><i class="uil uil-estate"></i><span class="link-name">Tài Khoản</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/listkinder"><i class="uil uil-chart"></i><span class="link-name">Học sinh</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/listclass"><i class="uil uil-thumbs-up"></i><span class="link-name">Lớp</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/listschedule"><i class="uil uil-comments"></i><span class="link-name">Lịch Học</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/event"><i class="uil uil-calendar-alt"></i><span class="link-name">Sự Kiện</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/day_class"><i class="uil uil-utensils-alt"></i><span class="link-name">Dinh Dưỡng</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/adminleaverequests"><i class="uil uil-file-alt"></i><span class="link-name">Đơn từ</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/notification"><i class="uil uil-bell"></i><span class="link-name">Thông Báo</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/changepassword"><i class="uil uil-lock-alt"></i><span class="link-name">Đổi Mật Khẩu</span></a></li>
->>>>>>> bf946e678e262f76018a147b3f2a9aa8927bceae
+
         </ul>
         <ul class="logout-mode">
             <li><a href="${pageContext.request.contextPath}/logout"><i class="uil uil-signout"></i><span class="link-name">Logout</span></a></li>

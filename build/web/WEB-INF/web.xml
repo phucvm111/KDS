@@ -28,6 +28,10 @@
         <servlet-name>add_tuitionServlet</servlet-name>
         <servlet-class>controller.admin.tutitionfree.add_tuitionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>remindServlet</servlet-name>
+        <servlet-class>controller.admin.tutitionfree.remindServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
         <url-pattern>/pay</url-pattern>
@@ -176,11 +180,11 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <servlet-class>controller.teacher.LoadTeacherHome</servlet-class>
     </servlet>
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>AttendanceServlet</servlet-name>
         <servlet-class>controller.teacher.AttendanceServlet</servlet-class>
     </servlet>-->
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <servlet-class>controller.teacher.CheckAttendancePastServlet</servlet-class>
     </servlet>-->
@@ -464,11 +468,11 @@
         <servlet-name>LoadTeacherHome</servlet-name>
         <url-pattern>/loadteacherhome</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>AttendanceServlet</servlet-name>
         <url-pattern>/attendance</url-pattern>
     </servlet-mapping>-->
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>CheckAttendancePastServlet</servlet-name>
         <url-pattern>/checkattendance</url-pattern>
     </servlet-mapping>-->
@@ -615,6 +619,10 @@
     <servlet-mapping>
         <servlet-name>add_tuitionServlet</servlet-name>
         <url-pattern>/add_tuition</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>remindServlet</servlet-name>
+        <url-pattern>/remind</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
