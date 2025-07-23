@@ -1,40 +1,12 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/src/java/controller/ChangePasswordServlet.java</file>
-            <file>file:/D:/Documents/0-Webdevelop/0_SWP/KDS/web/changepassword.jsp</file>
+            <file>file:/D:/ky8/SWP391/KDS/src/java/dal/KindergartnerDAO.java</file>
+            <file>file:/D:/ky8/SWP391/KDS/src/java/dal/FeedbackDAO.java</file>
+            <file>file:/D:/ky8/SWP391/KDS/src/java/dal/AccountDAO.java</file>
+            <file>file:/D:/ky8/SWP391/KDS/src/java/controller/parent/FeedbackForParentServlet.java</file>
         </group>
     </open-files>
 </project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/ky8/SWP391/KDS/web/WEB-INF/web.xml</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/class/adminClassAdd.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/class/adminClasstUpdate.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/src/java/controller/admin/account/UpdateAccountServlet.java</file>
-            <file>file:/D:/ky8/SWP391/KDS/src/java/controller/teacher/UpdateTeacherServlet.java</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/parent/childrendetail.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/parent/childregister.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/account/adminAccountUpdate.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/src/java/controller/admin/account/AddAccountServlet.java</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/parent/childreninformation.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/class/css/style.css</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/teacher/teacherprofile.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/account/adminAccountAdd.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/class/adminClassPage.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/account/adminAccountPage.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/admin/dashboard/adminDashboard.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/src/java/controller/parent/ChildrenDetailServlet.java</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/view/adminSidebar.jsp</file>
-            <file>file:/D:/ky8/SWP391/KDS/web/teacher/teacherupdateprofile.jsp</file>
-        </group>
-    </open-files>
-</project-private>
->>>>>>> bf946e678e262f76018a147b3f2a9aa8927bceae
