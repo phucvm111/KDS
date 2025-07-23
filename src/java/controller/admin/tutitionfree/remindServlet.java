@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
 import model.TutitionFree;
 import javax.mail.*;
@@ -74,6 +75,7 @@ public class remindServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        // processRequest(request, response);
+        HttpSession session= request.getSession();
         AccountDAO ac=new AccountDAO();
         TutitionFreeDAO tf=new TutitionFreeDAO();
        String tuitionIdstring= request.getParameter("tuitionId");
@@ -87,6 +89,8 @@ public class remindServlet extends HttpServlet {
     String emailoarent=account.getEmail();
     double amount=tuit.getAmount();
     sendReminderEmail(emailoarent, nameparent, namekinder,amount+"" );
+    session.setAttribute("message", "Đã gửi nhắc nhở đến " + emailoarent);
+    response.sendRedirect("tutitionfree");
        
        
     }

@@ -43,6 +43,12 @@
                     <button type="submit">💾 Lưu học phí</button>
                 </form>
 
+                <c:if test="${not empty sessionScope.message}">
+                    <div style="color: green; font-weight: bold;">
+                        ${sessionScope.message}
+                    </div>
+                    <c:remove var="message" scope="session"/>
+                </c:if>
 
 
 
@@ -75,11 +81,13 @@
                                 <td>${tf.due_date}</td>
                                 <td>${tf.status}</td>
                                 <td>
-                                    <form action="remind" method="post">
-                                        <input type="hidden" name="tuitionId" value="${tf.tuition_id}" />
-                                        <input type="hidden" name="accountId" value="${acc.accountID}" />
-                                        <button class="remind-btn" type="submit">🔔 Nhắc nhở</button>
-                                    </form>
+                                    <c:if test="${tf.status == 'Chưa nộp'}">
+                                        <form action="remind" method="post">
+                                            <input type="hidden" name="tuitionId" value="${tf.tuition_id}" />
+                                            <input type="hidden" name="accountId" value="${acc.accountID}" />
+                                            <button class="remind-btn" type="submit">🔔 Nhắc nhở</button>
+                                        </form>
+                                    </c:if>
                                 </td>
                             </tr>          
                         </c:forEach>
