@@ -134,6 +134,47 @@ public class FeedbackDAO extends DBContext {
         return false;
     }
 
+    public List<Feedback> getFeedbackByParentId(int parentId) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    f.feedback_id,\n"
+                + "    k.first_name + ' ' + k.last_name AS kid_name,\n"
+                + "    f.fb_content,\n"
+                + "    f.rating,\n"
+                + "    f.fb_date,\n"
+                + "    a.first_name + ' ' + a.last_name AS teacher_name\n"
+                + "FROM Feedback f\n"
+                + "JOIN Kindergartner k ON f.kid_id = k.kinder_id\n"
+                + "JOIN Account a ON f.teacher_id = a.account_id\n"
+                + "WHERE k.parent_id = ?\n"
+                + "ORDER BY f.fb_date DESC;";
+
+        try {
+            connection = new DBContext().getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, parentId); // Set parent_id parameter
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Feedback feedback = new Feedback(
+                        rs.getInt("feedback_id"),
+                        rs.getInt("kid_id"),
+                        rs.getInt("teacher_id"),
+                        rs.getString("fb_content"),
+                        rs.getDouble("rating"),
+                        rs.getString("fb_date") // assuming "fb_date" is the date column
+                );
+                // You may need to handle 'kid_name' and 'teacher_name' separately if needed.
+                feedbackList.add(feedback);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources();
+        }
+        return feedbackList;
+    }
+
     // Đóng tài nguyên
     private void closeResources() {
         try {
@@ -148,6 +189,21 @@ public class FeedbackDAO extends DBContext {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        FeedbackDAO dao = new FeedbackDAO();
+        int parentId = 4; // ví dụ với parent_id = 3
+
+        List<Feedback> feedbacks = dao.getFeedbackByParentId(parentId);
+
+        if (feedbacks.isEmpty()) {
+            System.out.println("Không có feedback nào cho phụ huynh có ID: " + parentId);
+        } else {
+            for (Feedback fb : feedbacks) {
+                System.out.println(fb);
+            }
         }
     }
 }
